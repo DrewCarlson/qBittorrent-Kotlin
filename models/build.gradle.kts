@@ -43,7 +43,6 @@ kotlin {
   linuxX64()
 
   ios()
-  watchos()
   tvos()
 
   if (findProperty("hostPublishing") ?: "false" == "true") {
@@ -54,7 +53,6 @@ kotlin {
         val targets = mutableListOf<KotlinNativeTarget>(macosX64("macos"))
         ios { targets.add(this) }
         tvos { targets.add(this) }
-        watchos { targets.add(this) }
         targets
       }
       else -> listOf(targets["metadata"], jvm(), js(BOTH), linuxX64())
@@ -108,10 +106,7 @@ kotlin {
       dependsOn(nativeCommonMain)
     }
 
-    // Configure tvos and watchos to build on ios sources
-    val tvosMain by getting
-    val watchosMain by getting
-    configure(listOf(tvosMain, watchosMain)) {
+    val tvosMain by getting {
       dependsOn(iosMain)
     }
   }
