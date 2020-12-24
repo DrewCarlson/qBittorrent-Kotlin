@@ -49,10 +49,10 @@ kotlin {
   if (findProperty("hostPublishing") ?: "false" == "true") {
     val host = System.getProperty("os.name", "unknown")
     when {
-      host.contains("win") -> {
+      host.contains("win", true) -> {
         exclusivePublishing(mingwX64("win64"))
       }
-      host.contains("mac") -> {
+      host.contains("mac", true) -> {
         val targets = mutableListOf<KotlinNativeTarget>(macosX64("macos"))
         ios { targets.add(this) }
         tvos { targets.add(this) }
