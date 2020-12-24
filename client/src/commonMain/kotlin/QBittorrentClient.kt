@@ -63,7 +63,7 @@ class QBittorrentClient(
         }
     }
 
-    private var syncRid = 0 // NOT: Only access in mainDataFlow
+    private var syncRid = 0 // NOTE: Only access in mainDataFlow
     private val mainDataFlow = flow<MainData> {
         while (true) {
             emit(

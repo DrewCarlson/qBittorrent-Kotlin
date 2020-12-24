@@ -68,41 +68,22 @@ kotlin {
   sourceSets {
     val commonMain by getting {
       dependencies {
-        implementation(kotlin("stdlib-common"))
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
-        implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
-        implementation("io.ktor:ktor-client-json:$KTOR_VERSION")
-        implementation("io.ktor:ktor-client-serialization:$KTOR_VERSION")
-      }
-    }
-    val commonTest by getting {
-      dependencies {
-        implementation(kotlin("test-common"))
-        implementation(kotlin("test-annotations-common"))
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$SERIALIZATION_VERSION")
       }
     }
     val jvmMain by getting {
       dependencies {
         implementation(kotlin("stdlib-jdk8"))
-        implementation("io.ktor:ktor-client-core-jvm:$KTOR_VERSION")
-        implementation("io.ktor:ktor-client-json-jvm:$KTOR_VERSION")
-        implementation("io.ktor:ktor-client-serialization-jvm:$KTOR_VERSION")
       }
     }
     val jsMain by getting {
       dependencies {
-        implementation("io.ktor:ktor-client-core-js:$KTOR_VERSION")
-        implementation("io.ktor:ktor-client-json-js:$KTOR_VERSION")
-        implementation("io.ktor:ktor-client-serialization-js:$KTOR_VERSION")
       }
     }
 
     val nativeCommonMain by creating {
       dependsOn(commonMain)
       dependencies {
-        implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
-        implementation("io.ktor:ktor-client-json:$KTOR_VERSION")
-        implementation("io.ktor:ktor-client-serialization:$KTOR_VERSION")
       }
     }
     val desktopCommonMain by creating {

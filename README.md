@@ -11,6 +11,8 @@ Kotlin wrapper for the [qBittorrent Web API](https://github.com/qbittorrent/qBit
 
 qBittorrent-Kotlin is written in common Kotlin to support multiplatform development.  [Kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) provides json (de)serialization and [Ktor](https://ktor.io) the HTTP API.
 
+Two modules are provided: `client` contains all the HTTP code, and `models` contains just the serializable data models.
+
 ## Usage
 
 For a comprehensive list of available endpoints and to understand the returned data, see the [qBittorrent API Docs](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)).
@@ -46,13 +48,16 @@ client.torrentFlow("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
 
 Artifacts are available on [Bintray](https://bintray.com/drewcarlson/qBittorrent-Kotlin).
 
-```groovy
+```kotlin
 repositories {
   jcenter()
 }
 
 dependencies {
-  implementation "drewcarlson.qbittorrent:client-jvm:$qbittorrent_version"
+  implementation "drewcarlson.qbittorrent:client:$qbittorrent_version"
+  
+  // Optional: Just the data models without the client/http lib.
+  implementation "drewcarlson.qbittorrent:models:$qbittorrent_version"
 }
 ```
 
