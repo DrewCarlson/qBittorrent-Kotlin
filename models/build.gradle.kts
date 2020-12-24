@@ -48,19 +48,25 @@ kotlin {
 
   if (findProperty("hostPublishing") ?: "false" == "true") {
     val host = System.getProperty("os.name", "unknown")
-    when {
-      host.contains("win", true) -> {
-        exclusivePublishing(mingwX64("win64"))
-      }
+    val publishTargets = when {
+      host.contains("win", true) -> listOf(mingwX64("win64"))
       host.contains("mac", true) -> {
         val targets = mutableListOf<KotlinNativeTarget>(macosX64("macos"))
         ios { targets.add(this) }
         tvos { targets.add(this) }
         watchos { targets.add(this) }
-        exclusivePublishing(*targets.toTypedArray())
+        targets
       }
-      else -> {
-        exclusivePublishing(targets["metadata"], jvm(), js(BOTH), linuxX64())
+      else -> listOf(targets["metadata"], jvm(), js(BOTH), linuxX64())
+    }.map(KotlinTarget::getName)
+    publishing {
+      publications {
+        filter { it.name !in publishTargets }
+          .forEach { publication ->
+            tasks.withType<AbstractPublishToMaven>()
+              .matching { it.publication == publication }
+              .configureEach { enabled = false }
+          }
       }
     }
   }
