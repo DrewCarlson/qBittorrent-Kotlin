@@ -37,8 +37,8 @@ jobs:
         with:
           arguments: clean publish -PhostPublishing=true -Pversion=${{ steps.git_tag.outputs.VERSION }}
         if: ${{ startsWith(github.ref, 'refs/tags') }}
-      - uses: eskatos/gradle-command-action@v1
-        name: Publish SNAPSHOT
-        with:
-          arguments: publish -PhostPublishing=true
-        if: ${{ startsWith(github.ref, 'refs/heads/master') }}
+#      - uses: eskatos/gradle-command-action@v1
+#        name: Publish SNAPSHOT
+#        with:
+#          arguments: publish -PhostPublishing=true
+#        if: ${{ startsWith(github.ref, 'refs/heads/master') }}
