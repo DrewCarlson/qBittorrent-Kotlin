@@ -1,0 +1,23 @@
+.gradle
+/local.properties
+.idea/
+!.idea/codeStyleSettings.xml
+.DS_Store
+build/
+out/
+/captures
+*.iml
+node_modules/
+xcuserdata/
+
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+*.xcworkspace/
+project.xcworkspace/
+
+# Podfiles
+Pods/
