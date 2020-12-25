@@ -1,9 +1,6 @@
 package drewcarlson.qbittorrrent
 
-import drewcarlson.qbittorrrent.models.MainData
-import drewcarlson.qbittorrrent.models.PieceState
-import drewcarlson.qbittorrrent.models.GlobalTransferInfo
-import drewcarlson.qbittorrrent.models.TorrentProperties
+import drewcarlson.qbittorrrent.models.*
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.features.cookies.*
@@ -47,6 +44,14 @@ class QBittorrentClient(
     private val mainDataSyncMs: Long = MAIN_DATA_SYNC_MS,
     httpClient: HttpClient = HttpClient(),
 ) {
+    companion object {
+        const val RATIO_LIMIT_NONE = -1
+        const val RATIO_LIMIT_GLOBAL = -2
+        const val SEEDING_LIMIT_NONE = -1
+        const val SEEDING_LIMIT_GLOBAL = -2
+    }
+
+    private val allList = listOf("all")
 
     private val syncScope = CoroutineScope(SupervisorJob() + Default)
 
@@ -96,7 +101,7 @@ class QBittorrentClient(
         return mainDataFlow
             .filter { mainData ->
                 mainData.torrents.containsKey(hash) ||
-                        mainData.torrentsRemoved.contains(hash)
+                    mainData.torrentsRemoved.contains(hash)
             }
             .mapNotNull { mainData ->
                 if (mainData.torrentsRemoved.contains(hash)) {
@@ -205,60 +210,316 @@ class QBittorrentClient(
         }
     }
 
-    suspend fun pauseTorrents(hashes: List<String> = emptyList()) {
+    suspend fun pauseTorrents(hashes: List<String> = allList) {
         http.get<Unit>("$baseUrl/api/v2/torrents/pause") {
-            val value = if (hashes.isEmpty()) "all" else hashes.joinToString("|")
-            parameter("hashes", value)
+            parameter("hashes", hashes.joinToString("|"))
         }
     }
 
-    suspend fun resumeTorrents(hashes: List<String> = emptyList()) {
+    suspend fun resumeTorrents(hashes: List<String> = allList) {
         http.get<Unit>("$baseUrl/api/v2/torrents/resume") {
-            val value = if (hashes.isEmpty()) "all" else hashes.joinToString("|")
-            parameter("hashes", value)
+            parameter("hashes", hashes.joinToString("|"))
         }
     }
 
     suspend fun deleteTorrents(
-        hashes: List<String>,
+        hashes: List<String> = allList,
         deleteFiles: Boolean = false
     ) {
         http.get<Unit>("$baseUrl/api/v2/torrents/delete") {
-            val value = if (hashes.isEmpty()) "all" else hashes.joinToString("|")
-            parameter("hashes", value)
+            parameter("hashes", hashes.joinToString("|"))
             parameter("deleteFiles", deleteFiles)
         }
     }
 
-    suspend fun recheckTorrents(hashes: List<String>) {
+    suspend fun recheckTorrents(hashes: List<String> = allList) {
         http.get<Unit>("$baseUrl/api/v2/torrents/recheck") {
-            val value = if (hashes.isEmpty()) "all" else hashes.joinToString("|")
-            parameter("hashes", value)
+            parameter("hashes", hashes.joinToString("|"))
         }
     }
 
-    suspend fun reannounceTorrents(hashes: List<String>) {
+    suspend fun reannounceTorrents(hashes: List<String> = allList) {
         http.get<Unit>("$baseUrl/api/v2/torrents/reannounce") {
-            val value = if (hashes.isEmpty()) "all" else hashes.joinToString("|")
-            parameter("hashes", value)
+            parameter("hashes", hashes.joinToString("|"))
         }
     }
 
-    data class AddTorrentBody(
-        val urls: MutableList<String> = mutableListOf(),
-        var savePath: String = "",
-        var category: String = "",
-        val tags: MutableList<String> = mutableListOf(),
-        var paused: Boolean = false,
-        var rootFolder: Boolean = true,
-        var sequentialDownload: Boolean = false,
-        var firstLastPiecePriority: Boolean = false,
-        var rename: String = "",
-        var autoTMM: Boolean = false,
-        var upLimit: Long = -1,
-        var dlLimit: Long = -1,
-        var skipChecking: Boolean = false,
-        var cookie: String = "",
-        // TODO: torrents - Raw data of torrent file. torrents can be presented multiple times.
-    )
+    suspend fun getVersion(): String = http.get("$baseUrl/api/v2/app/version")
+
+    suspend fun getApiVersion(): String = http.get("$baseUrl/api/v2/app/webapiVersion")
+
+    suspend fun getBuildInfo(): BuildInfo = http.get("$baseUrl/api/v2/app/buildInfo")
+
+    suspend fun shutdown() = http.get<Unit>("$baseUrl/api/v2/app/shutdown")
+
+    suspend fun getDefaultSavePath(): String = http.get("$baseUrl/api/v2/app/defaultSavePath")
+
+    suspend fun getPeerLogs(): List<PeerLog> = http.get("$baseUrl/api/v2/log/peers")
+
+    suspend fun editTrackers(hash: String, originalUrl: String, newUrl: String) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/editTracker") {
+            parameter("hash", hash)
+            parameter("origUrl", originalUrl)
+            parameter("newUrl", newUrl)
+        }
+    }
+
+    suspend fun addTrackers(hash: String, urls: List<String>) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/addTrackers",
+            formParameters = Parameters.build {
+                append("hash", hash)
+                append("urls", urls.joinToString("\n"))
+            }
+        )
+    }
+
+    suspend fun removeTrackers(hash: String, urls: List<String>) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/removeTrackers") {
+            parameter("hash", hash)
+            parameter("urls", urls.joinToString("|"))
+        }
+    }
+
+    suspend fun increasePriority(hashes: List<String> = allList) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/increasePrio") {
+            parameter("hashes", hashes.joinToString("|"))
+        }
+    }
+
+    suspend fun decreasePriority(hashes: List<String> = allList) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/decreasePrio") {
+            parameter("hashes", hashes.joinToString("|"))
+        }
+    }
+
+    suspend fun maxPriority(hashes: List<String> = allList) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/topPrio") {
+            parameter("hashes", hashes.joinToString("|"))
+        }
+    }
+
+    suspend fun minPriority(hashes: List<String> = allList) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/bottomPrio") {
+            parameter("hashes", hashes.joinToString("|"))
+        }
+    }
+
+    suspend fun setFilePriority(hash: String, ids: List<Int>, priority: Int) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/filePrio") {
+            parameter("hash", hash)
+            parameter("id", ids.joinToString("|"))
+            parameter("priority", priority)
+        }
+    }
+
+    suspend fun getTorrentDownloadLimit(hashes: List<String> = allList): Map<String, Long> {
+        return http.submitForm(
+            "$baseUrl/api/v2/torrents/downloadLimit",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+            }
+        )
+    }
+
+    suspend fun setTorrentDownloadLimit(hashes: List<String> = allList) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/downloadLimit",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+            }
+        )
+    }
+
+    suspend fun setTorrentShareLimit(hashes: List<String> = allList, ratioLimit: Float, seedingTimeLimit: Long) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/setShareLimits",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+                append("ratioLimit", ratioLimit.toString())
+                append("seedingTimeLimit", seedingTimeLimit.toString())
+            }
+        )
+    }
+
+    suspend fun getTorrentUploadLimit(hashes: List<String> = allList): Map<String, Long> {
+        return http.submitForm(
+            "$baseUrl/api/v2/torrents/uploadLimit",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+            }
+        )
+    }
+
+    suspend fun setTorrentUploadLimit(hashes: List<String> = allList, limit: Long) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/setUploadLimit",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+                append("limit", limit.toString())
+            }
+        )
+    }
+
+    suspend fun setTorrentLocation(hashes: List<String> = allList, location: String) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/setLocation",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+                append("location", location)
+            }
+        )
+    }
+
+    suspend fun setTorrentName(hash: String, name: String) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/rename",
+            formParameters = Parameters.build {
+                append("hash", hash)
+                append("name", name)
+            }
+        )
+    }
+
+    suspend fun setTorrentCategory(hashes: List<String> = allList, category: String) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/rename",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+                append("category", category)
+            }
+        )
+    }
+
+    suspend fun getCategories(): List<Category> {
+        return http.get<Map<String, Category>>("$baseUrl/api/v2/torrents/categories")
+            .values
+            .toList()
+    }
+
+    suspend fun addCategory(name: String, savePath: String) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/createCategory",
+            formParameters = Parameters.build {
+                append("category", name)
+                append("savePath", savePath)
+            }
+        )
+    }
+
+    suspend fun editCategory(name: String, savePath: String) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/editCategory",
+            formParameters = Parameters.build {
+                append("category", name)
+                append("savePath", savePath)
+            }
+        )
+    }
+
+    suspend fun removeCategories(names: List<String>) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/removeCategory",
+            formParameters = Parameters.build {
+                appendAll("category", names)
+            }
+        )
+    }
+
+    suspend fun addTorrentTags(hashes: List<String> = allList, tags: List<String>) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/addTags",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+                append("tags", tags.joinToString(","))
+            }
+        )
+    }
+
+    suspend fun removeTorrentTags(hashes: List<String> = allList, tags: List<String>) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/removeTags",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+                append("tags", tags.joinToString(","))
+            }
+        )
+    }
+
+    suspend fun getTags(): List<String> = http.get("$baseUrl/api/v2/torrents/tags")
+
+    suspend fun createTags(tags: List<String>) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/createTags",
+            formParameters = Parameters.build {
+                append("tags", tags.joinToString(","))
+            }
+        )
+    }
+
+    suspend fun deleteTags(tags: List<String>) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/deleteTags",
+            formParameters = Parameters.build {
+                append("tags", tags.joinToString(","))
+            }
+        )
+    }
+
+    suspend fun setAutoTorrentManagement(hashes: List<String> = allList, enabled: Boolean) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/setAutoManagement",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+                append("enabled", enabled.toString())
+            }
+        )
+    }
+
+    suspend fun toggleSequentialDownload(hashes: List<String> = allList) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/toggleSequentialDownload") {
+            parameter("hashes", hashes.joinToString("|"))
+        }
+    }
+
+    suspend fun toggleFirstLastPriority(hashes: List<String> = allList) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/toggleFirstLastPiecePrio") {
+            parameter("hashes", hashes.joinToString("|"))
+        }
+    }
+
+    suspend fun setForceStart(hashes: List<String> = allList, value: Boolean) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/setForceStart",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+                append("value", value.toString())
+            }
+        )
+    }
+
+    suspend fun setSuperSeeding(hashes: List<String> = allList, value: Boolean) {
+        http.submitForm<Unit>(
+            "$baseUrl/api/v2/torrents/setSuperSeeding",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+                append("value", value.toString())
+            }
+        )
+    }
+
+    suspend fun renameFile(hash: String, id: Int, newName: String) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/renameFile") {
+            parameter("hash", hash)
+            parameter("id", id)
+            parameter("name", newName)
+        }
+    }
+
+    suspend fun addPeers(hashes: List<String>, peers: List<String>) {
+        http.get<Unit>("$baseUrl/api/v2/torrents/addPeers") {
+            parameter("hashes", hashes.joinToString("|"))
+            parameter("peers", peers.joinToString("|"))
+        }
+    }
 }
