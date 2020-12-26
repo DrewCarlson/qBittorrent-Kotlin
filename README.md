@@ -5,7 +5,7 @@
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Native/badge.svg)
 
-Kotlin wrapper for the [qBittorrent Web API](https://github.com/qbittorrent/qBittorrent/).
+Kotlin wrapper for the [qBittorrent](https://github.com/qbittorrent/qBittorrent/) Web API.
 
 ## About
 
@@ -17,7 +17,6 @@ Two modules are provided: `client` contains all the HTTP code, and `models` cont
 
 For a comprehensive list of available endpoints and to understand the returned data, see the [qBittorrent API Docs](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)).
 
-Kotlin
 ```kotlin
 val client = QBittorrentClient("http://localhost:8888")
 
@@ -54,10 +53,10 @@ repositories {
 }
 
 dependencies {
-  implementation "drewcarlson.qbittorrent:client:$qbittorrent_version"
+  implementation("drewcarlson.qbittorrent:client:$qbittorrent_version")
   
   // Optional: Just the data models without the client/http lib.
-  implementation "drewcarlson.qbittorrent:models:$qbittorrent_version"
+  implementation("drewcarlson.qbittorrent:models:$qbittorrent_version")
 }
 ```
 
@@ -65,7 +64,7 @@ dependencies {
 Note: it is required to specify a Ktor client engine implementation.
 ([Documentation](https://ktor.io/clients/http-client/multiplatform.html))
 
-```groovy
+```kotlin
 dependencies {
   // Jvm/Android
   implementation("io.ktor:ktor-client-okhttp:$ktor_version")
