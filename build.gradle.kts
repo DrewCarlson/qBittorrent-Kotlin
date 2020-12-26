@@ -15,10 +15,9 @@ allprojects {
         mavenCentral()
         jcenter()
     }
-}
-
-System.getenv("GITHUB_REF")?.let { ref ->
-    if (ref.split('/').getOrNull(1)?.contains("tag") == true) {
-        version = (version as String).substringBefore("-SNAPSHOT")
+    System.getenv("GITHUB_REF")?.let { ref ->
+        if (ref.split('/').getOrNull(1)?.contains("tag") == true) {
+            version = (version as String).substringBefore("-SNAPSHOT")
+        }
     }
 }

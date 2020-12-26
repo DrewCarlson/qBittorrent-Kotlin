@@ -35,6 +35,9 @@ client.torrentFlow("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
 
 ## Download
 
+![Bintray](https://img.shields.io/bintray/v/drewcarlson/qBittorrent-Kotlin/qBittorrent-Kotlin?color=blue)
+![](https://img.shields.io/maven-metadata/v?label=artifactory&logoColor=lightgrey&metadataUrl=https%3A%2F%2Foss.jfrog.org%2Fartifactory%2Foss-snapshot-local%2Fdrewcarlson%2Fqbittorrent%2Fclient%2Fmaven-metadata.xml&color=lightgrey)
+
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
 ![](https://img.shields.io/static/v1?label=&message=Js&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=Jvm&color=blue)
@@ -50,6 +53,8 @@ Artifacts are available on [Bintray](https://bintray.com/drewcarlson/qBittorrent
 ```kotlin
 repositories {
   jcenter()
+  // (Optional) For Snapshots:
+  maven { setUrl("http://oss.jfrog.org/artifactory/oss-snapshot-local") }
 }
 
 dependencies {
