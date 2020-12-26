@@ -155,7 +155,7 @@ class QBittorrentClient(
         hashes: List<String> = emptyList()
     ): List<Torrent> {
         return http.get("$baseUrl/api/v2/torrents/info") {
-            parameter("filter", filter.name)
+            parameter("filter", filter.name.toLowerCase())
             parameter("reverse", reverse)
             parameter("limit", limit)
             parameter("offset", offset)
@@ -331,7 +331,7 @@ class QBittorrentClient(
         )
     }
 
-    suspend fun setTorrentShareLimit(hashes: List<String> = allList, ratioLimit: Float, seedingTimeLimit: Long) {
+    suspend fun setTorrentShareLimits(hashes: List<String> = allList, ratioLimit: Float, seedingTimeLimit: Long) {
         http.submitForm<Unit>(
             "$baseUrl/api/v2/torrents/setShareLimits",
             formParameters = Parameters.build {
@@ -383,7 +383,7 @@ class QBittorrentClient(
 
     suspend fun setTorrentCategory(hashes: List<String> = allList, category: String) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/rename",
+            "$baseUrl/api/v2/torrents/setCategory",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("category", category)
@@ -397,7 +397,7 @@ class QBittorrentClient(
             .toList()
     }
 
-    suspend fun addCategory(name: String, savePath: String) {
+    suspend fun createCategory(name: String, savePath: String) {
         http.submitForm<Unit>(
             "$baseUrl/api/v2/torrents/createCategory",
             formParameters = Parameters.build {
