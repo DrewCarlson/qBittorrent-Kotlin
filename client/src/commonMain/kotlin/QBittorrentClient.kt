@@ -36,6 +36,12 @@ private val json = Json {
  * qBittorrent Web API wrapper.
  *
  * https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)
+ *
+ * @param baseUrl The base URL of qBittorrent, ex. http://localhost:9000
+ * @param username The qBittorrent username, default: admin
+ * @param password The qBittorrent password, default: adminadmin
+ * @param mainDataSyncMs The sync endpoint polling rate when subscribed to a [Flow]
+ * @param httpClient Custom HTTPClient, useful when a default client engine is not used
  */
 class QBittorrentClient(
     private val baseUrl: String,
@@ -80,6 +86,12 @@ class QBittorrentClient(
         }
     }.shareIn(syncScope, SharingStarted.WhileSubscribed())
 
+    /**
+     * Create a session with the provided [username] and [password].
+     *
+     * NOTE: Calling [login] is not required as authentication is
+     * managed internally.
+     */
     suspend fun login() {
         http.submitForm<Unit>(
             "$baseUrl/api/v2/auth/login",
@@ -92,14 +104,27 @@ class QBittorrentClient(
         }
     }
 
+    /**
+     * End the current session.
+     */
     suspend fun logout() {
         http.get<Unit>("$baseUrl/api/v2/auth/logout")
     }
 
+    /**
+     * Emits the next [MainData] every [mainDataSyncMs] while subscribed.
+     *
+     * NOTE: A shared flow is returned so multiple collectors use the
+     * same timer and response data.
+     */
     fun syncMainData(): Flow<MainData> {
         return mainDataFlow
     }
 
+    /**
+     * Emits the latest [Torrent] data for the [hash].
+     * If the torrent is removed or not found, the flow will be cancelled.
+     */
     fun torrentFlow(hash: String): Flow<Torrent> {
         var torrentMap: MutableMap<String, JsonElement>? = null
         return mainDataFlow
@@ -109,7 +134,7 @@ class QBittorrentClient(
             }
             .mapNotNull { mainData ->
                 if (mainData.torrentsRemoved.contains(hash)) {
-                    coroutineContext.cancel()
+                    currentCoroutineContext().cancel()
                     null
                 } else {
                     torrentMap?.apply {
@@ -119,15 +144,14 @@ class QBittorrentClient(
             }
             .map { json.decodeFromJsonElement<Torrent>(JsonObject(it)) }
             .onStart {
-                repeat(5) {
-                    val torrent = getTorrents(hashes = listOf(hash)).firstOrNull()
-                    if (torrent != null) {
-                        torrentMap = json.encodeToJsonElement(torrent)
-                            .jsonObject
-                            .toMutableMap()
-                        return@onStart emit(torrent)
-                    }
-                    delay(5_000L)
+                val torrent = getTorrents(hashes = listOf(hash)).firstOrNull()
+                if (torrent == null) {
+                    currentCoroutineContext().cancel()
+                } else {
+                    torrentMap = json.encodeToJsonElement(torrent)
+                        .jsonObject
+                        .toMutableMap()
+                    emit(torrent)
                 }
             }
             .distinctUntilChanged()
@@ -191,6 +215,9 @@ class QBittorrentClient(
         return http.get("$baseUrl/api/v2/transfer/info")
     }
 
+    /**
+     * Get the [TorrentFile]s for [hash] or an empty list if not yet not available.
+     */
     suspend fun getTorrentFiles(hash: String): List<TorrentFile> {
         val filesWithIds = http.get<JsonArray>("$baseUrl/api/v2/torrents/files") {
             parameter("hash", hash)
@@ -202,32 +229,54 @@ class QBittorrentClient(
         return json.decodeFromJsonElement(JsonArray(filesWithIds))
     }
 
+    /**
+     * Get piece states for the torrent at [hash].
+     */
     suspend fun getPieceStates(hash: String): List<PieceState> {
         return http.get("$baseUrl/api/v2/torrents/pieceStates") {
             parameter("hash", hash)
         }
     }
 
+    /**
+     * Get piece hashes for the torrent at [hash].
+     */
     suspend fun getPieceHashes(hash: String): List<String> {
         return http.get("$baseUrl/api/v2/torrents/pieceHashes") {
             parameter("hash", hash)
         }
     }
 
+    /**
+     * Pause one or more torrents
+     *
+     * @param hashes A single torrent hash, list of torrents, or 'all'.
+     */
     suspend fun pauseTorrents(hashes: List<String> = allList) {
         http.get<Unit>("$baseUrl/api/v2/torrents/pause") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
 
+    /**
+     * Resume one or more torrents
+     *
+     * @param hashes A single torrent hash, list of torrents, or 'all'.
+     */
     suspend fun resumeTorrents(hashes: List<String> = allList) {
         http.get<Unit>("$baseUrl/api/v2/torrents/resume") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
 
+    /**
+     * Delete one or more torrents.
+     *
+     * @param hashes A single torrent hash, list of torrents, or 'all'.
+     * @param deleteFiles If true, delete all the torrents files.
+     */
     suspend fun deleteTorrents(
-        hashes: List<String> = allList,
+        hashes: List<String>,
         deleteFiles: Boolean = false
     ) {
         http.get<Unit>("$baseUrl/api/v2/torrents/delete") {
@@ -236,21 +285,33 @@ class QBittorrentClient(
         }
     }
 
+    /**
+     * Recheck a torrent in qBittorrent.
+     */
     suspend fun recheckTorrents(hashes: List<String> = allList) {
         http.get<Unit>("$baseUrl/api/v2/torrents/recheck") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
 
+    /**
+     * Reannounce a torrent.
+     */
     suspend fun reannounceTorrents(hashes: List<String> = allList) {
         http.get<Unit>("$baseUrl/api/v2/torrents/reannounce") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
 
+    /**
+     * Get the qBittorrent application preferences.
+     */
     suspend fun getPreferences(): JsonObject =
         http.get("$baseUrl/api/v2/app/preferences")
 
+    /**
+     * Set one or more qBittorrent application preferences.
+     */
     suspend fun setPreferences(prefs: JsonObject) {
         http.post<Unit>("$baseUrl/api/v2/app/setPreferences") {
             contentType(ContentType.Application.Json)
@@ -260,14 +321,19 @@ class QBittorrentClient(
         }
     }
 
+    /** Get the application version. */
     suspend fun getVersion(): String = http.get("$baseUrl/api/v2/app/version")
 
+    /** Get the Web API version. */
     suspend fun getApiVersion(): String = http.get("$baseUrl/api/v2/app/webapiVersion")
 
+    /** Get the build info */
     suspend fun getBuildInfo(): BuildInfo = http.get("$baseUrl/api/v2/app/buildInfo")
 
+    /** Shutdown qBittorrent */
     suspend fun shutdown() = http.get<Unit>("$baseUrl/api/v2/app/shutdown")
 
+    /** Get the default torrent save path, ex. /user/home/downloads */
     suspend fun getDefaultSavePath(): String = http.get("$baseUrl/api/v2/app/defaultSavePath")
 
     /**
