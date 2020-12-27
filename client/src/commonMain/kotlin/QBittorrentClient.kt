@@ -248,6 +248,18 @@ class QBittorrentClient(
         }
     }
 
+    suspend fun getPreferences(): JsonObject =
+        http.get("$baseUrl/api/v2/app/preferences")
+
+    suspend fun setPreferences(prefs: JsonObject) {
+        http.post<Unit>("$baseUrl/api/v2/app/setPreferences") {
+            contentType(ContentType.Application.Json)
+            body = buildJsonObject {
+                put("json", prefs)
+            }
+        }
+    }
+
     suspend fun getVersion(): String = http.get("$baseUrl/api/v2/app/version")
 
     suspend fun getApiVersion(): String = http.get("$baseUrl/api/v2/app/webapiVersion")
