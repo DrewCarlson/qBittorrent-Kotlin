@@ -258,7 +258,35 @@ class QBittorrentClient(
 
     suspend fun getDefaultSavePath(): String = http.get("$baseUrl/api/v2/app/defaultSavePath")
 
-    suspend fun getPeerLogs(): List<PeerLog> = http.get("$baseUrl/api/v2/log/peers")
+    /**
+     * @param lastKnownId Exclude messages with "message id" <= last_known_id (default: -1)
+     */
+    suspend fun getPeerLogs(lastKnownId: Int = -1): List<PeerLog> =
+        http.get("$baseUrl/api/v2/log/peers") {
+            parameter("last_known_id", lastKnownId)
+        }
+
+    /**
+     * @param normal Include normal messages (default: true)
+     * @param info Include info messages (default: true)
+     * @param warning Include warning messages (default: true)
+     * @param critical Include critical messages (default: true)
+     * @param lastKnownId Exclude messages with "message id" <= last_known_id (default: -1)
+     */
+    suspend fun getLogs(
+        normal: Boolean = true,
+        info: Boolean = true,
+        warning: Boolean = true,
+        critical: Boolean = true,
+        lastKnownId: Int = -1
+    ): List<LogEntry> =
+        http.get("$baseUrl/api/v2/log/main") {
+            parameter("normal", normal)
+            parameter("info", info)
+            parameter("warning", warning)
+            parameter("critical", critical)
+            parameter("last_known_id", lastKnownId)
+        }
 
     suspend fun editTrackers(hash: String, originalUrl: String, newUrl: String) {
         http.get<Unit>("$baseUrl/api/v2/torrents/editTracker") {
