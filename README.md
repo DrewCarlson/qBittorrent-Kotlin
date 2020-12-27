@@ -9,28 +9,48 @@ Kotlin wrapper for the [qBittorrent](https://github.com/qbittorrent/qBittorrent/
 
 ## About
 
-qBittorrent-Kotlin is written in common Kotlin to support multiplatform development.  [Kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) provides json (de)serialization and [Ktor](https://ktor.io) the HTTP API.
+qBittorrent-Kotlin is written in common Kotlin to support multiplatform development.
+[Kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) provides json serialization and [Ktor](https://ktor.io) the HTTP API.
 
-Two modules are provided: `client` contains all the HTTP code, and `models` contains just the serializable data models.
+**Features**
+
+- Two modules: `client` contains all the HTTP code, `models` contains only the serializable data models
+- Automatic authentication handling when interacting with the API
+- [Coroutine Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/index.html) APIs wrapping the syncing endpoints
 
 ## Usage
 
 For a comprehensive list of available endpoints and to understand the returned data, see the [qBittorrent API Docs](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)).
 
+QBittorrentClient only requires `baseUrl` assuming default credentials are used.
 ```kotlin
-val client = QBittorrentClient("http://localhost:8888")
+val client = QBittorrentClient(
+    baseUrl = "http://localhost:8888",
+    username = "admin",
+    password = "adminadmin",
+    // When subscribed to a syncing Flow, the API is polled at this rate
+    mainDataSyncMs = 5000L,
+    httpClient = HttpClient()
+)
+```
 
+Add a new torrent:
+```kotlin
 client.addTorrent {
   urls.add("magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
   savePath = "/downloads"
+  // ...
 }
+```
 
+Subscribe to torrent updates:
+
+```kotlin
 client.torrentFlow("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
   .onEach { torrent ->
     println("${torrent.name} : ${torrent.state}")
   }
   .launchIn(GlobalScope)
-
 ```
 
 ## Download

@@ -24,7 +24,7 @@ private const val PARAM_ROOT_FOLDER = "root_folder"
 private const val PARAM_FIRST_LAST_PIECE = "firstLastPiecePrio"
 private const val PARAM_SEQUENTIAL_DOWNLOAD = "sequentialDownload"
 
-private const val MAIN_DATA_SYNC_MS = 1000L
+private const val MAIN_DATA_SYNC_MS = 5000L
 
 private val json = Json {
     isLenient = true
@@ -58,7 +58,7 @@ class QBittorrentClient(
     private val http = httpClient.config {
         install(FlakyRetry)
         install(QBittorrentAuth) {
-            executeAuth(::authenticate)
+            executeAuth(::login)
         }
         Json {
             serializer = KotlinxSerializer(json)
@@ -80,7 +80,7 @@ class QBittorrentClient(
         }
     }.shareIn(syncScope, SharingStarted.WhileSubscribed())
 
-    private suspend fun authenticate() {
+    suspend fun login() {
         http.submitForm<Unit>(
             "$baseUrl/api/v2/auth/login",
             formParameters = Parameters.build {
@@ -90,6 +90,10 @@ class QBittorrentClient(
         ) {
             header("Referer", baseUrl)
         }
+    }
+
+    suspend fun logout() {
+        http.get<Unit>("$baseUrl/api/v2/auth/logout")
     }
 
     fun syncMainData(): Flow<MainData> {
