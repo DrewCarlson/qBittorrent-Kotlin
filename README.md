@@ -5,12 +5,7 @@
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Native/badge.svg)
 
-Kotlin wrapper for the [qBittorrent](https://github.com/qbittorrent/qBittorrent/) Web API.
-
-## About
-
-qBittorrent-Kotlin is written in common Kotlin to support multiplatform development.
-[Kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) provides json serialization and [Ktor](https://ktor.io) the HTTP API.
+Kotlin wrapper for the [qBittorrent](https://github.com/qbittorrent/qBittorrent/) Web API using [Ktor](https://ktor.io).
 
 **Features**
 
@@ -74,7 +69,7 @@ Artifacts are available on [Bintray](https://bintray.com/drewcarlson/qBittorrent
 repositories {
   jcenter()
   // (Optional) For Snapshots:
-  maven { setUrl("http://oss.jfrog.org/artifactory/oss-snapshot-local") }
+  maven(url = "http://oss.jfrog.org/artifactory/oss-snapshot-local")
 }
 
 dependencies {
