@@ -1,4 +1,4 @@
-package drewcarlson.qbittorrrent
+package drewcarlson.qbittorrent
 
 import io.ktor.client.*
 import io.ktor.client.features.*

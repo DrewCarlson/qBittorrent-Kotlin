@@ -1,6 +1,6 @@
-package drewcarlson.qbittorrrent
+package drewcarlson.qbittorrent
 
-import drewcarlson.qbittorrrent.models.*
+import drewcarlson.qbittorrent.models.*
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.features.cookies.*
@@ -8,14 +8,12 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.http.HttpStatusCode.Companion.NotFound
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.*
-import kotlin.coroutines.coroutineContext
 
 private const val PARAM_URLS = "urls"
 private const val PARAM_SAVE_PATH = "savepath"

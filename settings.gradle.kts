@@ -7,6 +7,6 @@ pluginManagement {
 
 rootProject.name = "qBittorrent"
 
-include(":client", ":models")
+include(":client", ":models", ":demo")
 
 enableFeaturePreview("GRADLE_METADATA")

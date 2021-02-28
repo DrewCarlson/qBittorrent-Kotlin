@@ -1,4 +1,4 @@
-package drewcarlson.qbittorrrent
+package drewcarlson.qbittorrent
 
 import io.ktor.client.*
 import io.ktor.client.features.*
@@ -28,13 +28,12 @@ internal class QBittorrentAuth {
 
         override fun install(feature: QBittorrentAuth, scope: HttpClient) {
             val authMutex = Mutex()
-            val authReqHeaders = listOf(HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden)
             val isTokenValid = MutableStateFlow(false)
             scope.requestPipeline.intercept(HttpRequestPipeline.Render) {
                 try {
                     proceed()
                 } catch (e: ClientRequestException) {
-                    if (e.response.status in authReqHeaders) {
+                    if (e.response.status == HttpStatusCode.Unauthorized) {
                         if (!authMutex.isLocked) {
                             isTokenValid.value = false
                         }

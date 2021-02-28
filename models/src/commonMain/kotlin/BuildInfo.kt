@@ -1,4 +1,4 @@
-package drewcarlson.qbittorrrent.models
+package drewcarlson.qbittorrent.models
 
 import kotlinx.serialization.Serializable
 

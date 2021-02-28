@@ -4,13 +4,6 @@ plugins {
     `maven-publish`
 }
 
-allprojects {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-}
-
 val mavenUrl: String by ext
 val mavenSnapshotUrl: String by ext
 
@@ -26,7 +19,7 @@ kotlin {
 
     ios()
     tvos()
-    watchos()
+    //watchos()
 
     publishing {
         repositories {
@@ -47,7 +40,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":models"))
+                api(project(":models"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
                 implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
                 implementation("io.ktor:ktor-client-json:$KTOR_VERSION")
@@ -97,8 +90,8 @@ kotlin {
             dependsOn(iosMain)
         }
 
-        val watchosMain by getting {
+        /*val watchosMain by getting {
             dependsOn(iosMain)
-        }
+        }*/
     }
 }

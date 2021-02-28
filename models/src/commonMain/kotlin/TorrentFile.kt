@@ -1,4 +1,4 @@
-package drewcarlson.qbittorrrent
+package drewcarlson.qbittorrent
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

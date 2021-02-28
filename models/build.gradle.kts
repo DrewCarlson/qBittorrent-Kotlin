@@ -4,13 +4,6 @@ plugins {
     `maven-publish`
 }
 
-allprojects {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-}
-
 val mavenUrl: String by ext
 val mavenSnapshotUrl: String by ext
 
@@ -26,7 +19,7 @@ kotlin {
 
     ios()
     tvos()
-    watchos()
+    //watchos()
 
     publishing {
         repositories {
@@ -85,8 +78,8 @@ kotlin {
             dependsOn(iosMain)
         }
 
-        val watchosMain by getting {
+        /*val watchosMain by getting {
             dependsOn(iosMain)
-        }
+        }*/
     }
 }
