@@ -1,11 +1,9 @@
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
-    `maven-publish`
 }
 
-val mavenUrl: String by ext
-val mavenSnapshotUrl: String by ext
+apply(from = "$rootDir/gradle/publishing.gradle.kts")
 
 kotlin {
     jvm()
@@ -20,22 +18,6 @@ kotlin {
     ios()
     tvos()
     //watchos()
-
-    publishing {
-        repositories {
-            maven {
-                url = if (version.toString().endsWith("SNAPSHOT")) {
-                    uri(mavenSnapshotUrl)
-                } else {
-                    uri(mavenUrl)
-                }
-                credentials {
-                    username = System.getenv("BINTRAY_USER")
-                    password = System.getenv("BINTRAY_API_KEY")
-                }
-            }
-        }
-    }
 
     sourceSets {
         val commonMain by getting {

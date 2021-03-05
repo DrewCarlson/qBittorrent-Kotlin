@@ -1,6 +1,6 @@
 # qBittorrent Kotlin
 
-![Bintray](https://img.shields.io/bintray/v/drewcarlson/qBittorrent-Kotlin/qBittorrent-Kotlin?color=blue)
+![Maven metadata URL](https://img.shields.io/maven-metadata/v?color=blue&metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Forg%2Fdrewcarlson%2Fqbittorrent-client%2Fmaven-metadata.xml)
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Jvm/badge.svg)
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Native/badge.svg)
@@ -50,8 +50,8 @@ client.torrentFlow("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
 
 ## Download
 
-![Bintray](https://img.shields.io/bintray/v/drewcarlson/qBittorrent-Kotlin/qBittorrent-Kotlin?color=blue)
-![](https://img.shields.io/maven-metadata/v?label=artifactory&logoColor=lightgrey&metadataUrl=https%3A%2F%2Foss.jfrog.org%2Fartifactory%2Foss-snapshot-local%2Fdrewcarlson%2Fqbittorrent%2Fclient%2Fmaven-metadata.xml&color=lightgrey)
+![Maven metadata URL](https://img.shields.io/maven-metadata/v?color=blue&metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Forg%2Fdrewcarlson%2Fqbittorrent-client%2Fmaven-metadata.xml)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/qbittorrent-client?server=https%3A%2F%2Fs01.oss.sonatype.org)
 
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
 ![](https://img.shields.io/static/v1?label=&message=Js&color=blue)
@@ -63,20 +63,18 @@ client.torrentFlow("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
 ![](https://img.shields.io/static/v1?label=&message=tvOS&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=watchOS&color=blue)
 
-Artifacts are available on [Bintray](https://bintray.com/drewcarlson/qBittorrent-Kotlin).
-
 ```kotlin
 repositories {
-  jcenter()
+  mavenCentral()
   // (Optional) For Snapshots:
-  maven(url = "http://oss.jfrog.org/artifactory/oss-snapshot-local")
+  maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 
 dependencies {
-  implementation("drewcarlson.qbittorrent:client:$qbittorrent_version")
+  implementation("org.drewcarlson:qbittorrent-client:$qbittorrent_version")
   
   // Optional: Just the data models without the client/http lib.
-  implementation("drewcarlson.qbittorrent:models:$qbittorrent_version")
+  implementation("org.drewcarlson:qbittorrent-models:$qbittorrent_version")
 }
 ```
 
