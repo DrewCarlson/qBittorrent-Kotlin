@@ -1,6 +1,6 @@
 # qBittorrent Kotlin
 
-![Maven metadata URL](https://img.shields.io/maven-metadata/v?color=blue&metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Forg%2Fdrewcarlson%2Fqbittorrent-client%2Fmaven-metadata.xml)
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/qbittorrent-client?label=maven&color=blue)
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Jvm/badge.svg)
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Native/badge.svg)
@@ -50,7 +50,7 @@ client.torrentFlow("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
 
 ## Download
 
-![Maven metadata URL](https://img.shields.io/maven-metadata/v?color=blue&metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Forg%2Fdrewcarlson%2Fqbittorrent-client%2Fmaven-metadata.xml)
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/qbittorrent-client?label=maven&color=blue)
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/qbittorrent-client?server=https%3A%2F%2Fs01.oss.sonatype.org)
 
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
