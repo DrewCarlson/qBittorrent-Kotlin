@@ -18,3 +18,7 @@ kotlin {
         }
     }
 }
+
+application {
+    mainClass.set("demo.MainKt")
+}
