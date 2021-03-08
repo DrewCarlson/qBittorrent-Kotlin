@@ -28,5 +28,5 @@ data class MainData(
     val tagsRemoved: List<String> = emptyList(),
     /** Global transfer info */
     @SerialName("server_state")
-    val serverState: JsonObject? = null
+    val serverState: ServerState? = null
 )
