@@ -14,7 +14,7 @@ data class ServerState(
     val allTimeUpload: Long? = null,
 
     @SerialName("average_time_queue")
-    val AverageTimeInQueue: Int? = null,
+    val averageTimeInQueue: Int? = null,
 
     /** Connection status */
     @SerialName("connection_status")
