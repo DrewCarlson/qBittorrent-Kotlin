@@ -33,20 +33,24 @@ internal class QBittorrentAuth {
                 try {
                     proceed()
                 } catch (e: ClientRequestException) {
-                    if (e.response.status == HttpStatusCode.Unauthorized) {
-                        if (!authMutex.isLocked) {
-                            isTokenValid.value = false
-                        }
-                        authMutex.withLock {
-                            if (!isTokenValid.value) {
-                                feature.executeAuth()
-                                isTokenValid.value = true
+                    when (e.response.status) {
+                        HttpStatusCode.Unauthorized,
+                        HttpStatusCode.Forbidden -> {
+                            if (!authMutex.isLocked) {
+                                isTokenValid.value = false
                             }
+                            authMutex.withLock {
+                                if (!isTokenValid.value) {
+                                    feature.executeAuth()
+                                    isTokenValid.value = true
+                                }
+                            }
+                            val req = HttpRequestBuilder().takeFrom(context)
+                            val response = scope.request<HttpResponse>(req)
+                            proceedWith(response.call)
                         }
-                        val req = HttpRequestBuilder().takeFrom(context)
-                        val response = scope.request<HttpResponse>(req)
-                        proceedWith(response.call)
-                    } else throw e
+                        else -> throw e
+                    }
                 }
             }
         }
