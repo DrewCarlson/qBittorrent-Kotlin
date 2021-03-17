@@ -1,32 +1,77 @@
 package drewcarlson.qbittorrent.models
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import drewcarlson.qbittorrent.models.dtos.MainDataDTO
 import kotlinx.serialization.json.JsonObject
 
-@Serializable
 data class MainData(
     /** Response ID */
-    val rid: Long,
+    var rid: Long,
     /** Whether the response contains all the data or partial data */
-    @SerialName("full_update")
-    val fullUpdate: Boolean = false,
+    var fullUpdate: Boolean = false,
     /** Property: torrent hash, value: same as [QTorrent] */
-    val torrents: Map<String, JsonObject> = emptyMap(),
+    var torrents: MutableMap<String, JsonObject> = mutableMapOf(),
     /** List of hashes of torrents removed since last request */
-    @SerialName("torrents_removed")
-    val torrentsRemoved: List<String> = emptyList(),
+    var torrentsRemoved: List<String> = emptyList(),
     /** Info for categories added since last request */
-    val categories: JsonObject? = null,
+    var categories: JsonObject? = null,
     /** List of categories removed since last request */
-    @SerialName("categories_removed")
-    val categoriesRemoved: List<String> = emptyList(),
+    var categoriesRemoved: List<String> = emptyList(),
     /** List of tags added since last request */
-    val tags: List<String> = emptyList(),
+    var tags: MutableList<String> = mutableListOf(),
     /** List of tags removed since last request */
-    @SerialName("tags_removed")
-    val tagsRemoved: List<String> = emptyList(),
+    var tagsRemoved: List<String> = emptyList(),
     /** Global transfer info */
-    @SerialName("server_state")
-    val serverState: ServerState? = null
-)
+    var serverState: ServerState
+) {
+
+    fun copyFromDTO(mainDataDTO: MainDataDTO) {
+        if (mainDataDTO.rid != null) {
+            rid = mainDataDTO.rid
+        }
+        if (mainDataDTO.fullUpdate != null) {
+            fullUpdate = mainDataDTO.fullUpdate
+        }
+        if (mainDataDTO.torrents != null) {
+            torrents.putAll(mainDataDTO.torrents)
+        }
+        if (mainDataDTO.torrentsRemoved.isNotEmpty()) {
+            torrents.keys.removeAll(mainDataDTO.torrentsRemoved)
+        }
+        torrentsRemoved = mainDataDTO.torrentsRemoved
+
+        if (mainDataDTO.categories != null) { // TODO add static model
+            categories = mainDataDTO.categories
+        }
+        if (mainDataDTO.categoriesRemoved != null) { // TODO remove categories when static Categories model is added
+            categoriesRemoved = mainDataDTO.categoriesRemoved
+        }
+        if (mainDataDTO.tags != null) {
+            tags = mainDataDTO.tags as MutableList<String>
+        }
+
+        if (mainDataDTO.tagsRemoved.isNotEmpty()) {
+            tags.removeAll(mainDataDTO.tagsRemoved)
+        }
+        tagsRemoved = mainDataDTO.tagsRemoved
+
+        serverState.copyFromDTO(mainDataDTO.serverState)
+    }
+
+    companion object {
+        fun createFromDTO(mainDataDTO: MainDataDTO): MainData {
+            return mainDataDTO.run {
+                MainData(
+                    rid = rid ?: 0,
+                    fullUpdate = fullUpdate!!,
+                    torrents = torrents as MutableMap<String, JsonObject>,
+                    torrentsRemoved = torrentsRemoved,
+                    categories = categories!!,
+                    categoriesRemoved = categoriesRemoved,
+                    tags = tags as MutableList<String>,
+                    tagsRemoved = tagsRemoved,
+                    serverState = ServerState.createFromDTO(serverState)
+                )
+            }
+        }
+    }
+}

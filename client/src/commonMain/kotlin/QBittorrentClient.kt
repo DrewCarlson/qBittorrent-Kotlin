@@ -1,6 +1,7 @@
 package drewcarlson.qbittorrent
 
 import drewcarlson.qbittorrent.models.*
+import drewcarlson.qbittorrent.models.dtos.MainDataDTO
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.features.cookies.*
@@ -73,7 +74,7 @@ class QBittorrentClient(
     }
 
     private var syncRid = 0 // NOTE: Only access in mainDataFlow
-    private val mainDataFlow = flow<MainData> {
+    private val mainDataFlow = flow<MainDataDTO> {
         while (true) {
             emit(
                 http.get("$baseUrl/api/v2/sync/maindata") {
@@ -116,7 +117,20 @@ class QBittorrentClient(
      * same timer and response data.
      */
     fun syncMainData(): Flow<MainData> {
+
+        var mainData: MainData? = null
+
         return mainDataFlow
+            .map {
+                if (mainData == null) {
+                    // map all
+                    mainData = MainData.createFromDTO(it)
+                    mainData
+                } else {
+                    mainData!!.copyFromDTO(it)
+                    mainData
+                }!!
+            }.shareIn(syncScope, SharingStarted.WhileSubscribed(), 1)
     }
 
     /**
@@ -125,10 +139,10 @@ class QBittorrentClient(
      */
     fun torrentFlow(hash: String): Flow<Torrent> {
         var torrentMap: MutableMap<String, JsonElement>? = null
-        return mainDataFlow
+        return syncMainData()
             .filter { mainData ->
                 mainData.torrents.containsKey(hash) ||
-                    mainData.torrentsRemoved.contains(hash)
+                        mainData.torrentsRemoved.contains(hash)
             }
             .mapNotNull { mainData ->
                 if (mainData.torrentsRemoved.contains(hash)) {
@@ -140,7 +154,9 @@ class QBittorrentClient(
                     }
                 }
             }
-            .map { json.decodeFromJsonElement<Torrent>(JsonObject(it)) }
+            .map {
+                json.decodeFromJsonElement<Torrent>(JsonObject(it))
+            }
             .onStart {
                 val torrent = getTorrents(hashes = listOf(hash)).firstOrNull()
                 if (torrent == null) {
