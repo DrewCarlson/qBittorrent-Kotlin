@@ -73,13 +73,43 @@ class QBittorrentClient(
     }
 
     private var syncRid = 0 // NOTE: Only access in mainDataFlow
+    private lateinit var mainData: MainData
     private val mainDataFlow = flow<MainData> {
+        val syncUrl = "$baseUrl/api/v2/sync/maindata"
+        if (syncRid == 0) {
+            mainData = http.get(syncUrl) {
+                parameter("rid", syncRid++)
+            }
+        }
+        val mainDataJson = json.encodeToJsonElement(mainData)
+            .jsonObject
+            .toMutableMap()
+
+        emit(mainData)
+        delay(mainDataSyncMs)
+
         while (true) {
-            emit(
-                http.get("$baseUrl/api/v2/sync/maindata") {
-                    parameter("rid", syncRid++)
+            val mainDataPatch = http.get<JsonObject>(syncUrl) {
+                parameter("rid", syncRid++)
+            }
+            mainDataPatch.forEach { (key, value) ->
+                when (val element = mainDataJson[key]) {
+                    is JsonPrimitive,
+                    is JsonArray -> {
+                        mainDataJson[key] = value
+                    }
+                    is JsonObject -> {
+                        val elementMap = element.toMutableMap()
+                        element.forEach { (elKey, elValue) ->
+                            elementMap[elKey] = elValue
+                        }
+                        mainDataJson[key] = JsonObject(elementMap)
+                    }
                 }
-            )
+            }
+
+            mainData = json.decodeFromJsonElement(JsonObject(mainDataJson))
+            emit(mainData)
             delay(mainDataSyncMs)
         }
     }.shareIn(syncScope, SharingStarted.WhileSubscribed())
