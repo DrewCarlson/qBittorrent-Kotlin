@@ -8,12 +8,31 @@ kotlin {
         withJava()
     }
 
+    macosX64("macos") {
+        binaries {
+            executable {
+                entryPoint("demo.main")
+            }
+        }
+    }
+
     sourceSets {
-        named("jvmMain") {
+        named("commonMain") {
             dependencies {
                 implementation(project(":qbittorrent-client"))
-                implementation("io.ktor:ktor-client-cio:$KTOR_VERSION")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
+            }
+        }
+
+        named("jvmMain") {
+            dependencies {
+                implementation("io.ktor:ktor-client-cio:$KTOR_VERSION")
+            }
+        }
+
+        named("macosMain") {
+            dependencies {
+                implementation("io.ktor:ktor-client-curl:$KTOR_VERSION")
             }
         }
     }

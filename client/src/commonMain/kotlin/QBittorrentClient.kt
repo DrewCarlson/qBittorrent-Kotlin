@@ -14,6 +14,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.*
+import kotlin.native.concurrent.*
 
 private const val PARAM_URLS = "urls"
 private const val PARAM_SAVE_PATH = "savepath"
@@ -24,6 +25,7 @@ private const val PARAM_SEQUENTIAL_DOWNLOAD = "sequentialDownload"
 
 private const val MAIN_DATA_SYNC_MS = 5000L
 
+@SharedImmutable
 private val json = Json {
     isLenient = true
     ignoreUnknownKeys = true
@@ -42,10 +44,10 @@ private val json = Json {
  * @param httpClient Custom HTTPClient, useful when a default client engine is not used
  */
 class QBittorrentClient(
-    private val baseUrl: String,
-    private val username: String = "admin",
-    private val password: String = "adminadmin",
-    private val mainDataSyncMs: Long = MAIN_DATA_SYNC_MS,
+    baseUrl: String,
+    username: String = "admin",
+    password: String = "adminadmin",
+    mainDataSyncMs: Long = MAIN_DATA_SYNC_MS,
     httpClient: HttpClient = HttpClient(),
 ) {
     companion object {
@@ -55,64 +57,79 @@ class QBittorrentClient(
         const val SEEDING_LIMIT_GLOBAL = -2
     }
 
+    internal data class Config(
+        val baseUrl: String,
+        val username: String,
+        val password: String,
+        val mainDataSyncMs: Long,
+    )
+
+    private val config = Config(baseUrl, username, password, mainDataSyncMs)
+
     private val allList = listOf("all")
 
     private val syncScope = CoroutineScope(SupervisorJob() + Default)
 
-    private val http = httpClient.config {
-        install(FlakyRetry)
-        install(QBittorrentAuth) {
-            executeAuth(::login)
-        }
-        Json {
-            serializer = KotlinxSerializer(json)
-        }
-        install(HttpCookies) {
-            storage = AcceptAllCookiesStorage()
-        }
-    }
+    private val http: HttpClient
+    private val mainDataFlow: SharedFlow<MainData>
 
-    private var syncRid = 0 // NOTE: Only access in mainDataFlow
-    private lateinit var mainData: MainData
-    private val mainDataFlow = flow<MainData> {
-        val syncUrl = "$baseUrl/api/v2/sync/maindata"
-        if (syncRid == 0) {
-            mainData = http.get(syncUrl) {
-                parameter("rid", syncRid++)
+    init {
+        val config = config
+        val http = httpClient.config {
+            install(FlakyRetry)
+            install(QBittorrentAuth) {
+                setConfig(config)
+                setLogin(::login)
             }
-        }
-        val mainDataJson = json.encodeToJsonElement(mainData)
-            .jsonObject
-            .toMutableMap()
-
-        emit(mainData)
-        delay(mainDataSyncMs)
-
-        while (true) {
-            val mainDataPatch = http.get<JsonObject>(syncUrl) {
-                parameter("rid", syncRid++)
+            Json {
+                serializer = KotlinxSerializer(json)
             }
-            mainDataPatch.forEach { (key, value) ->
-                when (val element = mainDataJson[key]) {
-                    is JsonPrimitive,
-                    is JsonArray -> {
-                        mainDataJson[key] = value
-                    }
-                    is JsonObject -> {
-                        val elementMap = element.toMutableMap()
-                        element.forEach { (elKey, elValue) ->
-                            elementMap[elKey] = elValue
+            install(HttpCookies) {
+                storage = AcceptAllCookiesStorage()
+            }
+        }.also { this.http = it }
+
+        val syncRid = AtomicReference(0)
+        val mainData = AtomicReference<MainData?>(null)
+        mainDataFlow = flow {
+            val syncUrl = "${config.baseUrl}/api/v2/sync/maindata"
+            val initialMainData = mainData.value ?: http.get<MainData>(syncUrl) {
+                parameter("rid", syncRid.value++)
+            }.also { newMainData ->
+                mainData.value = newMainData
+            }
+
+            emit(initialMainData)
+            delay(mainDataSyncMs)
+
+            val mainDataJson = json.encodeToJsonElement(mainData.value).jsonObject.toMutableMap()
+            while (true) {
+                val mainDataPatch = http.get<JsonObject>(syncUrl) {
+                    parameter("rid", syncRid.value++)
+                }
+                mainDataPatch.forEach { (key, value) ->
+                    when (val element = mainDataJson[key]) {
+                        is JsonPrimitive,
+                        is JsonArray -> {
+                            mainDataJson[key] = value
                         }
-                        mainDataJson[key] = JsonObject(elementMap)
+                        is JsonObject -> {
+                            val elementMap = element.toMutableMap()
+                            element.forEach { (elKey, elValue) ->
+                                elementMap[elKey] = elValue
+                            }
+                            mainDataJson[key] = JsonObject(elementMap)
+                        }
                     }
                 }
-            }
 
-            mainData = json.decodeFromJsonElement(JsonObject(mainDataJson))
-            emit(mainData)
-            delay(mainDataSyncMs)
-        }
-    }.shareIn(syncScope, SharingStarted.WhileSubscribed())
+                val newMainData: MainData = json.decodeFromJsonElement(JsonObject(mainDataJson))
+                mainData.value = newMainData
+                emit(newMainData)
+                delay(mainDataSyncMs)
+            }
+        }.shareIn(syncScope, SharingStarted.WhileSubscribed())
+    }
 
     /**
      * Create a session with the provided [username] and [password].
@@ -120,23 +137,15 @@ class QBittorrentClient(
      * NOTE: Calling [login] is not required as authentication is
      * managed internally.
      */
-    suspend fun login() {
-        http.submitForm<Unit>(
-            "$baseUrl/api/v2/auth/login",
-            formParameters = Parameters.build {
-                append("username", username)
-                append("password", password)
-            }
-        ) {
-            header("Referer", baseUrl)
-        }
+    suspend fun login(username: String, password: String) {
+        login(http, config.baseUrl, username, password)
     }
 
     /**
      * End the current session.
      */
     suspend fun logout() {
-        http.get<Unit>("$baseUrl/api/v2/auth/logout")
+        http.get<Unit>("${config.baseUrl}/api/v2/auth/logout")
     }
 
     /**
@@ -189,7 +198,7 @@ class QBittorrentClient(
     suspend fun addTorrent(configure: AddTorrentBody.() -> Unit) {
         val body = AddTorrentBody().apply(configure)
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/add",
+            "${config.baseUrl}/api/v2/torrents/add",
             formParameters = Parameters.build {
                 append(PARAM_URLS, body.urls.joinToString("|"))
                 append(PARAM_SAVE_PATH, body.savePath)
@@ -210,7 +219,7 @@ class QBittorrentClient(
         offset: Int = 0,
         hashes: List<String> = emptyList()
     ): List<Torrent> {
-        return http.get("$baseUrl/api/v2/torrents/info") {
+        return http.get("${config.baseUrl}/api/v2/torrents/info") {
             parameter("filter", filter.name.toLowerCase())
             parameter("reverse", reverse)
             parameter("limit", limit)
@@ -229,7 +238,7 @@ class QBittorrentClient(
 
     suspend fun getTorrentProperties(hash: String): TorrentProperties? {
         return try {
-            http.get<TorrentProperties>("$baseUrl/api/v2/torrents/properties") {
+            http.get<TorrentProperties>("${config.baseUrl}/api/v2/torrents/properties") {
                 parameter("hash", hash)
             }
         } catch (e: ClientRequestException) {
@@ -240,14 +249,14 @@ class QBittorrentClient(
     }
 
     suspend fun getGlobalTransferInfo(): GlobalTransferInfo {
-        return http.get("$baseUrl/api/v2/transfer/info")
+        return http.get("${config.baseUrl}/api/v2/transfer/info")
     }
 
     /**
      * Get the [TorrentFile]s for [hash] or an empty list if not yet not available.
      */
     suspend fun getTorrentFiles(hash: String): List<TorrentFile> {
-        val filesWithIds = http.get<JsonArray>("$baseUrl/api/v2/torrents/files") {
+        val filesWithIds = http.get<JsonArray>("${config.baseUrl}/api/v2/torrents/files") {
             parameter("hash", hash)
         }.mapIndexed { i, fileElement ->
             val id = mapOf("id" to JsonPrimitive(i))
@@ -261,7 +270,7 @@ class QBittorrentClient(
      * Get piece states for the torrent at [hash].
      */
     suspend fun getPieceStates(hash: String): List<PieceState> {
-        return http.get("$baseUrl/api/v2/torrents/pieceStates") {
+        return http.get("${config.baseUrl}/api/v2/torrents/pieceStates") {
             parameter("hash", hash)
         }
     }
@@ -270,7 +279,7 @@ class QBittorrentClient(
      * Get piece hashes for the torrent at [hash].
      */
     suspend fun getPieceHashes(hash: String): List<String> {
-        return http.get("$baseUrl/api/v2/torrents/pieceHashes") {
+        return http.get("${config.baseUrl}/api/v2/torrents/pieceHashes") {
             parameter("hash", hash)
         }
     }
@@ -281,7 +290,7 @@ class QBittorrentClient(
      * @param hashes A single torrent hash, list of torrents, or 'all'.
      */
     suspend fun pauseTorrents(hashes: List<String> = allList) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/pause") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/pause") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
@@ -292,7 +301,7 @@ class QBittorrentClient(
      * @param hashes A single torrent hash, list of torrents, or 'all'.
      */
     suspend fun resumeTorrents(hashes: List<String> = allList) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/resume") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/resume") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
@@ -307,7 +316,7 @@ class QBittorrentClient(
         hashes: List<String>,
         deleteFiles: Boolean = false
     ) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/delete") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/delete") {
             parameter("hashes", hashes.joinToString("|"))
             parameter("deleteFiles", deleteFiles)
         }
@@ -317,7 +326,7 @@ class QBittorrentClient(
      * Recheck a torrent in qBittorrent.
      */
     suspend fun recheckTorrents(hashes: List<String> = allList) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/recheck") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/recheck") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
@@ -326,7 +335,7 @@ class QBittorrentClient(
      * Reannounce a torrent.
      */
     suspend fun reannounceTorrents(hashes: List<String> = allList) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/reannounce") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/reannounce") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
@@ -335,13 +344,13 @@ class QBittorrentClient(
      * Get the qBittorrent application preferences.
      */
     suspend fun getPreferences(): JsonObject =
-        http.get("$baseUrl/api/v2/app/preferences")
+        http.get("${config.baseUrl}/api/v2/app/preferences")
 
     /**
      * Set one or more qBittorrent application preferences.
      */
     suspend fun setPreferences(prefs: JsonObject) {
-        http.post<Unit>("$baseUrl/api/v2/app/setPreferences") {
+        http.post<Unit>("${config.baseUrl}/api/v2/app/setPreferences") {
             contentType(ContentType.Application.Json)
             body = buildJsonObject {
                 put("json", prefs)
@@ -350,25 +359,25 @@ class QBittorrentClient(
     }
 
     /** Get the application version. */
-    suspend fun getVersion(): String = http.get("$baseUrl/api/v2/app/version")
+    suspend fun getVersion(): String = http.get("${config.baseUrl}/api/v2/app/version")
 
     /** Get the Web API version. */
-    suspend fun getApiVersion(): String = http.get("$baseUrl/api/v2/app/webapiVersion")
+    suspend fun getApiVersion(): String = http.get("${config.baseUrl}/api/v2/app/webapiVersion")
 
     /** Get the build info */
-    suspend fun getBuildInfo(): BuildInfo = http.get("$baseUrl/api/v2/app/buildInfo")
+    suspend fun getBuildInfo(): BuildInfo = http.get("${config.baseUrl}/api/v2/app/buildInfo")
 
     /** Shutdown qBittorrent */
-    suspend fun shutdown() = http.get<Unit>("$baseUrl/api/v2/app/shutdown")
+    suspend fun shutdown() = http.get<Unit>("${config.baseUrl}/api/v2/app/shutdown")
 
     /** Get the default torrent save path, ex. /user/home/downloads */
-    suspend fun getDefaultSavePath(): String = http.get("$baseUrl/api/v2/app/defaultSavePath")
+    suspend fun getDefaultSavePath(): String = http.get("${config.baseUrl}/api/v2/app/defaultSavePath")
 
     /**
      * @param lastKnownId Exclude messages with "message id" <= last_known_id (default: -1)
      */
     suspend fun getPeerLogs(lastKnownId: Int = -1): List<PeerLog> =
-        http.get("$baseUrl/api/v2/log/peers") {
+        http.get("${config.baseUrl}/api/v2/log/peers") {
             parameter("last_known_id", lastKnownId)
         }
 
@@ -386,7 +395,7 @@ class QBittorrentClient(
         critical: Boolean = true,
         lastKnownId: Int = -1
     ): List<LogEntry> =
-        http.get("$baseUrl/api/v2/log/main") {
+        http.get("${config.baseUrl}/api/v2/log/main") {
             parameter("normal", normal)
             parameter("info", info)
             parameter("warning", warning)
@@ -395,7 +404,7 @@ class QBittorrentClient(
         }
 
     suspend fun editTrackers(hash: String, originalUrl: String, newUrl: String) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/editTracker") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/editTracker") {
             parameter("hash", hash)
             parameter("origUrl", originalUrl)
             parameter("newUrl", newUrl)
@@ -404,7 +413,7 @@ class QBittorrentClient(
 
     suspend fun addTrackers(hash: String, urls: List<String>) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/addTrackers",
+            "${config.baseUrl}/api/v2/torrents/addTrackers",
             formParameters = Parameters.build {
                 append("hash", hash)
                 append("urls", urls.joinToString("\n"))
@@ -413,38 +422,38 @@ class QBittorrentClient(
     }
 
     suspend fun removeTrackers(hash: String, urls: List<String>) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/removeTrackers") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/removeTrackers") {
             parameter("hash", hash)
             parameter("urls", urls.joinToString("|"))
         }
     }
 
     suspend fun increasePriority(hashes: List<String> = allList) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/increasePrio") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/increasePrio") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
 
     suspend fun decreasePriority(hashes: List<String> = allList) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/decreasePrio") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/decreasePrio") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
 
     suspend fun maxPriority(hashes: List<String> = allList) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/topPrio") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/topPrio") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
 
     suspend fun minPriority(hashes: List<String> = allList) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/bottomPrio") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/bottomPrio") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
 
     suspend fun setFilePriority(hash: String, ids: List<Int>, priority: Int) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/filePrio") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/filePrio") {
             parameter("hash", hash)
             parameter("id", ids.joinToString("|"))
             parameter("priority", priority)
@@ -453,7 +462,7 @@ class QBittorrentClient(
 
     suspend fun getTorrentDownloadLimit(hashes: List<String> = allList): Map<String, Long> {
         return http.submitForm(
-            "$baseUrl/api/v2/torrents/downloadLimit",
+            "${config.baseUrl}/api/v2/torrents/downloadLimit",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
             }
@@ -462,7 +471,7 @@ class QBittorrentClient(
 
     suspend fun setTorrentDownloadLimit(hashes: List<String> = allList) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/downloadLimit",
+            "${config.baseUrl}/api/v2/torrents/downloadLimit",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
             }
@@ -471,7 +480,7 @@ class QBittorrentClient(
 
     suspend fun setTorrentShareLimits(hashes: List<String> = allList, ratioLimit: Float, seedingTimeLimit: Long) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/setShareLimits",
+            "${config.baseUrl}/api/v2/torrents/setShareLimits",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("ratioLimit", ratioLimit.toString())
@@ -482,7 +491,7 @@ class QBittorrentClient(
 
     suspend fun getTorrentUploadLimit(hashes: List<String> = allList): Map<String, Long> {
         return http.submitForm(
-            "$baseUrl/api/v2/torrents/uploadLimit",
+            "${config.baseUrl}/api/v2/torrents/uploadLimit",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
             }
@@ -491,7 +500,7 @@ class QBittorrentClient(
 
     suspend fun setTorrentUploadLimit(hashes: List<String> = allList, limit: Long) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/setUploadLimit",
+            "${config.baseUrl}/api/v2/torrents/setUploadLimit",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("limit", limit.toString())
@@ -501,7 +510,7 @@ class QBittorrentClient(
 
     suspend fun setTorrentLocation(hashes: List<String> = allList, location: String) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/setLocation",
+            "${config.baseUrl}/api/v2/torrents/setLocation",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("location", location)
@@ -511,7 +520,7 @@ class QBittorrentClient(
 
     suspend fun setTorrentName(hash: String, name: String) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/rename",
+            "${config.baseUrl}/api/v2/torrents/rename",
             formParameters = Parameters.build {
                 append("hash", hash)
                 append("name", name)
@@ -521,7 +530,7 @@ class QBittorrentClient(
 
     suspend fun setTorrentCategory(hashes: List<String> = allList, category: String) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/setCategory",
+            "${config.baseUrl}/api/v2/torrents/setCategory",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("category", category)
@@ -530,14 +539,14 @@ class QBittorrentClient(
     }
 
     suspend fun getCategories(): List<Category> {
-        return http.get<Map<String, Category>>("$baseUrl/api/v2/torrents/categories")
+        return http.get<Map<String, Category>>("${config.baseUrl}/api/v2/torrents/categories")
             .values
             .toList()
     }
 
     suspend fun createCategory(name: String, savePath: String) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/createCategory",
+            "${config.baseUrl}/api/v2/torrents/createCategory",
             formParameters = Parameters.build {
                 append("category", name)
                 append("savePath", savePath)
@@ -547,7 +556,7 @@ class QBittorrentClient(
 
     suspend fun editCategory(name: String, savePath: String) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/editCategory",
+            "${config.baseUrl}/api/v2/torrents/editCategory",
             formParameters = Parameters.build {
                 append("category", name)
                 append("savePath", savePath)
@@ -557,7 +566,7 @@ class QBittorrentClient(
 
     suspend fun removeCategories(names: List<String>) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/removeCategory",
+            "${config.baseUrl}/api/v2/torrents/removeCategory",
             formParameters = Parameters.build {
                 appendAll("category", names)
             }
@@ -566,7 +575,7 @@ class QBittorrentClient(
 
     suspend fun addTorrentTags(hashes: List<String> = allList, tags: List<String>) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/addTags",
+            "${config.baseUrl}/api/v2/torrents/addTags",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("tags", tags.joinToString(","))
@@ -576,7 +585,7 @@ class QBittorrentClient(
 
     suspend fun removeTorrentTags(hashes: List<String> = allList, tags: List<String>) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/removeTags",
+            "${config.baseUrl}/api/v2/torrents/removeTags",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("tags", tags.joinToString(","))
@@ -584,11 +593,11 @@ class QBittorrentClient(
         )
     }
 
-    suspend fun getTags(): List<String> = http.get("$baseUrl/api/v2/torrents/tags")
+    suspend fun getTags(): List<String> = http.get("${config.baseUrl}/api/v2/torrents/tags")
 
     suspend fun createTags(tags: List<String>) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/createTags",
+            "${config.baseUrl}/api/v2/torrents/createTags",
             formParameters = Parameters.build {
                 append("tags", tags.joinToString(","))
             }
@@ -597,7 +606,7 @@ class QBittorrentClient(
 
     suspend fun deleteTags(tags: List<String>) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/deleteTags",
+            "${config.baseUrl}/api/v2/torrents/deleteTags",
             formParameters = Parameters.build {
                 append("tags", tags.joinToString(","))
             }
@@ -606,7 +615,7 @@ class QBittorrentClient(
 
     suspend fun setAutoTorrentManagement(hashes: List<String> = allList, enabled: Boolean) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/setAutoManagement",
+            "${config.baseUrl}/api/v2/torrents/setAutoManagement",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("enabled", enabled.toString())
@@ -615,20 +624,20 @@ class QBittorrentClient(
     }
 
     suspend fun toggleSequentialDownload(hashes: List<String> = allList) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/toggleSequentialDownload") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/toggleSequentialDownload") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
 
     suspend fun toggleFirstLastPriority(hashes: List<String> = allList) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/toggleFirstLastPiecePrio") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/toggleFirstLastPiecePrio") {
             parameter("hashes", hashes.joinToString("|"))
         }
     }
 
     suspend fun setForceStart(hashes: List<String> = allList, value: Boolean) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/setForceStart",
+            "${config.baseUrl}/api/v2/torrents/setForceStart",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("value", value.toString())
@@ -638,7 +647,7 @@ class QBittorrentClient(
 
     suspend fun setSuperSeeding(hashes: List<String> = allList, value: Boolean) {
         http.submitForm<Unit>(
-            "$baseUrl/api/v2/torrents/setSuperSeeding",
+            "${config.baseUrl}/api/v2/torrents/setSuperSeeding",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("value", value.toString())
@@ -647,7 +656,7 @@ class QBittorrentClient(
     }
 
     suspend fun renameFile(hash: String, id: Int, newName: String) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/renameFile") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/renameFile") {
             parameter("hash", hash)
             parameter("id", id)
             parameter("name", newName)
@@ -655,9 +664,21 @@ class QBittorrentClient(
     }
 
     suspend fun addPeers(hashes: List<String>, peers: List<String>) {
-        http.get<Unit>("$baseUrl/api/v2/torrents/addPeers") {
+        http.get<Unit>("${config.baseUrl}/api/v2/torrents/addPeers") {
             parameter("hashes", hashes.joinToString("|"))
             parameter("peers", peers.joinToString("|"))
         }
+    }
+}
+
+private suspend fun login(http: HttpClient, baseUrl: String, username: String, password: String) {
+    http.submitForm<Unit>(
+        "$baseUrl/api/v2/auth/login",
+        formParameters = Parameters.build {
+            append("username", username)
+            append("password", password)
+        }
+    ) {
+        header("Referer", baseUrl)
     }
 }

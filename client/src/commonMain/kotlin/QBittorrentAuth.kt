@@ -10,13 +10,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
+internal typealias ExecuteAuth = suspend (HttpClient, String, String, String) -> Unit
+
 internal class QBittorrentAuth {
 
-    private var executeAuth: suspend () -> Unit = {
+    private lateinit var config: QBittorrentClient.Config
+    private var executeAuth: ExecuteAuth = { _, _, _, _ ->
         throw NotImplementedError("executeAuth must be implemented for QBittorrentAuth.")
     }
 
-    fun executeAuth(block: suspend () -> Unit) {
+    fun setConfig(config: QBittorrentClient.Config) {
+        this.config = config
+    }
+
+    fun setLogin(block: ExecuteAuth) {
         executeAuth = block
     }
 
@@ -41,7 +48,12 @@ internal class QBittorrentAuth {
                             }
                             authMutex.withLock {
                                 if (!isTokenValid.value) {
-                                    feature.executeAuth()
+                                    feature.executeAuth(
+                                        scope,
+                                        feature.config.baseUrl,
+                                        feature.config.username,
+                                        feature.config.password
+                                    )
                                     isTokenValid.value = true
                                 }
                             }

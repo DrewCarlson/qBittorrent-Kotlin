@@ -1,10 +1,10 @@
 package demo
 
-import drewcarlson.qbittorrent.QBittorrentClient
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.runBlocking
+import drewcarlson.qbittorrent.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 
-fun main(vararg args: String) = runBlocking {
+fun runProgram(args: Array<out String>) = runBlocking {
     val client = QBittorrentClient(
         baseUrl = args.firstOrNull() ?: "http://localhost:9090"
     )
