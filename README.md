@@ -25,7 +25,8 @@ val client = QBittorrentClient(
     password = "adminadmin",
     // When subscribed to a syncing Flow, the API is polled at this rate
     mainDataSyncMs = 5000L,
-    httpClient = HttpClient()
+    httpClient = HttpClient(),
+    dispatcher = Dispatchers.Default,
 )
 ```
 

@@ -42,6 +42,7 @@ private val json = Json {
  * @param password The qBittorrent password, default: adminadmin
  * @param mainDataSyncMs The sync endpoint polling rate when subscribed to a [Flow]
  * @param httpClient Custom HTTPClient, useful when a default client engine is not used
+ * @param dispatcher Coroutine dispatcher for flow API processing, defaults to [Dispatchers.Default].
  */
 class QBittorrentClient(
     baseUrl: String,
@@ -49,6 +50,7 @@ class QBittorrentClient(
     password: String = "adminadmin",
     mainDataSyncMs: Long = MAIN_DATA_SYNC_MS,
     httpClient: HttpClient = HttpClient(),
+    dispatcher: CoroutineDispatcher = Default
 ) {
     companion object {
         const val RATIO_LIMIT_NONE = -1
@@ -68,7 +70,7 @@ class QBittorrentClient(
 
     private val allList = listOf("all")
 
-    private val syncScope = CoroutineScope(SupervisorJob() + Default)
+    private val syncScope = CoroutineScope(SupervisorJob() + dispatcher)
 
     private val http: HttpClient
     private val mainDataFlow: SharedFlow<MainData>
