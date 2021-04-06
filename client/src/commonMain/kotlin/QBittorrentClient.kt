@@ -109,21 +109,8 @@ class QBittorrentClient(
                 val mainDataPatch = http.get<JsonObject>(syncUrl) {
                     parameter("rid", syncRid.value++)
                 }
-                mainDataPatch.forEach { (key, value) ->
-                    when (val element = mainDataJson[key]) {
-                        is JsonPrimitive,
-                        is JsonArray -> {
-                            mainDataJson[key] = value
-                        }
-                        is JsonObject -> {
-                            val elementMap = element.toMutableMap()
-                            element.forEach { (elKey, elValue) ->
-                                elementMap[elKey] = elValue
-                            }
-                            mainDataJson[key] = JsonObject(elementMap)
-                        }
-                    }
-                }
+
+                mainDataJson.merge(mainDataPatch)
 
                 val newMainData: MainData = json.decodeFromJsonElement(JsonObject(mainDataJson))
                 mainData.value = newMainData
@@ -667,5 +654,22 @@ private suspend fun login(http: HttpClient, baseUrl: String, username: String, p
         }
     ) {
         header("Referer", baseUrl)
+    }
+}
+
+private fun MutableMap<String, JsonElement>.merge(json: JsonObject) {
+    forEach { (key, value) ->
+        val newElement = when (val element = json[key] ?: return@forEach) {
+            is JsonPrimitive,
+            is JsonArray -> element
+            is JsonObject -> {
+                value.jsonObject
+                    .toMutableMap()
+                    .apply { merge(element) }
+                    .run(::JsonObject)
+            }
+        }
+
+        put(key, newElement)
     }
 }
