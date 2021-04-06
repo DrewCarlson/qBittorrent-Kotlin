@@ -165,7 +165,6 @@ class QBittorrentClient(
      * If the torrent is removed or not found, the flow will be cancelled.
      */
     fun torrentFlow(hash: String): Flow<Torrent> {
-        var torrentMap: MutableMap<String, JsonElement>? = null
         return mainDataFlow
             .filter { mainData ->
                 mainData.torrents.containsKey(hash) ||
@@ -176,21 +175,7 @@ class QBittorrentClient(
                     currentCoroutineContext().cancel()
                     null
                 } else {
-                    torrentMap?.apply {
-                        putAll(mainData.torrents[hash] ?: emptyMap())
-                    }
-                }
-            }
-            .map { json.decodeFromJsonElement<Torrent>(JsonObject(it)) }
-            .onStart {
-                val torrent = getTorrents(hashes = listOf(hash)).firstOrNull()
-                if (torrent == null) {
-                    currentCoroutineContext().cancel()
-                } else {
-                    torrentMap = json.encodeToJsonElement(torrent)
-                        .jsonObject
-                        .toMutableMap()
-                    emit(torrent)
+                    mainData.torrents[hash]
                 }
             }
             .distinctUntilChanged()

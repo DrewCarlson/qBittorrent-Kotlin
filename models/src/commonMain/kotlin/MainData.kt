@@ -1,8 +1,8 @@
 package drewcarlson.qbittorrent.models
 
+import drewcarlson.qbittorrent.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class MainData(
@@ -12,12 +12,13 @@ data class MainData(
     @SerialName("full_update")
     val fullUpdate: Boolean = false,
     /** Property: torrent hash, value: same as [QTorrent] */
-    val torrents: Map<String, JsonObject> = emptyMap(),
+    @Serializable(with = KeyMergingTransformer::class)
+    val torrents: Map<String, Torrent> = emptyMap(),
     /** List of hashes of torrents removed since last request */
     @SerialName("torrents_removed")
     val torrentsRemoved: List<String> = emptyList(),
     /** Info for categories added since last request */
-    val categories: JsonObject? = null,
+    val categories: Map<String, Category> = emptyMap(),
     /** List of categories removed since last request */
     @SerialName("categories_removed")
     val categoriesRemoved: List<String> = emptyList(),
