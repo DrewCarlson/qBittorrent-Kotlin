@@ -154,8 +154,8 @@ data class Torrent(
         STALLED_DL,
         @SerialName("checkingDL")
         CHECKING_DL,
-        @SerialName("forceDL")
-        FORCE_DL,
+        @SerialName("forcedDL")
+        FORCED_DL,
         @SerialName("checkingResumeData")
         CHECKING_RESUME_DATA,
         @SerialName("moving")
