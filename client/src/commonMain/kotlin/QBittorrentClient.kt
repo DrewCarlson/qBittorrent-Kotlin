@@ -201,7 +201,7 @@ class QBittorrentClient(
         hashes: List<String> = emptyList()
     ): List<Torrent> {
         return http.get("${config.baseUrl}/api/v2/torrents/info") {
-            parameter("filter", filter.name.toLowerCase())
+            parameter("filter", filter.name.lowercase())
             parameter("reverse", reverse)
             parameter("limit", limit)
             parameter("offset", offset)
