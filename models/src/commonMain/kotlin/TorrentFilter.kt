@@ -1,4 +1,4 @@
-package drewcarlson.qbittorrent
+package drewcarlson.qbittorrent.models
 
 
 enum class TorrentFilter {

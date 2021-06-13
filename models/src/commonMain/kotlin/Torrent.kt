@@ -1,6 +1,5 @@
-package drewcarlson.qbittorrent
+package drewcarlson.qbittorrent.models
 
-import drewcarlson.qbittorrent.models.TagListSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
