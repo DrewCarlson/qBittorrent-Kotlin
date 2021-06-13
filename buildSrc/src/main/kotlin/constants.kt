@@ -1,4 +1,4 @@
-const val KOTLIN_VERSION = "1.4.31"
-const val KTOR_VERSION = "1.5.2"
-const val COROUTINES_VERSION = "1.4.3-native-mt"
-const val SERIALIZATION_VERSION = "1.1.0"
+const val KOTLIN_VERSION = "1.5.10"
+const val KTOR_VERSION = "1.6.0"
+const val COROUTINES_VERSION = "1.5.0-native-mt"
+const val SERIALIZATION_VERSION = "1.2.1"
