@@ -218,15 +218,9 @@ class QBittorrentClient(
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun getTorrentProperties(hash: String): TorrentProperties? {
-        return try {
-            http.get<TorrentProperties>("${config.baseUrl}/api/v2/torrents/properties") {
-                parameter("hash", hash)
-            }
-        } catch (e: ClientRequestException) {
-            if (e.response.status == NotFound) {
-                return null
-            } else throw e
+    suspend fun getTorrentProperties(hash: String): TorrentProperties {
+        return http.get("${config.baseUrl}/api/v2/torrents/properties") {
+            parameter("hash", hash)
         }
     }
 
