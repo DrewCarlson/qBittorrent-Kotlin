@@ -94,7 +94,7 @@ class QBittorrentClient(
             }
         }.also { this.http = it }
 
-        val syncRid = AtomicReference(0)
+        val syncRid = AtomicReference(0L)
         val mainData = AtomicReference<MainData?>(null)
         mainDataFlow = flow {
             val syncUrl = "${config.baseUrl}/api/v2/sync/maindata"
