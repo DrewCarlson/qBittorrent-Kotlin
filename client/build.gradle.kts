@@ -56,6 +56,7 @@ kotlin {
             dependsOn(nativeCommonMain)
         }
 
+        val tvosMain by getting
         val watchosArm32Main by getting
         val watchosArm64Main by getting
         val watchosX86Main by getting
