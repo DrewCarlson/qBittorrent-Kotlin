@@ -17,7 +17,7 @@ internal object ErrorTransformer : HttpClientFeature<ErrorTransformer, ErrorTran
             try {
                 proceed()
             } catch (e: Throwable) {
-                if (e is ClientRequestException) {
+                if (e is ResponseException) {
                     throw QBittorrentException(
                         status = e.response.status.value,
                         body = e.response.readText(),
