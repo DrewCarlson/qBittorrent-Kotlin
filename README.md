@@ -5,7 +5,7 @@
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Native/badge.svg)
 
-Kotlin wrapper for the [qBittorrent](https://github.com/qbittorrent/qBittorrent/) Web API using [Ktor](https://ktor.io).
+Multiplatform Kotlin wrapper for the [qBittorrent](https://github.com/qbittorrent/qBittorrent/) Web API using [Ktor](https://ktor.io).
 
 **Features**
 
@@ -20,7 +20,7 @@ For a comprehensive list of available endpoints and to understand the returned d
 QBittorrentClient only requires `baseUrl` assuming default credentials are used.
 ```kotlin
 val client = QBittorrentClient(
-    baseUrl = "http://localhost:8888",
+    baseUrl = "http://localhost:8080",
     username = "admin",
     password = "adminadmin",
     // When subscribed to a syncing Flow, the API is polled at this rate
