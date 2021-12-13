@@ -9,6 +9,7 @@ out/
 *.iml
 node_modules/
 xcuserdata/
+*.hprof
 
 # Xcode
 *.pbxuser
