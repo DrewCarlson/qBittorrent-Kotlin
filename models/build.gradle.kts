@@ -7,7 +7,7 @@ apply(from = "$rootDir/gradle/publishing.gradle.kts")
 
 kotlin {
     jvm()
-    js(BOTH) {
+    js(IR) {
         browser()
         nodejs()
     }
