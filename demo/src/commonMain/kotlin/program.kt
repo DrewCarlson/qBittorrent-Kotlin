@@ -11,11 +11,12 @@ fun runProgram(args: Array<out String>) = runBlocking {
 
     println("qBittorrent Version: ${client.getVersion()}")
     client.syncMainData()
-        .collect { mainData ->
+        .onEach { mainData ->
             println("\n")
             mainData.toString()
                 .split("(", ")", ", ")
                 .joinToString("\n")
                 .run(::println)
         }
+        .collect()
 }
