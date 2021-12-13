@@ -12,16 +12,23 @@ kotlin {
         nodejs()
     }
     macosX64("macos")
+    macosArm64()
     mingwX64("win64")
     linuxX64()
 
     ios()
+    iosSimulatorArm64()
     tvos()
+    tvosArm64()
     watchosArm32()
     watchosArm64()
     watchosX86()
+    watchosSimulatorArm64()
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlin.RequiresOptIn")
+        }
         val commonMain by getting {
             dependencies {
                 api(project(":qbittorrent-models"))
@@ -47,8 +54,9 @@ kotlin {
 
         val win64Main by getting
         val macosMain by getting
+        val macosArm64Main by getting
         val linuxX64Main by getting
-        configure(listOf(win64Main, macosMain, linuxX64Main)) {
+        configure(listOf(win64Main, macosMain, macosArm64Main, linuxX64Main)) {
             dependsOn(desktopCommonMain)
         }
 
@@ -57,11 +65,24 @@ kotlin {
         }
 
         val tvosMain by getting
+        val tvosArm64Main by getting
         val watchosArm32Main by getting
         val watchosArm64Main by getting
         val watchosX86Main by getting
+        val watchosSimulatorArm64Main by getting
+        val iosSimulatorArm64Main by getting
 
-        configure(listOf(tvosMain, watchosArm32Main, watchosArm64Main, watchosX86Main)) {
+        configure(
+            listOf(
+                tvosMain,
+                tvosArm64Main,
+                watchosArm32Main,
+                watchosArm64Main,
+                watchosX86Main,
+                watchosSimulatorArm64Main,
+                iosSimulatorArm64Main,
+            )
+        ) {
             dependsOn(iosMain)
         }
     }
