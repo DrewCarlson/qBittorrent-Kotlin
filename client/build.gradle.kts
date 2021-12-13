@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
+    id("org.jetbrains.kotlinx.binary-compatibility-validator")
 }
 
 apply(from = "$rootDir/gradle/publishing.gradle.kts")
