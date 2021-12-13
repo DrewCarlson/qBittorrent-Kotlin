@@ -67,7 +67,13 @@ class QBittorrentClient(
         val mainDataSyncMs: Long,
     )
 
-    private val config = Config(baseUrl, username, password, mainDataSyncMs)
+    @Suppress("HttpUrlsUsage")
+    private val config = Config(
+        if (baseUrl.startsWith("http", true)) baseUrl else "http://$baseUrl",
+        username,
+        password,
+        mainDataSyncMs,
+    )
 
     private val allList = listOf("all")
 
