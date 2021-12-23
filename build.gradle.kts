@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
+
 plugins {
     kotlin("multiplatform") version KOTLIN_VERSION apply false
     kotlin("plugin.serialization") version KOTLIN_VERSION apply false
@@ -6,6 +8,7 @@ plugins {
 }
 
 allprojects {
+    yarn.lockFileDirectory = file("gradle/kotlin-js-store")
     repositories {
         mavenCentral()
     }
