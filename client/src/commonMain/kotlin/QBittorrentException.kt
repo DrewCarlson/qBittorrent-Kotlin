@@ -1,6 +1,6 @@
 package drewcarlson.qbittorrent
 
-import io.ktor.client.features.*
+import io.ktor.client.plugins.*
 
 class QBittorrentException : Exception {
 

@@ -1,9 +1,8 @@
 package drewcarlson.qbittorrent
 
 import io.ktor.client.*
-import io.ktor.client.features.*
+import io.ktor.client.plugins.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.util.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,13 +26,13 @@ internal class QBittorrentAuth {
         executeAuth = block
     }
 
-    companion object : HttpClientFeature<QBittorrentAuth, QBittorrentAuth> {
+    companion object : HttpClientPlugin<QBittorrentAuth, QBittorrentAuth> {
         override val key: AttributeKey<QBittorrentAuth> = AttributeKey("QBittorrentAuth")
 
         override fun prepare(block: QBittorrentAuth.() -> Unit): QBittorrentAuth =
             QBittorrentAuth().apply(block)
 
-        override fun install(feature: QBittorrentAuth, scope: HttpClient) {
+        override fun install(plugin: QBittorrentAuth, scope: HttpClient) {
             val authMutex = Mutex()
             val isTokenValid = MutableStateFlow(false)
             scope.requestPipeline.intercept(HttpRequestPipeline.Render) {
@@ -48,17 +47,17 @@ internal class QBittorrentAuth {
                             }
                             authMutex.withLock {
                                 if (!isTokenValid.value) {
-                                    feature.executeAuth(
+                                    plugin.executeAuth(
                                         scope,
-                                        feature.config.baseUrl,
-                                        feature.config.username,
-                                        feature.config.password
+                                        plugin.config.baseUrl,
+                                        plugin.config.username,
+                                        plugin.config.password
                                     )
                                     isTokenValid.value = true
                                 }
                             }
                             val req = HttpRequestBuilder().takeFrom(context)
-                            val response = scope.request<HttpResponse>(req)
+                            val response = scope.request(req)
                             proceedWith(response.call)
                         }
                         else -> throw e

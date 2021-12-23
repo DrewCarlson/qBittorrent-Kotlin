@@ -36,8 +36,8 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$SERIALIZATION_VERSION")
                 implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-json:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-serialization:$KTOR_VERSION")
+                implementation("io.ktor:ktor-client-content-negotiation:$KTOR_VERSION")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$KTOR_VERSION")
             }
         }
         val jvmMain by getting {
