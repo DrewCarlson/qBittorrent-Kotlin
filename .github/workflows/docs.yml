@@ -33,7 +33,7 @@ jobs:
           arguments: clean dokkaHtmlMultiModule
 
       - name: Publish Docs
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
