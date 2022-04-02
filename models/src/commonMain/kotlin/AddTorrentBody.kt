@@ -1,4 +1,4 @@
-package drewcarlson.qbittorrent.models
+package qbittorrent.models
 
 data class AddTorrentBody(
     val urls: MutableList<String> = mutableListOf(),

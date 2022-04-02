@@ -1,6 +1,6 @@
 package demo
 
-import drewcarlson.qbittorrent.*
+import qbittorrent.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 

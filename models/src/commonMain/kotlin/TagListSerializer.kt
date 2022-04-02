@@ -1,4 +1,4 @@
-package drewcarlson.qbittorrent.models
+package qbittorrent.models
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

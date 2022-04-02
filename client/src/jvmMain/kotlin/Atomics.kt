@@ -1,4 +1,4 @@
-package drewcarlson.qbittorrent
+package qbittorrent
 
 internal actual class AtomicReference<T> actual constructor(value: T) {
 

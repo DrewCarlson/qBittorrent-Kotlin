@@ -1,4 +1,4 @@
-package drewcarlson.qbittorrent
+package qbittorrent
 
 import kotlin.native.concurrent.freeze
 
@@ -13,6 +13,6 @@ internal actual class AtomicReference<T> actual constructor(value: T) {
         }
 }
 
-private fun  <T> T.maybeFreeze(): T {
+private fun <T> T.maybeFreeze(): T {
     return if (Platform.memoryModel == MemoryModel.EXPERIMENTAL) this else freeze()
 }

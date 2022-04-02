@@ -1,10 +1,10 @@
-package drewcarlson.qbittorrent
+package qbittorrent
 
 import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.util.*
-import io.ktor.utils.io.errors.IOException
+import io.ktor.utils.io.errors.*
 
 /**
  * Ktor client feature to work around the flaky behavior
