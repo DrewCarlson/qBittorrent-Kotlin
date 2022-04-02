@@ -13,7 +13,7 @@ internal object ErrorTransformer : HttpClientPlugin<ErrorTransformer, ErrorTrans
     override fun prepare(block: ErrorTransformer.() -> Unit): ErrorTransformer = this
 
     override fun install(plugin: ErrorTransformer, scope: HttpClient) {
-        scope.requestPipeline.intercept(HttpRequestPipeline.Render) {
+        scope.sendPipeline.intercept(HttpSendPipeline.Before) {
             try {
                 proceed()
             } catch (e: Throwable) {

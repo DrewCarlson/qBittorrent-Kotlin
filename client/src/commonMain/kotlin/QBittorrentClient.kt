@@ -1,5 +1,6 @@
 package qbittorrent
 
+import qbittorrent.models.*
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
@@ -12,7 +13,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.*
-import qbittorrent.models.*
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.native.concurrent.*
 
@@ -165,7 +165,7 @@ class QBittorrentClient(
         return mainDataFlow
             .filter { mainData ->
                 mainData.torrents.containsKey(hash) ||
-                        mainData.torrentsRemoved.contains(hash)
+                    mainData.torrentsRemoved.contains(hash)
             }
             .mapNotNull { mainData ->
                 if (mainData.torrentsRemoved.contains(hash)) {
