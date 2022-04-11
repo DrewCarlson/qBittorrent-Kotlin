@@ -1,15 +1,19 @@
 package qbittorrent
 
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.util.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withTimeoutOrNull
+import kotlin.time.Duration.Companion.seconds
 
-internal typealias ExecuteAuth = suspend (HttpClient, String, String, String) -> Unit
+internal typealias ExecuteAuth = suspend (HttpClient, String, String, String) -> HttpResponse
 
 internal class QBittorrentAuth {
 
@@ -35,32 +39,30 @@ internal class QBittorrentAuth {
         override fun install(plugin: QBittorrentAuth, scope: HttpClient) {
             val authMutex = Mutex()
             val isTokenValid = MutableStateFlow(false)
-            scope.requestPipeline.intercept(HttpRequestPipeline.Render) {
-                try {
-                    proceed()
-                } catch (e: ClientRequestException) {
-                    when (e.response.status) {
-                        HttpStatusCode.Unauthorized,
-                        HttpStatusCode.Forbidden -> {
-                            if (!authMutex.isLocked) {
-                                isTokenValid.value = false
-                            }
-                            authMutex.withLock {
-                                if (!isTokenValid.value) {
-                                    plugin.executeAuth(
+            scope.sendPipeline.intercept(HttpSendPipeline.Before) {
+                proceed()
+                when ((subject as? HttpClientCall)?.response?.status) {
+                    HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden -> {
+                        if (!authMutex.isLocked) {
+                            isTokenValid.value = false
+                        }
+                        authMutex.withLock {
+                            if (!isTokenValid.value) {
+                                withTimeoutOrNull(20.seconds) {
+                                    isTokenValid.value = plugin.executeAuth(
                                         scope,
                                         plugin.config.baseUrl,
                                         plugin.config.username,
                                         plugin.config.password
-                                    )
-                                    isTokenValid.value = true
+                                    ).status.isSuccess()
                                 }
                             }
+                        }
+                        if (isTokenValid.value) {
                             val req = HttpRequestBuilder().takeFrom(context)
                             val response = scope.request(req)
                             proceedWith(response.call)
                         }
-                        else -> throw e
                     }
                 }
             }

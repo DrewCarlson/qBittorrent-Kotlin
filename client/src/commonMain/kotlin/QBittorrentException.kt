@@ -11,11 +11,11 @@ class QBittorrentException : Exception {
         private set
 
     constructor(cause: Throwable?) : super(cause)
-    constructor(status: Int, body: String, cause: Throwable?) : super(cause) {
+    constructor(status: Int, body: String) : super() {
         this.status = status
         this.body = body
     }
 
     override val message: String
-        get() = (cause as? ClientRequestException)?.message ?: super.message ?: "<no message>"
+        get() = body ?: (cause as? ClientRequestException)?.message ?: super.message ?: "<no message>"
 }

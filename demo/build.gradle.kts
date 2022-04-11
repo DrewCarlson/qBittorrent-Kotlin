@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 plugins {
     kotlin("multiplatform")
     application
@@ -8,7 +10,10 @@ kotlin {
         withJava()
     }
 
-    macosX64("macos") {
+    mingwX64("windows")
+    macosX64("macos")
+
+    targets.withType<KotlinNativeTarget> {
         binaries {
             executable {
                 entryPoint("demo.main")
@@ -31,6 +36,12 @@ kotlin {
         }
 
         named("macosMain") {
+            dependencies {
+                implementation("io.ktor:ktor-client-curl:$KTOR_VERSION")
+            }
+        }
+
+        named("windowsMain") {
             dependencies {
                 implementation("io.ktor:ktor-client-curl:$KTOR_VERSION")
             }

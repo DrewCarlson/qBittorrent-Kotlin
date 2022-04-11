@@ -4,9 +4,11 @@ import qbittorrent.models.*
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
+import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.cookies.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.*
@@ -705,8 +707,8 @@ class QBittorrentClient(
     }
 }
 
-private suspend fun login(http: HttpClient, baseUrl: String, username: String, password: String) {
-    http.submitForm(
+private suspend fun login(http: HttpClient, baseUrl: String, username: String, password: String): HttpResponse {
+    return http.submitForm(
         "$baseUrl/api/v2/auth/login",
         formParameters = Parameters.build {
             append("username", username)
