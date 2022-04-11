@@ -7,10 +7,10 @@ on:
     branches: [ main ]
 
 jobs:
-  gradle:
+  test-native:
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
