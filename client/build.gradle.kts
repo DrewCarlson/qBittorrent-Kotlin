@@ -27,22 +27,41 @@ kotlin {
     watchosSimulatorArm64()
 
     sourceSets {
-        all {
-            languageSettings.optIn("kotlin.RequiresOptIn")
-        }
         val commonMain by getting {
             dependencies {
                 api(project(":qbittorrent-models"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$SERIALIZATION_VERSION")
-                implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-content-negotiation:$KTOR_VERSION")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$KTOR_VERSION")
+                implementation(libs.coroutines.core)
+                implementation(libs.serialization.json)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.contentNegotiation)
+                implementation(libs.ktor.serialization)
             }
         }
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.coroutines.test)
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+            }
+        }
+
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.ktor.client.okhttp)
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
+            }
+        }
+
+        val jsTest by getting {
+            dependencies {
+                implementation(libs.ktor.client.js)
+                implementation(kotlin("test-js"))
             }
         }
 

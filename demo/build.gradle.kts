@@ -25,25 +25,25 @@ kotlin {
         named("commonMain") {
             dependencies {
                 implementation(project(":qbittorrent-client"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
+                implementation(libs.coroutines.core)
             }
         }
 
         named("jvmMain") {
             dependencies {
-                implementation("io.ktor:ktor-client-cio:$KTOR_VERSION")
+                implementation(libs.ktor.client.okhttp)
             }
         }
 
         named("macosMain") {
             dependencies {
-                implementation("io.ktor:ktor-client-curl:$KTOR_VERSION")
+                implementation(libs.ktor.client.curl)
             }
         }
 
         named("windowsMain") {
             dependencies {
-                implementation("io.ktor:ktor-client-curl:$KTOR_VERSION")
+                implementation(libs.ktor.client.curl)
             }
         }
     }

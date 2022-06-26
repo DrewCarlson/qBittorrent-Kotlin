@@ -27,13 +27,10 @@ kotlin {
     watchosSimulatorArm64()
 
     sourceSets {
-        all {
-            languageSettings.optIn("kotlin.RequiresOptIn")
-        }
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$SERIALIZATION_VERSION")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$SERIALIZATION_VERSION")
+                implementation(libs.serialization.core)
+                implementation(libs.serialization.json)
             }
         }
         val jvmMain by getting {
