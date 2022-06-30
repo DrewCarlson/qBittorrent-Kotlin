@@ -101,10 +101,11 @@ class QBittorrentClient(
             }
         }.also { this.http = it }
 
+        val emptyArray = buildJsonArray { }
         val syncRid = AtomicReference(0L)
         val mainData = AtomicReference<MainData?>(null)
+        val syncUrl = "${config.baseUrl}/api/v2/sync/maindata"
         mainDataFlow = flow {
-            val syncUrl = "${config.baseUrl}/api/v2/sync/maindata"
             val initialMainData = mainData.value ?: http.get(syncUrl) {
                 parameter("rid", syncRid.value++)
             }.body<MainData>().also { newMainData ->
@@ -114,7 +115,7 @@ class QBittorrentClient(
             emit(initialMainData)
             delay(mainDataSyncMs)
 
-            val mainDataJson = json.encodeToJsonElement(mainData.value).jsonObject.toMutableMap()
+            val mainDataJson = json.encodeToJsonElement(mainData.value).mutateJson()
             while (true) {
                 val mainDataPatch = http.get(syncUrl) {
                     parameter("rid", syncRid.value++)
@@ -122,9 +123,23 @@ class QBittorrentClient(
 
                 mainDataJson.merge(mainDataPatch)
 
+                mainDataJson.dropRemoved("torrents")
+                mainDataJson.dropRemoved("categories")
+                val removedTags = mainDataPatch["tags_removed"].toStringList()
+                if (removedTags.isNotEmpty()) {
+                    val tags = checkNotNull(mainDataJson["tags"]).jsonArray
+                        .map { it.jsonPrimitive.content }
+                        .filterNot(removedTags::contains)
+                        .toMutableList()
+                    mainDataJson["tags"] = JsonArray(tags.map(::JsonPrimitive))
+                }
+
                 val newMainData: MainData = json.decodeFromJsonElement(JsonObject(mainDataJson))
                 mainData.value = newMainData
                 emit(newMainData)
+                mainDataJson["tags_removed"] = emptyArray
+                mainDataJson["torrents_removed"] = emptyArray
+                mainDataJson["categories_removed"] = emptyArray
                 delay(mainDataSyncMs)
             }
         }.shareIn(syncScope, SharingStarted.WhileSubscribed())
@@ -167,7 +182,7 @@ class QBittorrentClient(
         return mainDataFlow
             .filter { mainData ->
                 mainData.torrents.containsKey(hash) ||
-                    mainData.torrentsRemoved.contains(hash)
+                        mainData.torrentsRemoved.contains(hash)
             }
             .mapNotNull { mainData ->
                 if (mainData.torrentsRemoved.contains(hash)) {
@@ -716,22 +731,5 @@ private suspend fun login(http: HttpClient, baseUrl: String, username: String, p
         }
     ) {
         header("Referer", baseUrl)
-    }
-}
-
-private fun MutableMap<String, JsonElement>.merge(json: JsonObject) {
-    forEach { (key, value) ->
-        val newElement = when (val element = json[key] ?: return@forEach) {
-            is JsonPrimitive,
-            is JsonArray -> element
-            is JsonObject -> {
-                value.jsonObject
-                    .toMutableMap()
-                    .apply { merge(element) }
-                    .run(::JsonObject)
-            }
-        }
-
-        put(key, newElement)
     }
 }
