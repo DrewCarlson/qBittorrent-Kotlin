@@ -21,7 +21,7 @@ internal fun MutableMap<String, JsonElement>.merge(
             is JsonArray -> newValue
             is JsonObject -> {
                 val actualObject = (if (currentValue is JsonNull) newValue else currentValue).mutateJson()
-                if (key == "torrents") {
+                if (key == "torrents" || key == "categories") {
                     (newValue.keys - actualObject.keys).forEach { newHash ->
                         actualObject[newHash] = checkNotNull(newValue[newHash]).jsonObject
                     }
