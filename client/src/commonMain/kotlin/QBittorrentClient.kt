@@ -60,6 +60,8 @@ class QBittorrentClient(
         const val RATIO_LIMIT_GLOBAL = -2
         const val SEEDING_LIMIT_NONE = -1
         const val SEEDING_LIMIT_GLOBAL = -2
+
+        private val allList = listOf("all")
     }
 
     internal data class Config(
@@ -77,18 +79,14 @@ class QBittorrentClient(
         mainDataSyncMs,
     )
 
-    private val allList = listOf("all")
-
-    private val syncScope = CoroutineScope(SupervisorJob() + dispatcher)
-
-    private val http: HttpClient
+    internal val http: HttpClient
     private val mainDataFlow: SharedFlow<MainData>
+    private val syncError = MutableStateFlow<Throwable?>(null)
+    private val syncScope = CoroutineScope(SupervisorJob() + dispatcher)
 
     init {
         val config = config
         val http = httpClient.config {
-            install(ErrorTransformer)
-            install(FlakyRetry)
             install(QBittorrentAuth) {
                 setConfig(config)
                 setLogin(::login)
@@ -102,47 +100,63 @@ class QBittorrentClient(
         }.also { this.http = it }
 
         val emptyArray = buildJsonArray { }
-        val syncRid = AtomicReference(0L)
-        val mainData = AtomicReference<MainData?>(null)
+        var mainData: MainData? = null
         val syncUrl = "${config.baseUrl}/api/v2/sync/maindata"
+        var syncRid = 0L
         mainDataFlow = flow {
-            val initialMainData = mainData.value ?: http.get(syncUrl) {
-                parameter("rid", syncRid.value++)
-            }.body<MainData>().also { newMainData ->
-                mainData.value = newMainData
-            }
+            syncError.value = null
+            http.plugin(QBittorrentAuth).tryAuth(http, config, ::login)
+            mainData = mainData ?: http.get(syncUrl) {
+                parameter("rid", syncRid++)
+            }.bodyOrThrow()
 
-            emit(initialMainData)
+            emit(checkNotNull(mainData))
             delay(mainDataSyncMs)
 
-            val mainDataJson = json.encodeToJsonElement(mainData.value).mutateJson()
+            val mainDataJson = json.encodeToJsonElement(mainData).mutateJson()
             while (true) {
-                val mainDataPatch = http.get(syncUrl) {
-                    parameter("rid", syncRid.value++)
-                }.body<JsonObject>()
+                if (syncRid == Long.MAX_VALUE) {
+                    syncRid = 0
+                }
+                val mainDataPatch: JsonObject = http.get(syncUrl) {
+                    parameter("rid", syncRid++)
+                }.bodyOrThrow()
 
-                mainDataJson.merge(mainDataPatch)
-
-                mainDataJson.dropRemoved("torrents")
-                mainDataJson.dropRemoved("categories")
-                val removedTags = mainDataPatch["tags_removed"].toStringList()
-                if (removedTags.isNotEmpty()) {
-                    val tags = checkNotNull(mainDataJson["tags"]).jsonArray
-                        .map { it.jsonPrimitive.content }
-                        .filterNot(removedTags::contains)
-                        .toMutableList()
-                    mainDataJson["tags"] = JsonArray(tags.map(::JsonPrimitive))
+                mainDataJson.apply {
+                    merge(mainDataPatch)
+                    dropRemoved("torrents")
+                    dropRemoved("categories")
+                    dropRemovedStings("tags")
                 }
 
-                val newMainData: MainData = json.decodeFromJsonElement(JsonObject(mainDataJson))
-                mainData.value = newMainData
-                emit(newMainData)
-                mainDataJson["tags_removed"] = emptyArray
-                mainDataJson["torrents_removed"] = emptyArray
-                mainDataJson["categories_removed"] = emptyArray
+                mainData = json.decodeFromJsonElement(JsonObject(mainDataJson))
+                emit(checkNotNull(mainData))
+                mainDataJson.apply {
+                    put("tags_removed", emptyArray)
+                    put("torrents_removed", emptyArray)
+                    put("categories_removed", emptyArray)
+                }
                 delay(mainDataSyncMs)
             }
-        }.shareIn(syncScope, SharingStarted.WhileSubscribed())
+        }.catch { syncError.value = it }
+            .shareIn(syncScope, SharingStarted.WhileSubscribed(), 1)
+    }
+
+    private suspend fun HttpResponse.orThrow() {
+        if (!status.isSuccess()) {
+            throw QBittorrentException(this, bodyAsText())
+        }
+    }
+
+    private suspend inline fun <reified T> HttpResponse.bodyOrThrow(): T {
+        return if (status.isSuccess()) {
+            when (T::class) {
+                String::class -> bodyAsText() as T
+                else -> body()
+            }
+        } else {
+            throw QBittorrentException(this, bodyAsText())
+        }
     }
 
     /**
@@ -153,7 +167,12 @@ class QBittorrentClient(
      */
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun login(username: String, password: String) {
-        login(http, config.baseUrl, username, password)
+        http.plugin(QBittorrentAuth).run {
+            if (!tryAuth(http, config.copy(username = username, password = password), ::login)) {
+                val response = lastAuthResponseState.filterNotNull().first()
+                throw QBittorrentException(response, response.bodyAsText())
+            }
+        }
     }
 
     /**
@@ -161,7 +180,7 @@ class QBittorrentClient(
      */
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun logout() {
-        http.get("${config.baseUrl}/api/v2/auth/logout")
+        http.get("${config.baseUrl}/api/v2/auth/logout").orThrow()
     }
 
     /**
@@ -171,7 +190,11 @@ class QBittorrentClient(
      * same timer and response data.
      */
     fun syncMainData(): Flow<MainData> {
-        return mainDataFlow
+        return mainDataFlow.onSubscription {
+            if (!http.plugin(QBittorrentAuth).waitForAuthentication()) {
+                throw syncError.filterNotNull().first()
+            }
+        }
     }
 
     /**
@@ -180,6 +203,11 @@ class QBittorrentClient(
      */
     fun torrentFlow(hash: String): Flow<Torrent> {
         return mainDataFlow
+            .onSubscription {
+                if (!http.plugin(QBittorrentAuth).waitForAuthentication()) {
+                    throw syncError.filterNotNull().first()
+                }
+            }
             .filter { mainData ->
                 mainData.torrents.containsKey(hash) ||
                         mainData.torrentsRemoved.contains(hash)
@@ -209,7 +237,7 @@ class QBittorrentClient(
                 append(PARAM_SEQUENTIAL_DOWNLOAD, body.sequentialDownload.toString())
                 append(PARAM_ROOT_FOLDER, body.rootFolder.toString())
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -236,19 +264,19 @@ class QBittorrentClient(
             if (sort.isNotBlank()) {
                 parameter("sort", sort)
             }
-        }.body()
+        }.bodyOrThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun getTorrentProperties(hash: String): TorrentProperties {
         return http.get("${config.baseUrl}/api/v2/torrents/properties") {
             parameter("hash", hash)
-        }.body()
+        }.bodyOrThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun getGlobalTransferInfo(): GlobalTransferInfo {
-        return http.get("${config.baseUrl}/api/v2/transfer/info").body()
+        return http.get("${config.baseUrl}/api/v2/transfer/info").bodyOrThrow()
     }
 
     /**
@@ -258,7 +286,7 @@ class QBittorrentClient(
     suspend fun getTorrentFiles(hash: String): List<TorrentFile> {
         val filesWithIds = http.get("${config.baseUrl}/api/v2/torrents/files") {
             parameter("hash", hash)
-        }.body<JsonArray>().mapIndexed { i, fileElement ->
+        }.bodyOrThrow<JsonArray>().mapIndexed { i, fileElement ->
             val id = mapOf("id" to JsonPrimitive(i))
             JsonObject(id + fileElement.jsonObject)
         }
@@ -273,7 +301,7 @@ class QBittorrentClient(
     suspend fun getPieceStates(hash: String): List<PieceState> {
         return http.get("${config.baseUrl}/api/v2/torrents/pieceStates") {
             parameter("hash", hash)
-        }.body()
+        }.bodyOrThrow()
     }
 
     /**
@@ -283,7 +311,7 @@ class QBittorrentClient(
     suspend fun getPieceHashes(hash: String): List<String> {
         return http.get("${config.baseUrl}/api/v2/torrents/pieceHashes") {
             parameter("hash", hash)
-        }.body()
+        }.bodyOrThrow()
     }
 
     /**
@@ -295,7 +323,7 @@ class QBittorrentClient(
     suspend fun pauseTorrents(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/pause") {
             parameter("hashes", hashes.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     /**
@@ -307,7 +335,7 @@ class QBittorrentClient(
     suspend fun resumeTorrents(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/resume") {
             parameter("hashes", hashes.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     /**
@@ -324,7 +352,7 @@ class QBittorrentClient(
         http.get("${config.baseUrl}/api/v2/torrents/delete") {
             parameter("hashes", hashes.joinToString("|"))
             parameter("deleteFiles", deleteFiles)
-        }
+        }.orThrow()
     }
 
     /**
@@ -334,7 +362,7 @@ class QBittorrentClient(
     suspend fun recheckTorrents(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/recheck") {
             parameter("hashes", hashes.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     /**
@@ -344,7 +372,7 @@ class QBittorrentClient(
     suspend fun reannounceTorrents(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/reannounce") {
             parameter("hashes", hashes.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     /**
@@ -352,7 +380,7 @@ class QBittorrentClient(
      */
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun getPreferences(): JsonObject =
-        http.get("${config.baseUrl}/api/v2/app/preferences").body()
+        http.get("${config.baseUrl}/api/v2/app/preferences").bodyOrThrow()
 
     /**
      * Set one or more qBittorrent application preferences.
@@ -364,30 +392,30 @@ class QBittorrentClient(
             setBody(buildJsonObject {
                 put("json", prefs)
             })
-        }
+        }.orThrow()
     }
 
     /** Get the application version. */
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun getVersion(): String = http.get("${config.baseUrl}/api/v2/app/version").body()
+    suspend fun getVersion(): String = http.get("${config.baseUrl}/api/v2/app/version").bodyOrThrow()
 
     /** Get the Web API version. */
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun getApiVersion(): String = http.get("${config.baseUrl}/api/v2/app/webapiVersion").body()
+    suspend fun getApiVersion(): String = http.get("${config.baseUrl}/api/v2/app/webapiVersion").bodyOrThrow()
 
     /** Get the build info */
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun getBuildInfo(): BuildInfo = http.get("${config.baseUrl}/api/v2/app/buildInfo").body()
+    suspend fun getBuildInfo(): BuildInfo = http.get("${config.baseUrl}/api/v2/app/buildInfo").bodyOrThrow()
 
     /** Shutdown qBittorrent */
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun shutdown() {
-        http.get("${config.baseUrl}/api/v2/app/shutdown")
+        http.get("${config.baseUrl}/api/v2/app/shutdown").orThrow()
     }
 
     /** Get the default torrent save path, ex. /user/home/downloads */
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun getDefaultSavePath(): String = http.get("${config.baseUrl}/api/v2/app/defaultSavePath").body()
+    suspend fun getDefaultSavePath(): String = http.get("${config.baseUrl}/api/v2/app/defaultSavePath").bodyOrThrow()
 
     /**
      * @param lastKnownId Exclude messages with "message id" <= last_known_id (default: -1)
@@ -396,7 +424,7 @@ class QBittorrentClient(
     suspend fun getPeerLogs(lastKnownId: Int = -1): List<PeerLog> =
         http.get("${config.baseUrl}/api/v2/log/peers") {
             parameter("last_known_id", lastKnownId)
-        }.body()
+        }.bodyOrThrow()
 
     /**
      * @param normal Include normal messages (default: true)
@@ -419,7 +447,7 @@ class QBittorrentClient(
             parameter("warning", warning)
             parameter("critical", critical)
             parameter("last_known_id", lastKnownId)
-        }.body()
+        }.bodyOrThrow()
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun editTrackers(hash: String, originalUrl: String, newUrl: String) {
@@ -427,7 +455,7 @@ class QBittorrentClient(
             parameter("hash", hash)
             parameter("origUrl", originalUrl)
             parameter("newUrl", newUrl)
-        }
+        }.orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -438,7 +466,7 @@ class QBittorrentClient(
                 append("hash", hash)
                 append("urls", urls.joinToString("\n"))
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -446,35 +474,35 @@ class QBittorrentClient(
         http.get("${config.baseUrl}/api/v2/torrents/removeTrackers") {
             parameter("hash", hash)
             parameter("urls", urls.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun increasePriority(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/increasePrio") {
             parameter("hashes", hashes.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun decreasePriority(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/decreasePrio") {
             parameter("hashes", hashes.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun maxPriority(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/topPrio") {
             parameter("hashes", hashes.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun minPriority(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/bottomPrio") {
             parameter("hashes", hashes.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -483,7 +511,7 @@ class QBittorrentClient(
             parameter("hash", hash)
             parameter("id", ids.joinToString("|"))
             parameter("priority", priority)
-        }
+        }.orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -493,7 +521,7 @@ class QBittorrentClient(
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
             }
-        ).body()
+        ).bodyOrThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -503,7 +531,7 @@ class QBittorrentClient(
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -515,7 +543,7 @@ class QBittorrentClient(
                 append("ratioLimit", ratioLimit.toString())
                 append("seedingTimeLimit", seedingTimeLimit.toString())
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -525,7 +553,7 @@ class QBittorrentClient(
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
             }
-        ).body()
+        ).bodyOrThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -536,7 +564,7 @@ class QBittorrentClient(
                 append("hashes", hashes.joinToString("|"))
                 append("limit", limit.toString())
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -547,7 +575,7 @@ class QBittorrentClient(
                 append("hashes", hashes.joinToString("|"))
                 append("location", location)
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -558,7 +586,7 @@ class QBittorrentClient(
                 append("hash", hash)
                 append("name", name)
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -569,13 +597,13 @@ class QBittorrentClient(
                 append("hashes", hashes.joinToString("|"))
                 append("category", category)
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun getCategories(): List<Category> {
         return http.get("${config.baseUrl}/api/v2/torrents/categories")
-            .body<Map<String, Category>>()
+            .bodyOrThrow<Map<String, Category>>()
             .values
             .toList()
     }
@@ -588,7 +616,7 @@ class QBittorrentClient(
                 append("category", name)
                 append("savePath", savePath)
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -599,7 +627,7 @@ class QBittorrentClient(
                 append("category", name)
                 append("savePath", savePath)
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -609,7 +637,7 @@ class QBittorrentClient(
             formParameters = Parameters.build {
                 appendAll("category", names)
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -620,7 +648,7 @@ class QBittorrentClient(
                 append("hashes", hashes.joinToString("|"))
                 append("tags", tags.joinToString(","))
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -631,11 +659,11 @@ class QBittorrentClient(
                 append("hashes", hashes.joinToString("|"))
                 append("tags", tags.joinToString(","))
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun getTags(): List<String> = http.get("${config.baseUrl}/api/v2/torrents/tags").body()
+    suspend fun getTags(): List<String> = http.get("${config.baseUrl}/api/v2/torrents/tags").bodyOrThrow()
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun createTags(tags: List<String>) {
@@ -644,7 +672,7 @@ class QBittorrentClient(
             formParameters = Parameters.build {
                 append("tags", tags.joinToString(","))
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -654,7 +682,7 @@ class QBittorrentClient(
             formParameters = Parameters.build {
                 append("tags", tags.joinToString(","))
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -665,21 +693,21 @@ class QBittorrentClient(
                 append("hashes", hashes.joinToString("|"))
                 append("enabled", enabled.toString())
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun toggleSequentialDownload(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/toggleSequentialDownload") {
             parameter("hashes", hashes.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun toggleFirstLastPriority(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/toggleFirstLastPiecePrio") {
             parameter("hashes", hashes.joinToString("|"))
-        }
+        }.orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -690,7 +718,7 @@ class QBittorrentClient(
                 append("hashes", hashes.joinToString("|"))
                 append("value", value.toString())
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -701,7 +729,7 @@ class QBittorrentClient(
                 append("hashes", hashes.joinToString("|"))
                 append("value", value.toString())
             }
-        )
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -710,7 +738,7 @@ class QBittorrentClient(
             parameter("hash", hash)
             parameter("id", id)
             parameter("name", newName)
-        }
+        }.orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -718,7 +746,7 @@ class QBittorrentClient(
         http.get("${config.baseUrl}/api/v2/torrents/addPeers") {
             parameter("hashes", hashes.joinToString("|"))
             parameter("peers", peers.joinToString("|"))
-        }
+        }.orThrow()
     }
 }
 

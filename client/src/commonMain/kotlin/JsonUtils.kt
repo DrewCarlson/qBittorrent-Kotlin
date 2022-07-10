@@ -12,6 +12,18 @@ internal fun MutableMap<String, JsonElement>.dropRemoved(key: String) {
     }
 }
 
+
+internal fun MutableMap<String, JsonElement>.dropRemovedStings(key: String) {
+    val removeKeys = get("${key}_removed").toStringList()
+    if (removeKeys.isNotEmpty()) {
+        val tags = checkNotNull(get(key)).jsonArray
+            .map { it.jsonPrimitive.content }
+            .filterNot(removeKeys::contains)
+            .toMutableList()
+        put(key, JsonArray(tags.map(::JsonPrimitive)))
+    }
+}
+
 internal fun MutableMap<String, JsonElement>.merge(
     newJson: JsonObject
 ): MutableMap<String, JsonElement> {

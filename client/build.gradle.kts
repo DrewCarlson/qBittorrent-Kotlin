@@ -9,7 +9,11 @@ apply(from = "$rootDir/gradle/publishing.gradle.kts")
 kotlin {
     jvm()
     js(IR) {
-        browser()
+        browser {
+            testTask {
+                useMocha()
+            }
+        }
         nodejs()
     }
     macosX64("macos")
@@ -33,6 +37,7 @@ kotlin {
                 implementation(libs.coroutines.core)
                 implementation(libs.serialization.json)
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.logging)
                 implementation(libs.ktor.client.contentNegotiation)
                 implementation(libs.ktor.serialization)
             }
@@ -68,29 +73,58 @@ kotlin {
         val nativeCommonMain by creating {
             dependsOn(commonMain)
         }
+        val nativeCommonTest by creating {
+            dependsOn(commonTest)
+        }
         val desktopCommonMain by creating {
             dependsOn(nativeCommonMain)
         }
+        val desktopCommonTest by creating {
+            dependsOn(nativeCommonTest)
+            dependencies {
+                implementation(libs.ktor.client.curl)
+            }
+        }
 
         val win64Main by getting
+        val win64Test by getting
         val macosMain by getting
+        val macosTest by getting
         val macosArm64Main by getting
+        val macosArm64Test by getting
         val linuxX64Main by getting
+        val linuxX64Test by getting
         configure(listOf(win64Main, macosMain, macosArm64Main, linuxX64Main)) {
             dependsOn(desktopCommonMain)
+        }
+        configure(listOf(win64Test, macosTest, macosArm64Test, linuxX64Test)) {
+            dependsOn(desktopCommonTest)
         }
 
         val iosMain by getting {
             dependsOn(nativeCommonMain)
         }
+        val iosTest by getting {
+            dependsOn(nativeCommonMain)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+            }
+        }
 
         val tvosMain by getting
+        val tvosTest by getting
         val tvosArm64Main by getting
+        val tvosArm64Test by getting
         val watchosArm32Main by getting
+        val watchosArm32Test by getting
         val watchosArm64Main by getting
+        val watchosArm64Test by getting
         val watchosX86Main by getting
+        val watchosX86Test by getting
         val watchosSimulatorArm64Main by getting
+        val watchosSimulatorArm64Test by getting
         val iosSimulatorArm64Main by getting
+        val iosSimulatorArm64Test by getting
 
         configure(
             listOf(
@@ -104,6 +138,19 @@ kotlin {
             )
         ) {
             dependsOn(iosMain)
+        }
+        configure(
+            listOf(
+                tvosTest,
+                tvosArm64Test,
+                watchosArm32Test,
+                watchosArm64Test,
+                watchosX86Test,
+                watchosSimulatorArm64Test,
+                iosSimulatorArm64Test,
+            )
+        ) {
+            dependsOn(iosTest)
         }
     }
 }
