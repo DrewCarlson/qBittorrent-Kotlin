@@ -1,3 +1,3 @@
 package demo
 
-fun main(vararg args: String) = runProgram(args)
+suspend fun main(vararg args: String) = runProgram(args)
