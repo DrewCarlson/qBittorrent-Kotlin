@@ -5,8 +5,24 @@ import platform.windows.*
 
 internal actual object FileReader {
     actual fun contentOrNull(filePath: String): ByteArray? {
+        println(filePath)
+        val actualPath: String = if (filePath.startsWith("%USERPROFILE%", true)) {
+            val userProfile: String = memScoped {
+                val out = alloc<PWSTRVar>()
+                if (SHGetKnownFolderPath(FOLDERID_Profile.ptr, 0, null, out.ptr) != 0) {
+                    return null
+                }
+                out.value?.toKString().orEmpty()
+            }
+            filePath.replace("%USERPROFILE%", userProfile, true)
+        } else {
+            filePath
+        }
+        val attrs = GetFileAttributesA(actualPath)
+        if (attrs == INVALID_FILE_ATTRIBUTES) return null
+
         val handle = CreateFileA(
-            filePath,
+            actualPath,
             GENERIC_READ,
             FILE_SHARE_READ,
             null,

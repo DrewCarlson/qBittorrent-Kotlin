@@ -98,8 +98,13 @@ class QBittorrentClientTests {
 
     @Test
     fun testAddTorrentLocalFile() = runTest {
-        client.addTorrent {
-            torrents.add("~/Downloads/bbb.torrent")
+        try {
+            client.addTorrent {
+                torrents.add("~/bbb.torrent")
+                torrents.add("%USERPROFILE%/bbb.torrent")
+            }
+        } catch (_: NotImplementedError) {
+            return@runTest // Unsupported on JS targets
         }
 
         val torrents = client.getTorrents()
