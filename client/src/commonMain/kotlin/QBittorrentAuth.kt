@@ -61,10 +61,6 @@ internal class QBittorrentAuth {
         }
     }
 
-    private suspend fun HttpResponse.isValidForAuth(): Boolean {
-        return status.isSuccess() && bodyAsText().equals("ok.", true)
-    }
-
     companion object : HttpClientPlugin<QBittorrentAuth, QBittorrentAuth> {
 
         override val key: AttributeKey<QBittorrentAuth> = AttributeKey("QBittorrentAuth")
@@ -83,11 +79,6 @@ internal class QBittorrentAuth {
                             val req = HttpRequestBuilder().takeFrom(context)
                             val response = scope.request(req)
                             proceedWith(response.call)
-                        } else {
-                            // Failed, throw original request error
-                            ((subject as? HttpClientCall)?.response)?.run {
-                                throw QBittorrentException(this, bodyAsText())
-                            }
                         }
                     }
                 }
@@ -95,3 +86,8 @@ internal class QBittorrentAuth {
         }
     }
 }
+
+internal suspend fun HttpResponse.isValidForAuth(): Boolean {
+    return status.isSuccess() && bodyAsText().equals("ok.", true)
+}
+

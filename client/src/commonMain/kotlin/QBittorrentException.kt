@@ -7,5 +7,5 @@ class QBittorrentException(
     val body: String,
 ) : Exception() {
     override val message: String
-        get() = body.ifBlank { "<no message>" }
+        get() = body.ifBlank { "${response.status.value}: <no message>" }
 }

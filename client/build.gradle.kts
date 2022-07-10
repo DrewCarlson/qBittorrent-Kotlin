@@ -85,12 +85,19 @@ kotlin {
                 implementation(libs.ktor.client.curl)
             }
         }
+        val darwinMain by creating {
+            dependsOn(commonMain)
+        }
 
         val win64Main by getting
         val win64Test by getting
-        val macosMain by getting
+        val macosMain by getting {
+            dependsOn(darwinMain)
+        }
         val macosTest by getting
-        val macosArm64Main by getting
+        val macosArm64Main by getting {
+            dependsOn(macosMain)
+        }
         val macosArm64Test by getting
         val linuxX64Main by getting
         val linuxX64Test by getting
@@ -102,9 +109,11 @@ kotlin {
         }
 
         val iosMain by getting {
+            dependsOn(darwinMain)
             dependsOn(nativeCommonMain)
         }
         val iosTest by getting {
+            dependsOn(darwinMain)
             dependsOn(nativeCommonMain)
             dependencies {
                 implementation(libs.ktor.client.darwin)

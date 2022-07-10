@@ -10,6 +10,7 @@ import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.http.content.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
@@ -19,11 +20,22 @@ import kotlin.coroutines.cancellation.CancellationException
 import kotlin.native.concurrent.*
 
 private const val PARAM_URLS = "urls"
+private const val PARAM_TORRENTS = "torrents"
 private const val PARAM_SAVE_PATH = "savepath"
+private const val PARAM_COOKIE = "cookie"
 private const val PARAM_CATEGORY = "category"
+private const val PARAM_TAGS = "tags"
+private const val PARAM_SKIP_CHECKING = "skip_checking"
+private const val PARAM_PAUSED = "paused"
 private const val PARAM_ROOT_FOLDER = "root_folder"
-private const val PARAM_FIRST_LAST_PIECE = "firstLastPiecePrio"
+private const val PARAM_RENAME = "rename"
+private const val PARAM_UP_LIMIT = "upLimit"
+private const val PARAM_DL_LIMIT = "dlLimit"
+private const val PARAM_RATIO_LIMIT = "ratioLimit"
+private const val PARAM_SEEDING_TIME_LIMIT = "seedingTimeLimit"
+private const val PARAM_AUTO_TTM = "autoTTM"
 private const val PARAM_SEQUENTIAL_DOWNLOAD = "sequentialDownload"
+private const val PARAM_FIRST_LAST_PIECE = "firstLastPiecePrio"
 
 private const val MAIN_DATA_SYNC_MS = 5000L
 
@@ -210,7 +222,7 @@ class QBittorrentClient(
             }
             .filter { mainData ->
                 mainData.torrents.containsKey(hash) ||
-                        mainData.torrentsRemoved.contains(hash)
+                    mainData.torrentsRemoved.contains(hash)
             }
             .mapNotNull { mainData ->
                 if (mainData.torrentsRemoved.contains(hash)) {
@@ -224,18 +236,66 @@ class QBittorrentClient(
             .shareIn(syncScope, SharingStarted.WhileSubscribed(), 1)
     }
 
+    /**
+     * This method can add torrents from server local file or from URLs.
+     * http://, https://, magnet: and bc://bt/ links are supported.
+     *
+     * To include torrents, add HTTP and magnet urls to [AddTorrentBody.urls],
+     * or file paths to [AddTorrentBody.torrents].
+     * Only one [AddTorrentBody.urls] or [AddTorrentBody.torrents] entry is
+     * required for the request to succeed.
+     *
+     * @param configure A function to configure the request body with [AddTorrentBody].
+     * @see AddTorrentBody for all available options.
+     */
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun addTorrent(configure: AddTorrentBody.() -> Unit) {
         val body = AddTorrentBody().apply(configure)
-        http.submitForm(
+
+        http.submitFormWithBinaryData(
             "${config.baseUrl}/api/v2/torrents/add",
-            formParameters = Parameters.build {
-                append(PARAM_URLS, body.urls.joinToString("|"))
-                append(PARAM_SAVE_PATH, body.savePath)
-                append(PARAM_CATEGORY, body.category)
-                append(PARAM_FIRST_LAST_PIECE, body.firstLastPiecePriority.toString())
-                append(PARAM_SEQUENTIAL_DOWNLOAD, body.sequentialDownload.toString())
-                append(PARAM_ROOT_FOLDER, body.rootFolder.toString())
+            formData {
+                fun appendUnlessNull(param: String, value: Any?) {
+                    value?.toString()?.let { append(param, it) }
+                }
+                appendUnlessNull(
+                    PARAM_URLS,
+                    body.urls.joinToString("|")
+                        .takeUnless(String::isBlank)
+                )
+                appendUnlessNull(PARAM_SAVE_PATH, body.savepath)
+                appendUnlessNull(PARAM_COOKIE, body.cookie)
+                appendUnlessNull(PARAM_CATEGORY, body.category)
+                appendUnlessNull(
+                    PARAM_TAGS,
+                    body.tags.joinToString(",")
+                        .takeUnless(String::isBlank)
+                )
+                appendUnlessNull(PARAM_SKIP_CHECKING, body.skipChecking)
+                appendUnlessNull(PARAM_PAUSED, body.paused)
+                appendUnlessNull(PARAM_ROOT_FOLDER, body.rootFolder)
+                appendUnlessNull(PARAM_RENAME, body.rename)
+                appendUnlessNull(PARAM_UP_LIMIT, body.upLimit)
+                appendUnlessNull(PARAM_DL_LIMIT, body.dlLimit)
+                appendUnlessNull(PARAM_RATIO_LIMIT, body.ratioLimit)
+                appendUnlessNull(PARAM_SEEDING_TIME_LIMIT, body.seedingTimeLimit)
+                appendUnlessNull(PARAM_AUTO_TTM, body.autoTMM)
+                appendUnlessNull(PARAM_SEQUENTIAL_DOWNLOAD, body.sequentialDownload)
+                appendUnlessNull(PARAM_FIRST_LAST_PIECE, body.firstLastPiecePriority)
+                val torrentFiles = body.torrents
+                    .mapNotNull { filePath ->
+                        FileReader.contentOrNull(filePath)?.let { filePath to it }
+                    }
+                    .toMap()
+                    .plus(body.rawTorrents)
+                torrentFiles.forEach { (torrentPath, fileContent) ->
+                    val filename = torrentPath
+                        .substringAfterLast('/')
+                        .substringAfterLast('\\')
+                    append(PARAM_TORRENTS, fileContent, Headers.build {
+                        append(HttpHeaders.ContentDisposition, "filename=${filename.escapeIfNeeded()}")
+                    })
+                }
             }
         ).orThrow()
     }

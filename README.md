@@ -12,6 +12,7 @@ Multiplatform Kotlin wrapper for the [qBittorrent](https://github.com/qbittorren
 - Two modules: `client` contains all the HTTP code, `models` contains only the serializable data models
 - Automatic authentication handling when interacting with the API
 - [Coroutine Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/index.html) APIs wrapping the syncing endpoints
+- Add torrents with HTTP/Magnet URLs and file paths.
 
 ## Usage
 
@@ -33,9 +34,14 @@ val client = QBittorrentClient(
 Add a new torrent:
 ```kotlin
 client.addTorrent {
-  urls.add("magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
-  savePath = "/downloads"
-  // ...
+    // Add HTTP torrent and Magnet URLs:
+    urls.add("magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
+    // Or torrent file paths:
+    torrents.add("~/Downloads/my.torrent")
+    // Or torrent file names and ByteArrays:
+    rawTorrents["my.torrent"] = getFileBytes()
+    // ... configure other optional
+    savepath = "/downloads"
 }
 ```
 
@@ -43,9 +49,9 @@ Subscribe to torrent updates:
 
 ```kotlin
 client.torrentFlow("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
-  .collect { torrent ->
-    println("${torrent.name} : ${torrent.state}")
-  }
+    .collect { torrent ->
+        println("${torrent.name} : ${torrent.state}")
+    }
 ```
 
 ## Download
