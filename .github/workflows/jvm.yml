@@ -23,4 +23,4 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: jvmJar
+          arguments: jvmJar apiCheck
