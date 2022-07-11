@@ -31,3 +31,8 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: jvmTest apiCheck
+      - name: Publish Test Reports
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: '**/build/test-results/**/TEST-*.xml'

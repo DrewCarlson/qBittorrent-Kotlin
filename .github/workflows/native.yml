@@ -19,11 +19,11 @@ jobs:
           sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
           sudo apt-get update
           sudo apt install libcurl4-openssl-dev qbittorrent-nox
-          wget "http://www.legittorrents.info/download.php?id=7f34612e0fac5e7b051b78bdf1060113350ebfe0&f=Big%20Buck%20Bunny%20(1920x1080%20h.264).torrent" -O ~/bbb.torrent
+          curl -sSL "http://www.legittorrents.info/download.php?id=7f34612e0fac5e7b051b78bdf1060113350ebfe0&f=Big%20Buck%20Bunny%20(1920x1080%20h.264).torrent" > ~/bbb.torrent
           qbittorrent-nox --webui-port=9090 &
       - uses: docker-practice/actions-setup-docker@master
         if: ${{ startsWith(matrix.os, 'macos') }}
-      - name: Setup QBittorrent (Ubuntu)
+      - name: Setup QBittorrent (macOS)
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: |
           curl -sSL "http://www.legittorrents.info/download.php?id=7f34612e0fac5e7b051b78bdf1060113350ebfe0&f=Big%20Buck%20Bunny%20(1920x1080%20h.264).torrent" > ~/bbb.torrent
@@ -56,3 +56,8 @@ jobs:
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         with:
           arguments: linuxX64Test
+      - name: Publish Test Reports
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: '**/build/test-results/**/TEST-*.xml'
