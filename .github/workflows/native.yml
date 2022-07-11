@@ -61,3 +61,8 @@ jobs:
         if: always()
         with:
           report_paths: '**/build/test-results/**/TEST-*.xml'
+      - name: Archive test reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: '**/build/reports/tests/**'
