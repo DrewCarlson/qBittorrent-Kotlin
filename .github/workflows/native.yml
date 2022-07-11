@@ -23,11 +23,11 @@ jobs:
           qbittorrent-nox --webui-port=9090 &
       - uses: docker-practice/actions-setup-docker@master
         if: ${{ startsWith(matrix.os, 'macos') }}
-      - name: Setup QBittorrent (macOS)
-        if: ${{ startsWith(matrix.os, 'macos') }}
-        run: |
-          curl -sSL "http://www.legittorrents.info/download.php?id=7f34612e0fac5e7b051b78bdf1060113350ebfe0&f=Big%20Buck%20Bunny%20(1920x1080%20h.264).torrent" > ~/bbb.torrent
-          docker run -d lscr.io/linuxserver/qbittorrent:latest -e WEBUI_PORT=9090
+      #- name: Setup QBittorrent (macOS)
+      #  if: ${{ startsWith(matrix.os, 'macos') }}
+      #  run: |
+      #    curl -sSL "http://www.legittorrents.info/download.php?id=7f34612e0fac5e7b051b78bdf1060113350ebfe0&f=Big%20Buck%20Bunny%20(1920x1080%20h.264).torrent" > ~/bbb.torrent
+      #    docker run -d lscr.io/linuxserver/qbittorrent:latest -e WEBUI_PORT=9090
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
         with:
@@ -50,7 +50,7 @@ jobs:
         name: Test Apple Targets
         if: ${{ startsWith(matrix.os, 'macos') }}
         with:
-          arguments: macosTest # iosTest tvosTest watchosX86Test
+          arguments: macosMainKLibrary # iosTest tvosTest watchosX86Test
       - uses: gradle/gradle-build-action@v2
         name: Test Linux Target
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
