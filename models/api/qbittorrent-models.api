@@ -415,8 +415,8 @@ public final class qbittorrent/models/ServerState$Companion {
 
 public final class qbittorrent/models/Torrent {
 	public static final field Companion Lqbittorrent/models/Torrent$Companion;
-	public synthetic fun <init> (IIJJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJLjava/lang/String;JJJJLkotlinx/serialization/internal/SerializationConstructorMarker;)V
-	public fun <init> (JJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJLjava/lang/String;JJJJ)V
+	public synthetic fun <init> (IIJJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJJLjava/lang/String;JJJJLkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (JJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJJLjava/lang/String;JJJJ)V
 	public final fun component1 ()J
 	public final fun component10 ()J
 	public final fun component11 ()F
@@ -451,18 +451,19 @@ public final class qbittorrent/models/Torrent {
 	public final fun component38 ()J
 	public final fun component39 ()J
 	public final fun component4 ()F
-	public final fun component40 ()Ljava/lang/String;
-	public final fun component41 ()J
+	public final fun component40 ()J
+	public final fun component41 ()Ljava/lang/String;
 	public final fun component42 ()J
 	public final fun component43 ()J
 	public final fun component44 ()J
+	public final fun component45 ()J
 	public final fun component5 ()Ljava/lang/String;
 	public final fun component6 ()J
 	public final fun component7 ()J
 	public final fun component8 ()Ljava/lang/String;
 	public final fun component9 ()J
-	public final fun copy (JJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJLjava/lang/String;JJJJ)Lqbittorrent/models/Torrent;
-	public static synthetic fun copy$default (Lqbittorrent/models/Torrent;JJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJLjava/lang/String;JJJJIILjava/lang/Object;)Lqbittorrent/models/Torrent;
+	public final fun copy (JJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJJLjava/lang/String;JJJJ)Lqbittorrent/models/Torrent;
+	public static synthetic fun copy$default (Lqbittorrent/models/Torrent;JJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJJLjava/lang/String;JJJJIILjava/lang/Object;)Lqbittorrent/models/Torrent;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAddedOn ()J
 	public final fun getAmountLeft ()J
@@ -493,6 +494,7 @@ public final class qbittorrent/models/Torrent {
 	public final fun getRatio ()F
 	public final fun getRatioLimit ()F
 	public final fun getSavePath ()Ljava/lang/String;
+	public final fun getSeedingTime ()J
 	public final fun getSeedingTimeLimit ()J
 	public final fun getSeedsInSwarm ()I
 	public final fun getSeenCompleted ()J
@@ -586,7 +588,7 @@ public final class qbittorrent/models/TorrentFile {
 	public static synthetic fun copy$default (Lqbittorrent/models/TorrentFile;ILjava/lang/String;JFILjava/lang/Boolean;Ljava/util/List;FILjava/lang/Object;)Lqbittorrent/models/TorrentFile;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAvailability ()F
-	public final fun getId ()I
+	public final fun getIndex ()I
 	public final fun getName ()Ljava/lang/String;
 	public final fun getPieceRange ()Ljava/util/List;
 	public final fun getPriority ()I

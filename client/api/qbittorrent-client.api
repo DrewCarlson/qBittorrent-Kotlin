@@ -35,12 +35,13 @@ public final class qbittorrent/QBittorrentClient {
 	public final fun getTags (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getTorrentDownloadLimit (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun getTorrentDownloadLimit$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public final fun getTorrentFiles (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getTorrentFiles (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getTorrentFiles$default (Lqbittorrent/QBittorrentClient;Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun getTorrentProperties (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getTorrentUploadLimit (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun getTorrentUploadLimit$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public final fun getTorrents (Lqbittorrent/models/TorrentFilter;Ljava/lang/String;Ljava/lang/String;ZIILjava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getTorrents$default (Lqbittorrent/QBittorrentClient;Lqbittorrent/models/TorrentFilter;Ljava/lang/String;Ljava/lang/String;ZIILjava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getTorrents (Lqbittorrent/models/TorrentFilter;Ljava/lang/String;Ljava/lang/String;ZIILjava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getTorrents$default (Lqbittorrent/QBittorrentClient;Lqbittorrent/models/TorrentFilter;Ljava/lang/String;Ljava/lang/String;ZIILjava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun getVersion (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun increasePriority (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun increasePriority$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
@@ -61,6 +62,7 @@ public final class qbittorrent/QBittorrentClient {
 	public static synthetic fun removeTorrentTags$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun removeTrackers (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun renameFile (Ljava/lang/String;ILjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun renameFolder (Ljava/lang/String;ILjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun resumeTorrents (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun resumeTorrents$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun setAutoTorrentManagement (Ljava/util/List;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
