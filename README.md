@@ -9,6 +9,7 @@ Multiplatform Kotlin wrapper for the [qBittorrent](https://github.com/qbittorren
 
 **Features**
 
+- Targets qBittorrent WebUI API [v2.8.3](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1))
 - Two modules: `client` contains all the HTTP code, `models` contains only the serializable data models
 - Automatic authentication handling when interacting with the API
 - [Coroutine Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/index.html) APIs wrapping the syncing endpoints

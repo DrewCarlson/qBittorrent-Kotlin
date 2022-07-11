@@ -308,6 +308,7 @@ class QBittorrentClient(
         reverse: Boolean = false,
         limit: Int = 0,
         offset: Int = 0,
+        tag: String? = null,
         hashes: List<String> = emptyList()
     ): List<Torrent> {
         return http.get("${config.baseUrl}/api/v2/torrents/info") {
@@ -323,6 +324,9 @@ class QBittorrentClient(
             }
             if (sort.isNotBlank()) {
                 parameter("sort", sort)
+            }
+            if (tag != null) {
+                parameter("tag", tag)
             }
         }.bodyOrThrow()
     }
@@ -343,15 +347,13 @@ class QBittorrentClient(
      * Get the [TorrentFile]s for [hash] or an empty list if not yet not available.
      */
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun getTorrentFiles(hash: String): List<TorrentFile> {
-        val filesWithIds = http.get("${config.baseUrl}/api/v2/torrents/files") {
+    suspend fun getTorrentFiles(hash: String, indexes: List<Int> = emptyList()): List<TorrentFile> {
+        return http.get("${config.baseUrl}/api/v2/torrents/files") {
             parameter("hash", hash)
-        }.bodyOrThrow<JsonArray>().mapIndexed { i, fileElement ->
-            val id = mapOf("id" to JsonPrimitive(i))
-            JsonObject(id + fileElement.jsonObject)
-        }
-
-        return json.decodeFromJsonElement(JsonArray(filesWithIds))
+            if (indexes.isNotEmpty()) {
+                parameter("indexes", indexes.joinToString("|"))
+            }
+        }.bodyOrThrow()
     }
 
     /**
@@ -795,6 +797,15 @@ class QBittorrentClient(
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun renameFile(hash: String, id: Int, newName: String) {
         http.get("${config.baseUrl}/api/v2/torrents/renameFile") {
+            parameter("hash", hash)
+            parameter("id", id)
+            parameter("name", newName)
+        }.orThrow()
+    }
+
+    @Throws(QBittorrentException::class, CancellationException::class)
+    suspend fun renameFolder(hash: String, id: Int, newName: String) {
+        http.get("${config.baseUrl}/api/v2/torrents/renameFolder") {
             parameter("hash", hash)
             parameter("id", id)
             parameter("name", newName)

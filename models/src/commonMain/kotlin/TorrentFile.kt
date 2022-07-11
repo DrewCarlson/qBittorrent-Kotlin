@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class TorrentFile(
     /** The index of this file in the torrent contents list */
-    val id: Int,
+    val index: Int,
     /** File name (including relative path) */
     val name: String,
     /** File size (bytes) */

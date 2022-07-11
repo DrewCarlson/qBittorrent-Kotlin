@@ -106,6 +106,9 @@ data class Torrent(
     /** Total active time (seconds) */
     @SerialName("time_active")
     val timeActive: Long,
+    /** Torrent elapsed time while complete (seconds) */
+    @SerialName("seeding_time")
+    val seedingTime: Long,
     /** Total size (bytes) of all file in this torrent (including unselected ones) */
     @SerialName("total_size")
     val totalSize: Long,
