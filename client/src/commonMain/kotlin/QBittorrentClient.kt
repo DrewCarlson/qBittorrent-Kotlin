@@ -101,7 +101,7 @@ class QBittorrentClient(
             json(json)
         }
         install(HttpCookies) {
-            storage = AcceptAllCookiesStorage()
+            storage = RawCookiesStorage(AcceptAllCookiesStorage())
         }
     }
     private val syncScope = CoroutineScope(SupervisorJob() + dispatcher + http.coroutineContext)

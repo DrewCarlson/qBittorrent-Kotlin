@@ -3,12 +3,10 @@ package qbittorrent
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
-import io.ktor.client.plugins.cookies.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.util.*
-import io.ktor.util.pipeline.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -62,38 +60,26 @@ internal class QBittorrentAuth {
 
         override fun install(plugin: QBittorrentAuth, scope: HttpClient) {
             scope.sendPipeline.intercept(HttpSendPipeline.Before) {
-                proceed() // Attempt user's request
-                val response = (subject as? HttpClientCall)?.response ?: return@intercept
-                when (response.status) {
+                // Attempt user's request
+                val call = proceed() as? HttpClientCall ?: return@intercept
+                if (call.request.url.pathSegments.lastOrNull() == "login") {
+                    return@intercept
+                }
+                when (call.response.status) {
                     HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden -> {
+                        plugin.lastAuthResponse.value = call.response
                         // Authentication required
-                        authenticateAndRetry(plugin, response, scope)
+                        if (plugin.tryAuth(scope, plugin.config, plugin.executeAuth)) {
+                            // Authentication Succeeded, retry original request
+                            proceedWith(scope.request(HttpRequestBuilder().takeFrom(context)).call)
+                        }
                     }
                 }
             }
         }
+    }
 
-        private suspend fun PipelineContext<Any, HttpRequestBuilder>.authenticateAndRetry(
-            plugin: QBittorrentAuth,
-            response: HttpResponse,
-            scope: HttpClient
-        ) {
-            plugin.lastAuthResponse.value = response
-            if (plugin.tryAuth(scope, plugin.config, plugin.executeAuth)) {
-                // Authentication Succeeded, retry original request
-                val newRequest = HttpRequestBuilder().takeFrom(context).apply {
-                    // Replace cookies, ensuring the new SID is used
-                    val newCookies = scope.cookies(context.url.build())
-                    headers.remove("Cookie")
-                    headers["Cookie"] = newCookies.joinToString("; ") { "${it.name}=${it.value}" }
-                }
-                proceedWith(scope.request(newRequest).call)
-            }
-        }
+    private suspend fun HttpResponse.isValidForAuth(): Boolean {
+        return status.isSuccess() && bodyAsText().equals("ok.", true)
     }
 }
-
-internal suspend fun HttpResponse.isValidForAuth(): Boolean {
-    return status.isSuccess() && bodyAsText().equals("ok.", true)
-}
-
