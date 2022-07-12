@@ -2,8 +2,6 @@ package qbittorrent
 
 import app.cash.turbine.test
 import app.cash.turbine.testIn
-import io.ktor.client.*
-import io.ktor.client.plugins.logging.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
@@ -23,12 +21,6 @@ class QBittorrentClientTests {
         client = QBittorrentClient(
             baseUrl = "http://localhost:9090",
             mainDataSyncMs = 1000,
-            httpClient = HttpClient {
-                Logging {
-                    logger = Logger.SIMPLE
-                    level = LogLevel.ALL
-                }
-            }
         )
     }
 
@@ -154,6 +146,20 @@ class QBittorrentClientTests {
             val mainData = awaitItem()
             assertTrue(mainData.fullUpdate)
             assertEquals(1, mainData.rid)
+        }
+    }
+
+    @Test
+    fun testMainDataThrowsAfterError() = runTest {
+        client = QBittorrentClient(
+            baseUrl = "http://localhost:9090",
+            username = "aaa",
+            password = "aaa",
+        )
+
+        client.syncMainData().test {
+            val error = assertIs<QBittorrentException>(awaitError())
+            assertEquals("Forbidden", error.message)
         }
     }
 
