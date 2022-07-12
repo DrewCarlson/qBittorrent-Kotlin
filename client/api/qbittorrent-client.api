@@ -45,6 +45,7 @@ public final class qbittorrent/QBittorrentClient {
 	public final fun getVersion (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun increasePriority (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun increasePriority$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun isSyncing ()Z
 	public final fun login (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun logout (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun maxPriority (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -90,7 +91,8 @@ public final class qbittorrent/QBittorrentClient {
 	public static synthetic fun toggleFirstLastPriority$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun toggleSequentialDownload (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun toggleSequentialDownload$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public final fun torrentFlow (Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public final fun torrentFlow (Ljava/lang/String;Z)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun torrentFlow$default (Lqbittorrent/QBittorrentClient;Ljava/lang/String;ZILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class qbittorrent/QBittorrentClient$Companion {
@@ -98,7 +100,7 @@ public final class qbittorrent/QBittorrentClient$Companion {
 
 public final class qbittorrent/QBittorrentException : java/lang/Exception {
 	public fun <init> (Lio/ktor/client/statement/HttpResponse;Ljava/lang/String;)V
-	public final fun getBody ()Ljava/lang/String;
+	public fun <init> (Ljava/lang/Throwable;)V
 	public fun getMessage ()Ljava/lang/String;
 	public final fun getResponse ()Lio/ktor/client/statement/HttpResponse;
 }
