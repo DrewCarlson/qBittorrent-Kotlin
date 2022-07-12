@@ -2,10 +2,26 @@ package qbittorrent
 
 import io.ktor.client.statement.*
 
-class QBittorrentException(
-    val response: HttpResponse,
-    val body: String,
-) : Exception() {
+class QBittorrentException : Exception {
+
+    private var body: String? = null
+    var response: HttpResponse? = null
+        private set
+
+    constructor(
+        response: HttpResponse,
+        body: String,
+    ) : super() {
+        this.response = response
+        this.body = body
+    }
+
+    constructor(cause: Throwable) : super(cause)
+
     override val message: String
-        get() = body.ifBlank { "${response.status.value}: <no message>" }
+        get() = if (response == null) {
+            super.message ?: "<no message>"
+        } else {
+            body?.ifBlank { "${response?.status?.value}: <no message>" }.orEmpty()
+        }
 }

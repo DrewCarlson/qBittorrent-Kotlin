@@ -25,6 +25,8 @@ kotlin {
         named("commonMain") {
             dependencies {
                 implementation(project(":qbittorrent-client"))
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.logging)
                 implementation(libs.coroutines.core)
             }
         }

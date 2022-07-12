@@ -5,7 +5,6 @@ import platform.windows.*
 
 internal actual object FileReader {
     actual fun contentOrNull(filePath: String): ByteArray? {
-        println(filePath)
         val actualPath: String = if (filePath.startsWith("%USERPROFILE%", true)) {
             val userProfile: String = memScoped {
                 val out = alloc<PWSTRVar>()

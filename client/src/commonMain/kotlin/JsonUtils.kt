@@ -13,7 +13,7 @@ internal fun MutableMap<String, JsonElement>.dropRemoved(key: String) {
 }
 
 
-internal fun MutableMap<String, JsonElement>.dropRemovedStings(key: String) {
+internal fun MutableMap<String, JsonElement>.dropRemovedStrings(key: String) {
     val removeKeys = get("${key}_removed").toStringList()
     if (removeKeys.isNotEmpty()) {
         val tags = checkNotNull(get(key)).jsonArray

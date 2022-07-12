@@ -11,10 +11,18 @@ kotlin {
     js(IR) {
         browser {
             testTask {
-                useMocha()
+                useMocha {
+                    timeout = "10000"
+                }
             }
         }
-        nodejs()
+        nodejs {
+            testTask {
+                useMocha {
+                    timeout = "10000"
+                }
+            }
+        }
     }
     macosX64("macos")
     macosArm64()
@@ -45,6 +53,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(libs.coroutines.test)
+                implementation(libs.coroutines.turbine)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
@@ -57,7 +66,7 @@ kotlin {
         }
         val jvmTest by getting {
             dependencies {
-                implementation(libs.ktor.client.okhttp)
+                implementation(libs.ktor.client.cio)
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
             }

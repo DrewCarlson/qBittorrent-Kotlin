@@ -40,7 +40,7 @@ private const val PARAM_FIRST_LAST_PIECE = "firstLastPiecePrio"
 private const val MAIN_DATA_SYNC_MS = 5000L
 
 @SharedImmutable
-private val json = Json {
+internal val json = Json {
     isLenient = true
     ignoreUnknownKeys = true
     encodeDefaults = true
@@ -91,85 +91,21 @@ class QBittorrentClient(
         mainDataSyncMs,
     )
 
-    internal val http: HttpClient
-    private val mainDataFlow: SharedFlow<MainData>
-    private val syncError = MutableStateFlow<Throwable?>(null)
-    private val syncScope = CoroutineScope(SupervisorJob() + dispatcher)
-
-    init {
-        val config = config
-        val http = httpClient.config {
-            install(QBittorrentAuth) {
-                setConfig(config)
-                setLogin(::login)
-            }
-            install(ContentNegotiation) {
-                json(json)
-            }
-            install(HttpCookies) {
-                storage = AcceptAllCookiesStorage()
-            }
-        }.also { this.http = it }
-
-        val emptyArray = buildJsonArray { }
-        var mainData: MainData? = null
-        val syncUrl = "${config.baseUrl}/api/v2/sync/maindata"
-        var syncRid = 0L
-        mainDataFlow = flow {
-            syncError.value = null
-            http.plugin(QBittorrentAuth).tryAuth(http, config, ::login)
-            mainData = mainData ?: http.get(syncUrl) {
-                parameter("rid", syncRid++)
-            }.bodyOrThrow()
-
-            emit(checkNotNull(mainData))
-            delay(mainDataSyncMs)
-
-            val mainDataJson = json.encodeToJsonElement(mainData).mutateJson()
-            while (true) {
-                if (syncRid == Long.MAX_VALUE) {
-                    syncRid = 0
-                }
-                val mainDataPatch: JsonObject = http.get(syncUrl) {
-                    parameter("rid", syncRid++)
-                }.bodyOrThrow()
-
-                mainDataJson.apply {
-                    merge(mainDataPatch)
-                    dropRemoved("torrents")
-                    dropRemoved("categories")
-                    dropRemovedStings("tags")
-                }
-
-                mainData = json.decodeFromJsonElement(JsonObject(mainDataJson))
-                emit(checkNotNull(mainData))
-                mainDataJson.apply {
-                    put("tags_removed", emptyArray)
-                    put("torrents_removed", emptyArray)
-                    put("categories_removed", emptyArray)
-                }
-                delay(mainDataSyncMs)
-            }
-        }.catch { syncError.value = it }
-            .shareIn(syncScope, SharingStarted.WhileSubscribed(), 1)
-    }
-
-    private suspend fun HttpResponse.orThrow() {
-        if (!status.isSuccess()) {
-            throw QBittorrentException(this, bodyAsText())
+    internal val http: HttpClient = httpClient.config {
+        install(ErrorTransformer)
+        install(QBittorrentAuth) {
+            setConfig(config)
+            setLogin(::login)
+        }
+        install(ContentNegotiation) {
+            json(json)
+        }
+        install(HttpCookies) {
+            storage = AcceptAllCookiesStorage()
         }
     }
-
-    private suspend inline fun <reified T> HttpResponse.bodyOrThrow(): T {
-        return if (status.isSuccess()) {
-            when (T::class) {
-                String::class -> bodyAsText() as T
-                else -> body()
-            }
-        } else {
-            throw QBittorrentException(this, bodyAsText())
-        }
-    }
+    private val syncScope = CoroutineScope(SupervisorJob() + dispatcher + http.coroutineContext)
+    private val mainDataSync = MainDataSync(http, config, syncScope)
 
     /**
      * Create a session with the provided [username] and [password].
@@ -196,44 +132,39 @@ class QBittorrentClient(
     }
 
     /**
+     * Returns true when [syncMainData] or [torrentFlow] have at least
+     * one subscriber, meaning the syncing endpoint is being polled
+     * at [mainDataSyncMs].
+     */
+    val isSyncing: Boolean
+        get() = mainDataSync.isSyncing()
+
+    /**
      * Emits the next [MainData] every [mainDataSyncMs] while subscribed.
      *
-     * NOTE: A shared flow is returned so multiple collectors use the
-     * same timer and response data.
+     * NOTE: The underlying logic and network requests will be started
+     * only once, no matter how many times you invoke [syncMainData].
      */
     fun syncMainData(): Flow<MainData> {
-        return mainDataFlow.onSubscription {
-            if (!http.plugin(QBittorrentAuth).waitForAuthentication()) {
-                throw syncError.filterNotNull().first()
-            }
-        }
+        return mainDataSync.observeMainData()
     }
 
     /**
      * Emits the latest [Torrent] data for the [hash].
-     * If the torrent is removed or not found, the flow will be cancelled.
+     * If the torrent is removed or not found, the flow will complete
+     * unless [waitIfMissing] is true.
+     *
+     * @param hash The info hash of the torrent to observe.
+     * @param waitIfMissing When true, wait for the [hash] if it does not exist
      */
-    fun torrentFlow(hash: String): Flow<Torrent> {
-        return mainDataFlow
-            .onSubscription {
-                if (!http.plugin(QBittorrentAuth).waitForAuthentication()) {
-                    throw syncError.filterNotNull().first()
-                }
-            }
-            .filter { mainData ->
-                mainData.torrents.containsKey(hash) ||
-                    mainData.torrentsRemoved.contains(hash)
-            }
-            .mapNotNull { mainData ->
-                if (mainData.torrentsRemoved.contains(hash)) {
-                    currentCoroutineContext().cancel()
-                    null
-                } else {
-                    mainData.torrents[hash]
-                }
-            }
-            .distinctUntilChanged()
-            .shareIn(syncScope, SharingStarted.WhileSubscribed(), 1)
+    fun torrentFlow(hash: String, waitIfMissing: Boolean = false): Flow<Torrent> {
+        return if (waitIfMissing) {
+            mainDataSync.observeMainData()
+                .takeWhile {  mainData -> !mainData.torrentsRemoved.contains(hash) }
+        } else {
+            mainDataSync.observeMainData()
+                .takeWhile { mainData -> mainData.torrents.contains(hash) }
+        }.mapNotNull { mainData -> mainData.torrents[hash] }
     }
 
     /**
@@ -821,7 +752,7 @@ class QBittorrentClient(
     }
 }
 
-private suspend fun login(http: HttpClient, baseUrl: String, username: String, password: String): HttpResponse {
+internal suspend fun login(http: HttpClient, baseUrl: String, username: String, password: String): HttpResponse {
     return http.submitForm(
         "$baseUrl/api/v2/auth/login",
         formParameters = Parameters.build {
