@@ -1,10 +1,8 @@
 package qbittorrent.models
 
-import kotlinx.serialization.*
 import kotlinx.serialization.builtins.*
 import kotlinx.serialization.json.*
 
-@OptIn(ExperimentalSerializationApi::class)
 internal object KeyMergingTransformer : JsonTransformingSerializer<Map<String, Torrent>>(
     MapSerializer(String.serializer(), Torrent.serializer())
 ) {
