@@ -1,6 +1,5 @@
 package qbittorrent.models
 
-import qbittorrent.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -11,7 +10,7 @@ data class MainData(
     /** Whether the response contains all the data or partial data */
     @SerialName("full_update")
     val fullUpdate: Boolean = false,
-    /** Property: torrent hash, value: same as [QTorrent] */
+    /** Property: torrent hash, value: same as [Torrent] */
     @Serializable(with = KeyMergingTransformer::class)
     val torrents: Map<String, Torrent> = emptyMap(),
     /** List of hashes of torrents removed since last request */
