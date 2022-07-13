@@ -65,4 +65,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-reports
-          path: '**/build/reports/tests/**'
+          path: client/build/reports/tests/**/**
