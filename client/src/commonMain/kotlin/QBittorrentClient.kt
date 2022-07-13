@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.*
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.native.concurrent.*
+import kotlin.time.Duration
 
 private const val PARAM_URLS = "urls"
 private const val PARAM_TORRENTS = "torrents"
@@ -208,7 +209,7 @@ class QBittorrentClient(
                 appendUnlessNull(PARAM_UP_LIMIT, body.upLimit)
                 appendUnlessNull(PARAM_DL_LIMIT, body.dlLimit)
                 appendUnlessNull(PARAM_RATIO_LIMIT, body.ratioLimit)
-                appendUnlessNull(PARAM_SEEDING_TIME_LIMIT, body.seedingTimeLimit)
+                appendUnlessNull(PARAM_SEEDING_TIME_LIMIT, body.seedingTimeLimit?.inWholeSeconds)
                 appendUnlessNull(PARAM_AUTO_TTM, body.autoTMM)
                 appendUnlessNull(PARAM_SEQUENTIAL_DOWNLOAD, body.sequentialDownload)
                 appendUnlessNull(PARAM_FIRST_LAST_PIECE, body.firstLastPiecePriority)
@@ -527,13 +528,13 @@ class QBittorrentClient(
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun setTorrentShareLimits(hashes: List<String> = allList, ratioLimit: Float, seedingTimeLimit: Long) {
+    suspend fun setTorrentShareLimits(hashes: List<String> = allList, ratioLimit: Float, seedingTimeLimit: Duration) {
         http.submitForm(
             "${config.baseUrl}/api/v2/torrents/setShareLimits",
             formParameters = Parameters.build {
                 append("hashes", hashes.joinToString("|"))
                 append("ratioLimit", ratioLimit.toString())
-                append("seedingTimeLimit", seedingTimeLimit.toString())
+                append("seedingTimeLimit", seedingTimeLimit.inWholeSeconds.toString())
             }
         ).orThrow()
     }
