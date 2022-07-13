@@ -1,3 +1,6 @@
+import java.net.URL
+import java.util.Base64
+
 apply(plugin = "maven-publish")
 apply(plugin = "signing")
 apply(plugin = "org.jetbrains.dokka")
@@ -8,50 +11,92 @@ System.getenv("GITHUB_REF")?.let { ref ->
     }
 }
 
+val isSnapshot by lazy { version.toString().endsWith("SNAPSHOT") }
+
 val mavenUrl: String by extra
 val mavenSnapshotUrl: String by extra
 val signingKey: String? by project
 val signingPassword: String? by project
 val sonatypeUsername: String? by project
 val sonatypePassword: String? by project
+val sonatypeStagingProfile: String? by project
+val pomProjectUrl: String by project
+val pomProjectDescription: String by project
+val pomScmUrl: String by project
+val pomDeveloperId: String by project
+val pomDeveloperName: String by project
+val pomLicenseName: String by project
+val pomLicenseUrl: String by project
+val pomLicenseDistribution: String by project
 
 task<Jar>("javadocJar") {
     archiveClassifier.set("javadoc")
 }
 
+val repositoryId by lazy {
+    val hasPublishingTask = gradle.startParameter.taskNames.any {
+        it == "publish" || (it.startsWith("publish") && it.contains("MavenRepository"))
+    }
+    if (!hasPublishingTask || isSnapshot) return@lazy ""
+    if (!rootProject.extra.has("publishRepositoryId")) {
+        val auth = Base64.getEncoder().encode("$sonatypeUsername:$sonatypePassword".toByteArray())
+        val body = "<promoteRequest><data><description>Repository for ${version}</description></data></promoteRequest>"
+        val id = URL("${mavenUrl}profiles/$sonatypeStagingProfile/start").openConnection().run {
+            doOutput = true
+            setRequestProperty("Authorization", "Basic ${auth.decodeToString()}")
+            setRequestProperty("Content-Type", "application/xml")
+            getOutputStream().write(body.toByteArray())
+            connect()
+            val response = getInputStream().readBytes().decodeToString()
+            response.substringAfter("<stagedRepositoryId>").substringBefore("</stagedRepositoryId>")
+        }
+        rootProject.extra.set("publishRepositoryId", id)
+    }
+    rootProject.extra.get("publishRepositoryId")
+}
+
 configure<PublishingExtension> {
-    components.all {
-        publications.withType<MavenPublication> {
-            artifact(tasks.named("javadocJar"))
-            with(pom) {
-                name.set(rootProject.name)
-                url.set("https://github.com/DrewCarlson/qBittorrent-Kotlin")
-                description.set("Kotlin wrapper for the qBittorrent Web API using Ktor.")
-                scm {
-                    url.set("https://github.com/DrewCarlson/qBittorrent-Kotlin.git")
+    components.findByName("java")?.also { javaComponent ->
+        task<Jar>("sourcesJar") {
+            archiveClassifier.set("sources")
+            val sourceSets = project.extensions.getByName<SourceSetContainer>("sourceSets")
+            from(sourceSets["main"].allSource)
+        }
+        publications.create<MavenPublication>("mavenJava") {
+            from(javaComponent)
+            artifact(tasks["sourcesJar"])
+        }
+    }
+    publications.withType<MavenPublication> {
+        artifact(tasks.named("javadocJar"))
+        with(pom) {
+            name.set(rootProject.name)
+            url.set(pomProjectUrl)
+            description.set(pomProjectDescription)
+            scm {
+                url.set(pomScmUrl)
+            }
+            developers {
+                developer {
+                    id.set(pomDeveloperId)
+                    name.set(pomDeveloperName)
                 }
-                developers {
-                    developer {
-                        id.set("DrewCarlson")
-                        name.set("Drew Carlson")
-                    }
-                }
-                licenses {
-                    license {
-                        name.set("MIT")
-                        url.set("https://opensource.org/licenses/mit-license.php")
-                        distribution.set("repo")
-                    }
+            }
+            licenses {
+                license {
+                    name.set(pomLicenseName)
+                    url.set(pomLicenseUrl)
+                    distribution.set(pomLicenseDistribution)
                 }
             }
         }
     }
     repositories {
         maven {
-            url = if (version.toString().endsWith("SNAPSHOT")) {
+            url = if (isSnapshot) {
                 uri(mavenSnapshotUrl)
             } else {
-                uri(mavenUrl)
+                uri("${mavenUrl}deployByRepositoryId/$repositoryId")
             }
             credentials {
                 username = sonatypeUsername
@@ -62,7 +107,7 @@ configure<PublishingExtension> {
 }
 
 configure<SigningExtension> {
-    isRequired = !version.toString().endsWith("SNAPSHOT")
+    isRequired = !isSnapshot
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign((extensions["publishing"] as PublishingExtension).publications)
 }
