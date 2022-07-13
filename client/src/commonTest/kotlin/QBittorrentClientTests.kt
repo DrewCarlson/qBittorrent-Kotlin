@@ -31,8 +31,13 @@ class QBittorrentClientTests {
 
     @Test
     fun testLoginError() = runTest {
+        client = QBittorrentClient(
+            baseUrl = "http://localhost:9090",
+            username = "aaa",
+            password = "aaa",
+        )
         val error = assertFailsWith<QBittorrentException> {
-            client.login("aa", "aaa")
+            client.login()
         }
 
         assertEquals(200, error.response?.status?.value)
@@ -41,7 +46,7 @@ class QBittorrentClientTests {
 
     @Test
     fun testLoginSuccess() = runTest {
-        client.login("admin", "adminadmin")
+        client.login()
         assertTrue(client.getApiVersion().isNotBlank())
     }
 

@@ -114,15 +114,16 @@ class QBittorrentClient(
     private val mainDataSync = MainDataSync(http, config, syncScope)
 
     /**
-     * Create a session with the provided [username] and [password].
+     * Create a session with the username and password provided
+     * in the constructor.
      *
      * NOTE: Calling [login] is not required as authentication is
      * managed internally.
      */
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun login(username: String, password: String) {
+    suspend fun login() {
         http.plugin(AuthHandler).run {
-            if (!tryAuth(http, config.copy(username = username, password = password))) {
+            if (!tryAuth(http)) {
                 val response = lastAuthResponseState.filterNotNull().first()
                 throw QBittorrentException(response, response.bodyAsText())
             }
@@ -758,14 +759,14 @@ class QBittorrentClient(
     }
 }
 
-internal suspend fun login(http: HttpClient, baseUrl: String, username: String, password: String): HttpResponse {
+internal suspend fun login(http: HttpClient, config: QBittorrentClient.Config): HttpResponse {
     return http.submitForm(
-        "$baseUrl/api/v2/auth/login",
+        "${config.baseUrl}/api/v2/auth/login",
         formParameters = Parameters.build {
-            append("username", username)
-            append("password", password)
+            append("username", config.username)
+            append("password", config.password)
         }
     ) {
-        header("Referer", baseUrl)
+        header("Referer", config.baseUrl)
     }
 }
