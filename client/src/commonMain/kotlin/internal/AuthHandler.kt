@@ -6,6 +6,7 @@ import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.http.HttpStatusCode.Companion.Forbidden
 import io.ktor.util.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
@@ -48,19 +49,27 @@ internal class AuthHandler {
 
         override fun install(plugin: AuthHandler, scope: HttpClient) {
             scope.sendPipeline.intercept(HttpSendPipeline.Before) {
-                // Attempt user's request
-                val call = proceed() as? HttpClientCall ?: return@intercept
-                if (call.request.url.pathSegments.lastOrNull() == "login") {
+                val isLogin = context.url.pathSegments.lastOrNull() == "login"
+                if (isLogin) {
+                    // Attempting login, do not modify the request
                     return@intercept
                 }
-                when (call.response.status) {
-                    HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden -> {
-                        plugin.lastAuthResponse.value = call.response
-                        // Authentication required
-                        if (plugin.tryAuth(scope, plugin.config)) {
-                            // Authentication Succeeded, retry original request
-                            proceedWith(scope.request(HttpRequestBuilder().takeFrom(context)).call)
-                        }
+
+                // Does the request have the SID cookie
+                if (context.cookies().none { it.name == "SID" }) {
+                    // No SID, authenticate before user request
+                    plugin.tryAuth(scope, plugin.config)
+                }
+
+                // Attempt user's request, authentication may or may not have been successful,
+                // or it the session may have become invalid.  In any case make one last attempt.
+                val call = proceed() as? HttpClientCall ?: return@intercept
+                if (call.response.status == Forbidden) {
+                    plugin.lastAuthResponse.value = call.response
+                    // Authentication required
+                    if (plugin.tryAuth(scope, plugin.config)) {
+                        // Authentication Succeeded, retry original request
+                        proceedWith(scope.request(HttpRequestBuilder().takeFrom(context)).call)
                     }
                 }
             }
