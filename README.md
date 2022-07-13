@@ -46,7 +46,16 @@ client.addTorrent {
 }
 ```
 
-Subscribe to torrent updates:
+Subscribe to MainData updates:
+```kotlin
+client.syncMainData()
+    .collect { mainData ->
+        println("Server Status: ${mainData.serverState.connectionStatus}")
+        println("Tracking ${mainData.torrents.size} torrents.")
+    }
+```
+
+Subscribe to Torrent updates:
 
 ```kotlin
 client.torrentFlow("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
