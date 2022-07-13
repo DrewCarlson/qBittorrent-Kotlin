@@ -1,7 +1,9 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("multiplatform")
-    kotlin("plugin.serialization")
-    id("org.jetbrains.kotlinx.binary-compatibility-validator")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.binaryCompat)
+    alias(libs.plugins.dokka)
 }
 
 apply(from = "$rootDir/gradle/publishing.gradle.kts")
