@@ -50,17 +50,10 @@ internal class MainDataSync(
     }
 
     fun observeMainData(): Flow<MainData> {
-        return state
-            .onSubscription {
-                if (!http.plugin(AuthHandler).tryAuth(http, config)) {
-                    val (_, authError) = state.first { it.second != null }
-                    throw checkNotNull(authError)
-                }
-            }
-            .transform { (mainData, error) ->
-                error?.let { throw it }
-                mainData?.let { emit(it) }
-            }
+        return state.transform { (mainData, error) ->
+            error?.let { throw it }
+            mainData?.let { emit(it) }
+        }
     }
 
     private suspend fun syncMainData() {
