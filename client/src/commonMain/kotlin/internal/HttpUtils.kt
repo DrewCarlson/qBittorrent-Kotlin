@@ -1,8 +1,9 @@
-package qbittorrent
+package qbittorrent.internal
 
 import io.ktor.client.call.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import qbittorrent.QBittorrentException
 
 internal suspend fun HttpResponse.orThrow() {
     if (!status.isSuccess()) {

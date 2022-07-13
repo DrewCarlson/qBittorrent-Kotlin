@@ -1,4 +1,4 @@
-package qbittorrent
+package qbittorrent.internal
 
 import java.io.File
 

@@ -1,4 +1,4 @@
-package qbittorrent
+package qbittorrent.internal
 
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -12,8 +12,9 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.yield
 import qbittorrent.QBittorrentClient.Config
+import qbittorrent.login
 
-internal class QBittorrentAuth {
+internal class AuthHandler {
 
     lateinit var config: Config
     // mutex which guards any request to the login endpoint
@@ -38,14 +39,14 @@ internal class QBittorrentAuth {
         }
     }
 
-    companion object : HttpClientPlugin<QBittorrentAuth, QBittorrentAuth> {
+    companion object : HttpClientPlugin<AuthHandler, AuthHandler> {
 
-        override val key: AttributeKey<QBittorrentAuth> = AttributeKey("QBittorrentAuth")
+        override val key: AttributeKey<AuthHandler> = AttributeKey("QBittorrentAuth")
 
-        override fun prepare(block: QBittorrentAuth.() -> Unit): QBittorrentAuth =
-            QBittorrentAuth().apply(block)
+        override fun prepare(block: AuthHandler.() -> Unit): AuthHandler =
+            AuthHandler().apply(block)
 
-        override fun install(plugin: QBittorrentAuth, scope: HttpClient) {
+        override fun install(plugin: AuthHandler, scope: HttpClient) {
             scope.sendPipeline.intercept(HttpSendPipeline.Before) {
                 // Attempt user's request
                 val call = proceed() as? HttpClientCall ?: return@intercept

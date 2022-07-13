@@ -1,4 +1,4 @@
-package qbittorrent
+package qbittorrent.internal
 
 internal actual object FileReader {
     actual fun contentOrNull(filePath: String): ByteArray? {

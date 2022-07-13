@@ -1,4 +1,4 @@
-package qbittorrent
+package qbittorrent.internal
 
 import io.ktor.client.*
 import io.ktor.client.call.*

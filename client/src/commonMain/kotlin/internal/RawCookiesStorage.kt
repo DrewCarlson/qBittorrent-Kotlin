@@ -1,4 +1,4 @@
-package qbittorrent
+package qbittorrent.internal
 
 import io.ktor.client.plugins.cookies.*
 import io.ktor.http.*

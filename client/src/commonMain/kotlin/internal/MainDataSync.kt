@@ -1,4 +1,4 @@
-package qbittorrent
+package qbittorrent.internal
 
 import io.ktor.client.*
 import io.ktor.client.plugins.*
@@ -9,6 +9,9 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.*
+import qbittorrent.QBittorrentClient
+import qbittorrent.QBittorrentException
+import qbittorrent.json
 import qbittorrent.models.MainData
 
 private val emptyArray = buildJsonArray { }
@@ -49,7 +52,7 @@ internal class MainDataSync(
     fun observeMainData(): Flow<MainData> {
         return state
             .onSubscription {
-                if (!http.plugin(QBittorrentAuth).tryAuth(http, config)) {
+                if (!http.plugin(AuthHandler).tryAuth(http, config)) {
                     val (_, authError) = state.first { it.second != null }
                     throw checkNotNull(authError)
                 }

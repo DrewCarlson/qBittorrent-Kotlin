@@ -1,4 +1,4 @@
-package qbittorrent
+package qbittorrent.internal
 
 /**
  * A simple utility to create a [ByteArray] of the contents of

@@ -16,6 +16,12 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.*
+import qbittorrent.internal.*
+import qbittorrent.internal.FileReader
+import qbittorrent.internal.MainDataSync
+import qbittorrent.internal.RawCookiesStorage
+import qbittorrent.internal.bodyOrThrow
+import qbittorrent.internal.orThrow
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.native.concurrent.*
 import kotlin.time.Duration
@@ -94,7 +100,7 @@ class QBittorrentClient(
 
     internal val http: HttpClient = httpClient.config {
         install(ErrorTransformer)
-        install(QBittorrentAuth) {
+        install(AuthHandler) {
             config = this@QBittorrentClient.config
         }
         install(ContentNegotiation) {
@@ -115,7 +121,7 @@ class QBittorrentClient(
      */
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun login(username: String, password: String) {
-        http.plugin(QBittorrentAuth).run {
+        http.plugin(AuthHandler).run {
             if (!tryAuth(http, config.copy(username = username, password = password))) {
                 val response = lastAuthResponseState.filterNotNull().first()
                 throw QBittorrentException(response, response.bodyAsText())
