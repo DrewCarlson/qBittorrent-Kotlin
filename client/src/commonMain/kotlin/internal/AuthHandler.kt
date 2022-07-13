@@ -24,20 +24,17 @@ internal class AuthHandler {
     private val lastAuthResponse = MutableStateFlow<HttpResponse?>(null)
     val lastAuthResponseState: StateFlow<HttpResponse?> = lastAuthResponse
 
-    suspend fun tryAuth(http: HttpClient, config: Config): Boolean {
-        return authMutex.withLock {
+    suspend fun tryAuth(http: HttpClient): Boolean {
+        val response = authMutex.withLock {
             if (lastAuthResponse.value?.isValidForAuth() == true) {
                 // Authentication completed while waiting for lock, skip
-                return@withLock true
+                return true
             }
 
-            val (baseUrl, username, password) = config
-            val response = login(http, baseUrl, username, password)
-
-            lastAuthResponse.value = response
-            yield()
-            response.isValidForAuth()
+            login(http, config).also { lastAuthResponse.value = it }
         }
+        yield()
+        return response.isValidForAuth()
     }
 
     companion object : HttpClientPlugin<AuthHandler, AuthHandler> {
@@ -49,8 +46,7 @@ internal class AuthHandler {
 
         override fun install(plugin: AuthHandler, scope: HttpClient) {
             scope.sendPipeline.intercept(HttpSendPipeline.Before) {
-                val isLogin = context.url.pathSegments.lastOrNull() == "login"
-                if (isLogin) {
+                if (context.url.pathSegments.lastOrNull() == "login") {
                     // Attempting login, do not modify the request
                     return@intercept
                 }
@@ -58,16 +54,16 @@ internal class AuthHandler {
                 // Does the request have the SID cookie
                 if (context.cookies().none { it.name == "SID" }) {
                     // No SID, authenticate before user request
-                    plugin.tryAuth(scope, plugin.config)
+                    plugin.tryAuth(scope)
                 }
 
                 // Attempt user's request, authentication may or may not have been successful,
-                // or it the session may have become invalid.  In any case make one last attempt.
-                val call = proceed() as? HttpClientCall ?: return@intercept
+                // or the session may have become invalid.  In any case make one last auth attempt.
+                val call = proceed() as HttpClientCall
                 if (call.response.status == Forbidden) {
                     plugin.lastAuthResponse.value = call.response
                     // Authentication required
-                    if (plugin.tryAuth(scope, plugin.config)) {
+                    if (plugin.tryAuth(scope)) {
                         // Authentication Succeeded, retry original request
                         proceedWith(scope.request(HttpRequestBuilder().takeFrom(context)).call)
                     }
