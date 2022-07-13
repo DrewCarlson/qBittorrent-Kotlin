@@ -17,7 +17,7 @@ suspend fun runProgram(args: Array<out String>) {
     )
 
     println("qBittorrent Version: ${client.getVersion()}")
-    client.syncMainData()
+    client.observeMainData()
         .onEach { mainData ->
             println("\n")
             mainData.toString()

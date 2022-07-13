@@ -67,7 +67,7 @@ class QBittorrentClientTests {
 
     @Test
     fun testAutoLoginFromMainData() = runTest {
-        val result = client.syncMainData().firstOrNull()
+        val result = client.observeMainData().firstOrNull()
 
         assertNotNull(result)
     }
@@ -80,7 +80,7 @@ class QBittorrentClientTests {
             password = "aaa",
         )
         val error = assertFailsWith<QBittorrentException> {
-            client.syncMainData().firstOrNull()
+            client.observeMainData().firstOrNull()
         }
 
         assertEquals(403, error.response?.status?.value)
@@ -124,7 +124,7 @@ class QBittorrentClientTests {
 
     @Test
     fun testMainDataSyncingIsStartedWithSubscribers() = runTest {
-        client.syncMainData().test {
+        client.observeMainData().test {
             awaitItem()
             assertTrue(client.isSyncing)
         }
@@ -132,7 +132,7 @@ class QBittorrentClientTests {
 
     @Test
     fun testMainDataSyncingIsStoppedWithoutSubscribers() = runTest {
-        val mainDataFlow = client.syncMainData().testIn(this)
+        val mainDataFlow = client.observeMainData().testIn(this)
         mainDataFlow.awaitItem()
         assertTrue(client.isSyncing)
         mainDataFlow.cancelAndIgnoreRemainingEvents()
@@ -142,7 +142,7 @@ class QBittorrentClientTests {
 
     @Test
     fun testMainDataEmitsFullUpdate() = runTest {
-        client.syncMainData().test {
+        client.observeMainData().test {
             val mainData = awaitItem()
             assertTrue(mainData.fullUpdate)
             assertEquals(1, mainData.rid)
@@ -157,7 +157,7 @@ class QBittorrentClientTests {
             password = "aaa",
         )
 
-        client.syncMainData().test {
+        client.observeMainData().test {
             val error = assertIs<QBittorrentException>(awaitError())
             assertEquals("Forbidden", error.message)
         }
@@ -170,7 +170,7 @@ class QBittorrentClientTests {
             skipChecking = true
             paused = true
         }
-        client.torrentFlow(TEST_HASH, waitIfMissing = false).test {
+        client.observeTorrent(TEST_HASH, waitIfMissing = false).test {
             val torrent = awaitItem()
             assertEquals(TEST_HASH, torrent.hash)
             deleteTorrents()
@@ -179,14 +179,14 @@ class QBittorrentClientTests {
 
     @Test
     fun testTorrentFlowCompletesIfMissing() = runTest {
-        client.torrentFlow(TEST_HASH, waitIfMissing = false).test {
+        client.observeTorrent(TEST_HASH, waitIfMissing = false).test {
             awaitComplete()
         }
     }
 
     @Test
     fun testTorrentFlowWaitsIfMissing() = runTest {
-        val torrentFlow = client.torrentFlow(TEST_HASH, waitIfMissing = true).testIn(this)
+        val torrentFlow = client.observeTorrent(TEST_HASH, waitIfMissing = true).testIn(this)
         client.addTorrent { urls.add(TEST_MAGNET_URL) }
 
         val torrent = torrentFlow.awaitItem()

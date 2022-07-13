@@ -132,7 +132,7 @@ class QBittorrentClient(
     }
 
     /**
-     * Returns true when [syncMainData] or [torrentFlow] have at least
+     * Returns true when [observeMainData] or [observeTorrent] have at least
      * one subscriber, meaning the syncing endpoint is being polled
      * at [mainDataSyncMs].
      */
@@ -143,9 +143,9 @@ class QBittorrentClient(
      * Emits the next [MainData] every [mainDataSyncMs] while subscribed.
      *
      * NOTE: The underlying logic and network requests will be started
-     * only once, no matter how many times you invoke [syncMainData].
+     * only once, no matter how many times you invoke [observeMainData].
      */
-    fun syncMainData(): Flow<MainData> {
+    fun observeMainData(): Flow<MainData> {
         return mainDataSync.observeMainData()
     }
 
@@ -157,7 +157,7 @@ class QBittorrentClient(
      * @param hash The info hash of the torrent to observe.
      * @param waitIfMissing When true, wait for the [hash] if it does not exist
      */
-    fun torrentFlow(hash: String, waitIfMissing: Boolean = false): Flow<Torrent> {
+    fun observeTorrent(hash: String, waitIfMissing: Boolean = false): Flow<Torrent> {
         return if (waitIfMissing) {
             mainDataSync.observeMainData()
                 .takeWhile {  mainData -> !mainData.torrentsRemoved.contains(hash) }
