@@ -94,8 +94,7 @@ class QBittorrentClient(
     internal val http: HttpClient = httpClient.config {
         install(ErrorTransformer)
         install(QBittorrentAuth) {
-            setConfig(config)
-            setLogin(::login)
+            config = this@QBittorrentClient.config
         }
         install(ContentNegotiation) {
             json(json)
@@ -116,7 +115,7 @@ class QBittorrentClient(
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun login(username: String, password: String) {
         http.plugin(QBittorrentAuth).run {
-            if (!tryAuth(http, config.copy(username = username, password = password), ::login)) {
+            if (!tryAuth(http, config.copy(username = username, password = password))) {
                 val response = lastAuthResponseState.filterNotNull().first()
                 throw QBittorrentException(response, response.bodyAsText())
             }

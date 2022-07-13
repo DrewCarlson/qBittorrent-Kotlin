@@ -13,29 +13,16 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.yield
 import qbittorrent.QBittorrentClient.Config
 
-internal typealias ExecuteAuth = suspend (HttpClient, String, String, String) -> HttpResponse
-
 internal class QBittorrentAuth {
 
-    private lateinit var config: Config
-    private var executeAuth: ExecuteAuth = { _, _, _, _ ->
-        throw NotImplementedError("executeAuth must be implemented for QBittorrentAuth.")
-    }
-
-    fun setConfig(config: Config) {
-        this.config = config
-    }
-
-    fun setLogin(block: ExecuteAuth) {
-        executeAuth = block
-    }
-
+    lateinit var config: Config
+    // mutex which guards any request to the login endpoint
     private val authMutex = Mutex()
+    // the last http response object received while authenticating
     private val lastAuthResponse = MutableStateFlow<HttpResponse?>(null)
-
     val lastAuthResponseState: StateFlow<HttpResponse?> = lastAuthResponse
 
-    suspend fun tryAuth(http: HttpClient, config: Config, executeAuth: ExecuteAuth): Boolean {
+    suspend fun tryAuth(http: HttpClient, config: Config): Boolean {
         return authMutex.withLock {
             if (lastAuthResponse.value?.isValidForAuth() == true) {
                 // Authentication completed while waiting for lock, skip
@@ -43,7 +30,7 @@ internal class QBittorrentAuth {
             }
 
             val (baseUrl, username, password) = config
-            val response = executeAuth(http, baseUrl, username, password)
+            val response = login(http, baseUrl, username, password)
 
             lastAuthResponse.value = response
             yield()
@@ -69,7 +56,7 @@ internal class QBittorrentAuth {
                     HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden -> {
                         plugin.lastAuthResponse.value = call.response
                         // Authentication required
-                        if (plugin.tryAuth(scope, plugin.config, plugin.executeAuth)) {
+                        if (plugin.tryAuth(scope, plugin.config)) {
                             // Authentication Succeeded, retry original request
                             proceedWith(scope.request(HttpRequestBuilder().takeFrom(context)).call)
                         }

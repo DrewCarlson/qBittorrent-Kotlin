@@ -6,30 +6,31 @@ import io.ktor.client.request.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.*
 import qbittorrent.models.MainData
 
 private val emptyArray = buildJsonArray { }
 
+/**
+ * Manages a single [MainData] instance and updates it periodically
+ * when it is being observed.
+ */
 internal class MainDataSync(
     private val http: HttpClient,
     private val config: QBittorrentClient.Config,
     syncScope: CoroutineScope,
 ) {
 
-    private val syncUrl = "${config.baseUrl}/api/v2/sync/maindata"
+    private val state = MutableStateFlow<Pair<MainData?, Throwable?>>(null to null)
+    private val isSyncing = state.subscriptionCount.map { it > 0 }.stateIn(syncScope, Eagerly, false)
     private val atomicSyncRid = AtomicReference(0L)
     private var syncRid: Long
         get() = atomicSyncRid.value
         set(value) {
             atomicSyncRid.value = value
         }
-
-    private val currentState = MutableStateFlow<Pair<MainData?, Throwable?>>(null to null)
-    private val isSyncing = currentState.subscriptionCount
-        .map { it > 0 }
-        .stateIn(syncScope, SharingStarted.Eagerly, false)
 
     init {
         syncScope.launch {
@@ -46,10 +47,10 @@ internal class MainDataSync(
     }
 
     fun observeMainData(): Flow<MainData> {
-        return currentState
+        return state
             .onSubscription {
-                if (!http.plugin(QBittorrentAuth).tryAuth(http, config, ::login)) {
-                    val (_, authError) = currentState.first { it.second != null }
+                if (!http.plugin(QBittorrentAuth).tryAuth(http, config)) {
+                    val (_, authError) = state.first { it.second != null }
                     throw checkNotNull(authError)
                 }
             }
@@ -62,7 +63,7 @@ internal class MainDataSync(
     private suspend fun syncMainData() {
         try {
             // Get the current MainData value, fetching the initial data if required
-            val (initialMainData, _) = currentState.updateAndGet { (mainData, error) ->
+            val (initialMainData, _) = state.updateAndGet { (mainData, error) ->
                 if (error == null) {
                     (mainData ?: fetchMainData(0)) to null
                 } else {
@@ -79,18 +80,20 @@ internal class MainDataSync(
                 if (syncRid == Long.MAX_VALUE) syncRid = 0
 
                 // Fetch the next MainData patch and merge into existing model, remove any error
-                currentState.value = mainDataJson.applyPatch(fetchMainData(++syncRid)) to null
+                state.value = mainDataJson.applyPatch(fetchMainData(++syncRid)) to null
 
                 delay(config.mainDataSyncMs)
             }
         } catch (e: QBittorrentException) {
             // Failed to fetch patch, keep current MainData and add the error
-            currentState.getAndUpdate { (mainData, _) -> mainData to e }
+            state.update { (mainData, _) -> mainData to e }
         }
     }
 
     private suspend inline fun <reified T> fetchMainData(rid: Long): T {
-        return http.get(syncUrl) { parameter("rid", rid) }.bodyOrThrow()
+        return http.get("${config.baseUrl}/api/v2/sync/maindata") {
+            parameter("rid", rid)
+        }.bodyOrThrow()
     }
 
     private fun MutableMap<String, JsonElement>.applyPatch(newObject: JsonObject): MainData {

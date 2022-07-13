@@ -29,8 +29,7 @@ internal fun MutableMap<String, JsonElement>.merge(
 ): MutableMap<String, JsonElement> {
     forEach { (key, currentValue) ->
         val update = when (val newValue = newJson[key] ?: return@forEach) {
-            is JsonPrimitive,
-            is JsonArray -> newValue
+            is JsonPrimitive, is JsonArray -> newValue
             is JsonObject -> {
                 val actualObject = (if (currentValue is JsonNull) newValue else currentValue).mutateJson()
                 if (key == "torrents" || key == "categories") {

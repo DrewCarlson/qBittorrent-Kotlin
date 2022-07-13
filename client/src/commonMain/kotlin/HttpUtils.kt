@@ -6,7 +6,7 @@ import io.ktor.http.*
 
 internal suspend fun HttpResponse.orThrow() {
     if (!status.isSuccess()) {
-        throw call.attributes.takeOrNull(ErrorTransformer.KEY_INTERNAL_ERROR)
+        throw call.attributes.takeOrNull(ErrorTransformer.KEY_INTERNAL_ERROR)?.run(::QBittorrentException)
             ?: QBittorrentException(this, bodyAsText())
     }
 }
@@ -18,7 +18,7 @@ internal suspend inline fun <reified T> HttpResponse.bodyOrThrow(): T {
             else -> body()
         }
     } else {
-        throw call.attributes.takeOrNull(ErrorTransformer.KEY_INTERNAL_ERROR)
+        throw call.attributes.takeOrNull(ErrorTransformer.KEY_INTERNAL_ERROR)?.run(::QBittorrentException)
             ?: QBittorrentException(this, bodyAsText())
     }
 }
