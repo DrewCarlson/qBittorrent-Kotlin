@@ -13,8 +13,31 @@ env:
   ORG_GRADLE_PROJECT_sonatypeStagingProfile: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPESTAGINGPROFILE }}
 
 jobs:
+  file-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      any: ${{ steps.check.outputs.any_changed }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+          fetch-depth: 0
+      - name: Get changed files
+        id: check
+        uses: tj-actions/changed-files@v23
+        with:
+          files: |
+            .github/workflows/publish.yml
+            gradle/libs.versions.toml
+            gradle/kotlin-js-store/**
+            **/*.kt
+            **/*.kts
+
   publish:
+    name: Publish to Maven
     runs-on: macos-latest
+    needs: [ file-changes ]
+    if: needs.file-changes.outputs.any == 'true' || startsWith(github.ref, 'refs/tags/v')
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -34,3 +57,35 @@ jobs:
         name: Publish
         with:
           arguments: clean publish
+
+  publish-docs:
+    name: Publish KDoc to Github Pages
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 11
+
+      - name: Cache Build files
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.konan
+            ~/.gradle
+          key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
+
+      - uses: gradle/gradle-build-action@v2
+        name: Build Docs
+        with:
+          arguments: clean dokkaHtmlMultiModule
+
+      - name: Publish Docs
+        uses: JamesIves/github-pages-deploy-action@v4.3.4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: docs
+          FOLDER: build/dokka/htmlMultiModule
+          SINGLE_COMMIT: true

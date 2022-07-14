@@ -9,8 +9,9 @@ plugins {
     alias(libs.plugins.spotless)
 }
 
+yarn.lockFileDirectory = file("gradle/kotlin-js-store")
+
 allprojects {
-    yarn.lockFileDirectory = file("gradle/kotlin-js-store")
     repositories {
         mavenCentral()
     }
