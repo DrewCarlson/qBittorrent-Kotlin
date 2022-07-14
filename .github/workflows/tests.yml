@@ -69,7 +69,6 @@ jobs:
     if: needs.file-changes.outputs.any == 'true'
     steps:
       - name: Setup QBittorrent (Ubuntu)
-        if: ${{ startsWith(matrix.os, 'ubuntu') }}
         run: |
           sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
           sudo apt-get update
