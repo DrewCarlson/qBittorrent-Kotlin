@@ -1,9 +1,7 @@
 # qBittorrent Kotlin
 
 ![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/qbittorrent-client?label=maven&color=blue)
-![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Jvm/badge.svg)
-![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Js/badge.svg)
-![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Native/badge.svg)
+![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Tests/badge.svg)
 
 Multiplatform Kotlin wrapper for the [qBittorrent](https://github.com/qbittorrent/qBittorrent/) Web API using [Ktor](https://ktor.io).
 
