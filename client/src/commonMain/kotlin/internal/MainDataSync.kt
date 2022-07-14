@@ -67,7 +67,7 @@ internal class MainDataSync(
                 }
             }
 
-            delay(config.mainDataSyncMs)
+            delay(config.syncInterval)
 
             val mainDataJson = json.encodeToJsonElement(initialMainData).mutateJson()
             // Patch MainData while there is at least one subscriber
@@ -77,7 +77,7 @@ internal class MainDataSync(
                 // Fetch the next MainData patch and merge into existing model, remove any error
                 state.value = mainDataJson.applyPatch(fetchMainData(++syncRid)) to null
 
-                delay(config.mainDataSyncMs)
+                delay(config.syncInterval)
             }
         } catch (e: QBittorrentException) {
             // Failed to fetch patch, keep current MainData and add the error

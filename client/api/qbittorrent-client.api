@@ -4,8 +4,8 @@ public final class qbittorrent/QBittorrentClient {
 	public static final field RATIO_LIMIT_NONE I
 	public static final field SEEDING_LIMIT_GLOBAL I
 	public static final field SEEDING_LIMIT_NONE I
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLio/ktor/client/HttpClient;Lkotlinx/coroutines/CoroutineDispatcher;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLio/ktor/client/HttpClient;Lkotlinx/coroutines/CoroutineDispatcher;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLio/ktor/client/HttpClient;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun addPeers (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun addTorrent (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun addTorrentTags (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

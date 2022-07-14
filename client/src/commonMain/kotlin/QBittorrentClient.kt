@@ -25,6 +25,7 @@ import qbittorrent.models.*
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.native.concurrent.*
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 private const val PARAM_URLS = "urls"
 private const val PARAM_TORRENTS = "torrents"
@@ -44,8 +45,6 @@ private const val PARAM_AUTO_TTM = "autoTTM"
 private const val PARAM_SEQUENTIAL_DOWNLOAD = "sequentialDownload"
 private const val PARAM_FIRST_LAST_PIECE = "firstLastPiecePrio"
 
-private const val MAIN_DATA_SYNC_MS = 5000L
-
 @SharedImmutable
 internal val json = Json {
     isLenient = true
@@ -62,7 +61,7 @@ internal val json = Json {
  * @param baseUrl The base URL of qBittorrent, ex. http://localhost:9000
  * @param username The qBittorrent username, default: admin
  * @param password The qBittorrent password, default: adminadmin
- * @param mainDataSyncMs The sync endpoint polling rate when subscribed to a [Flow]
+ * @param syncInterval The sync endpoint polling rate when subscribed to a [Flow], defaults to 5 seconds.
  * @param httpClient Custom HTTPClient, useful when a default client engine is not used
  * @param dispatcher Coroutine dispatcher for flow API processing, defaults to [Dispatchers.Default].
  */
@@ -70,9 +69,9 @@ class QBittorrentClient(
     baseUrl: String,
     username: String = "admin",
     password: String = "adminadmin",
-    mainDataSyncMs: Long = MAIN_DATA_SYNC_MS,
+    syncInterval: Duration = 5.seconds,
     httpClient: HttpClient = HttpClient(),
-    dispatcher: CoroutineDispatcher = Default
+    dispatcher: CoroutineDispatcher = Default,
 ) {
     companion object {
         const val RATIO_LIMIT_NONE = -1
@@ -87,7 +86,7 @@ class QBittorrentClient(
         val baseUrl: String,
         val username: String,
         val password: String,
-        val mainDataSyncMs: Long
+        val syncInterval: Duration,
     )
 
     @Suppress("HttpUrlsUsage")
@@ -95,7 +94,7 @@ class QBittorrentClient(
         if (baseUrl.startsWith("http", true)) baseUrl else "http://$baseUrl",
         username,
         password,
-        mainDataSyncMs
+        syncInterval,
     )
 
     internal val http: HttpClient = httpClient.config {

@@ -6,6 +6,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
 import kotlin.test.*
+import kotlin.time.Duration.Companion.seconds
 
 const val TEST_MAGNET_URL =
     "magnet:?xt=urn:btih:P42GCLQPVRPHWBI3PC67CBQBCM2Q5P7A&dn=big_buck_bunny_1080p_h264.mov&xl=725106140&tr=http%3A%2F%2Fblender.waag.org%3A6969%2Fannounce"
@@ -20,7 +21,7 @@ class QBittorrentClientTests {
     fun setup() {
         client = QBittorrentClient(
             baseUrl = "http://localhost:9090",
-            mainDataSyncMs = 1000,
+            syncInterval = 1.seconds,
         )
     }
 
