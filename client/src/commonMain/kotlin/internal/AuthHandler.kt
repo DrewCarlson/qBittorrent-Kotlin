@@ -18,8 +18,10 @@ import qbittorrent.login
 internal class AuthHandler {
 
     lateinit var config: Config
+
     // mutex which guards any request to the login endpoint
     private val authMutex = Mutex()
+
     // the last http response object received while authenticating
     private val lastAuthResponse = MutableStateFlow<HttpResponse?>(null)
     val lastAuthResponseState: StateFlow<HttpResponse?> = lastAuthResponse

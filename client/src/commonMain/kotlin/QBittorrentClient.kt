@@ -1,6 +1,5 @@
 package qbittorrent
 
-import qbittorrent.models.*
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
@@ -22,6 +21,7 @@ import qbittorrent.internal.MainDataSync
 import qbittorrent.internal.RawCookiesStorage
 import qbittorrent.internal.bodyOrThrow
 import qbittorrent.internal.orThrow
+import qbittorrent.models.*
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.native.concurrent.*
 import kotlin.time.Duration
@@ -72,7 +72,7 @@ class QBittorrentClient(
     password: String = "adminadmin",
     mainDataSyncMs: Long = MAIN_DATA_SYNC_MS,
     httpClient: HttpClient = HttpClient(),
-    dispatcher: CoroutineDispatcher = Default,
+    dispatcher: CoroutineDispatcher = Default
 ) {
     companion object {
         const val RATIO_LIMIT_NONE = -1
@@ -87,7 +87,7 @@ class QBittorrentClient(
         val baseUrl: String,
         val username: String,
         val password: String,
-        val mainDataSyncMs: Long,
+        val mainDataSyncMs: Long
     )
 
     @Suppress("HttpUrlsUsage")
@@ -95,7 +95,7 @@ class QBittorrentClient(
         if (baseUrl.startsWith("http", true)) baseUrl else "http://$baseUrl",
         username,
         password,
-        mainDataSyncMs,
+        mainDataSyncMs
     )
 
     internal val http: HttpClient = httpClient.config {
@@ -167,7 +167,7 @@ class QBittorrentClient(
     fun observeTorrent(hash: String, waitIfMissing: Boolean = false): Flow<Torrent> {
         return if (waitIfMissing) {
             mainDataSync.observeMainData()
-                .takeWhile {  mainData -> !mainData.torrentsRemoved.contains(hash) }
+                .takeWhile { mainData -> !mainData.torrentsRemoved.contains(hash) }
         } else {
             mainDataSync.observeMainData()
                 .takeWhile { mainData -> mainData.torrents.contains(hash) }
@@ -230,9 +230,13 @@ class QBittorrentClient(
                     val filename = torrentPath
                         .substringAfterLast('/')
                         .substringAfterLast('\\')
-                    append(PARAM_TORRENTS, fileContent, Headers.build {
-                        append(HttpHeaders.ContentDisposition, "filename=${filename.escapeIfNeeded()}")
-                    })
+                    append(
+                        PARAM_TORRENTS,
+                        fileContent,
+                        Headers.build {
+                            append(HttpHeaders.ContentDisposition, "filename=${filename.escapeIfNeeded()}")
+                        }
+                    )
                 }
             }
         ).orThrow()
@@ -389,9 +393,11 @@ class QBittorrentClient(
     suspend fun setPreferences(prefs: JsonObject) {
         http.post("${config.baseUrl}/api/v2/app/setPreferences") {
             contentType(ContentType.Application.Json)
-            setBody(buildJsonObject {
-                put("json", prefs)
-            })
+            setBody(
+                buildJsonObject {
+                    put("json", prefs)
+                }
+            )
         }.orThrow()
     }
 

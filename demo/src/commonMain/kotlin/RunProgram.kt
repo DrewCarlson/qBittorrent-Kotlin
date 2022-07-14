@@ -2,8 +2,8 @@ package demo
 
 import io.ktor.client.*
 import io.ktor.client.plugins.logging.*
-import qbittorrent.*
 import kotlinx.coroutines.flow.*
+import qbittorrent.*
 
 suspend fun runProgram(args: Array<out String>) {
     val client = QBittorrentClient(

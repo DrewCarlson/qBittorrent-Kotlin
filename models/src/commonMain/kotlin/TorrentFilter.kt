@@ -1,6 +1,5 @@
 package qbittorrent.models
 
-
 enum class TorrentFilter {
     ALL,
     DOWNLOADING,

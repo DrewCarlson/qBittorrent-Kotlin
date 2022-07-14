@@ -1,7 +1,6 @@
 package qbittorrent.internal
 
 import io.ktor.client.*
-import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay

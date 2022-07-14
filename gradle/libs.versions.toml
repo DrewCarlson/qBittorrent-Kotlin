@@ -7,7 +7,7 @@ ktorio = "2.0.3"
 binary_compat = "0.11.0"
 
 spotless = "6.8.0"
-ktlint = "0.45.2"
+ktlint = "0.46.1"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

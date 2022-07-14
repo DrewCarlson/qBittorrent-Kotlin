@@ -22,4 +22,3 @@ internal object KeyMergingTransformer : JsonTransformingSerializer<Map<String, T
             .run(::JsonObject)
     }
 }
-

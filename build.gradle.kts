@@ -15,3 +15,18 @@ allprojects {
         mavenCentral()
     }
 }
+
+subprojects {
+    apply(plugin = "com.diffplug.spotless")
+    extensions.findByType<com.diffplug.gradle.spotless.SpotlessExtension>()?.apply {
+        kotlin {
+            target("**/**.kt")
+            ktlint(libs.versions.ktlint.get())
+                .setUseExperimental(true)
+                .editorConfigOverride(mapOf(
+                    "enabled_rules" to "",
+                    "disabled_rules" to "no-wildcard-imports,no-unused-imports,trailing-comma"
+                ))
+        }
+    }
+}

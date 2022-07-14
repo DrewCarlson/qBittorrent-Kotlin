@@ -2,7 +2,6 @@ package qbittorrent.internal
 
 import kotlinx.serialization.json.*
 
-
 internal fun MutableMap<String, JsonElement>.dropRemoved(key: String) {
     val removeKeys = get("${key}_removed").toStringList()
     if (removeKeys.isNotEmpty()) {
@@ -11,7 +10,6 @@ internal fun MutableMap<String, JsonElement>.dropRemoved(key: String) {
         put(key, JsonObject(items))
     }
 }
-
 
 internal fun MutableMap<String, JsonElement>.dropRemovedStrings(key: String) {
     val removeKeys = get("${key}_removed").toStringList()
