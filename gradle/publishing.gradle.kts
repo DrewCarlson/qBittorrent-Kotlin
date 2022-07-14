@@ -1,4 +1,5 @@
 import java.net.URL
+import java.net.HttpURLConnection
 import java.util.Base64
 
 apply(plugin = "maven-publish")
@@ -39,20 +40,15 @@ val repositoryId by lazy {
     }
     if (!hasPublishingTask || isSnapshot) return@lazy ""
     if (!rootProject.extra.has("publishRepositoryId")) {
-        val auth = Base64.getEncoder().encode("$sonatypeUsername:$sonatypePassword".toByteArray())
-        val body = "<promoteRequest><data><description>Repository for ${version}</description></data></promoteRequest>"
-        val id = URL("${mavenUrl}profiles/$sonatypeStagingProfile/start").openConnection().run {
-            doOutput = true
-            setRequestProperty("Authorization", "Basic ${auth.decodeToString()}")
-            setRequestProperty("Content-Type", "application/xml")
-            getOutputStream().write(body.toByteArray())
-            connect()
-            val response = getInputStream().readBytes().decodeToString()
-            response.substringAfter("<stagedRepositoryId>").substringBefore("</stagedRepositoryId>")
-        }
+        val id = makeRequest("start", "{ description: \"${rootProject.name} v${version}\" }")
+            .substringAfter("stagedRepositoryId\":\"").substringBefore('"')
         rootProject.extra.set("publishRepositoryId", id)
     }
     rootProject.extra.get("publishRepositoryId")
+}
+
+task("closeRepository") {
+    doLast { makeRequest("finish", "{ stagedRepositoryId: \"${repositoryId}\" }") }
 }
 
 configure<PublishingExtension> {
@@ -106,8 +102,27 @@ configure<PublishingExtension> {
     }
 }
 
+if (!isSnapshot) {
+    tasks.named("publish") { finalizedBy("closeRepository") }
+}
+
 configure<SigningExtension> {
     isRequired = !isSnapshot
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign((extensions["publishing"] as PublishingExtension).publications)
+}
+
+fun makeRequest(path: String, data: String? = null): String {
+    val auth = Base64.getEncoder().encode("$sonatypeUsername:$sonatypePassword".toByteArray())
+    return (URL("${mavenUrl}profiles/$sonatypeStagingProfile/${path}").openConnection() as HttpURLConnection).run {
+        setRequestProperty("Authorization", "Basic ${auth.decodeToString()}")
+        if (data != null) {
+            doOutput = true
+            setRequestProperty("Content-Type", "application/json")
+            getOutputStream().write("{ data: $data }".toByteArray())
+        }
+        connect()
+        val stream = runCatching { getInputStream() }.getOrNull() ?: getErrorStream()
+        checkNotNull(stream?.readBytes()?.decodeToString()) { "Failed to extract a response body." }
+    }
 }
