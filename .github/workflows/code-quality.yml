@@ -1,4 +1,4 @@
-name: Spotless Check
+name: Code Quality
 
 on:
   push:
@@ -15,12 +15,22 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 11
+
       - name: Cache Build files
         uses: actions/cache@v3
         with:
           path: |
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
+
       - uses: gradle/gradle-build-action@v2
+        name: Check spotless/ktlint rules
+        if : ${{ always() }}
         with:
           arguments: spotlessCheck
+
+      - uses: gradle/gradle-build-action@v2
+        name: Check public api compatibility
+        if : ${{ always() }}
+        with:
+          arguments: apiCheck
