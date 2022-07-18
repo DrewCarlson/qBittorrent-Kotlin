@@ -44,6 +44,40 @@ jobs:
           wget "http://www.legittorrents.info/download.php?id=7f34612e0fac5e7b051b78bdf1060113350ebfe0&f=Big%20Buck%20Bunny%20(1920x1080%20h.264).torrent" -O ~/bbb.torrent
           qbittorrent-nox --webui-port=9090 &
 
+      - name: Setup QBittorrent (Windows)
+        if: ${{ startsWith(matrix.os, 'windows') }}
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: install qbittorrent
+      - name: Install cURL (Windows)
+        uses: msys2/setup-msys2@v2
+        if: ${{ startsWith(matrix.os, 'windows') }}
+        with:
+          msystem: MINGW64
+          update: true
+          install: mingw-w64-x86_64-curl
+      - name: Start QBittorrent (Windows)
+        if: ${{ startsWith(matrix.os, 'windows') }}
+        shell: cmd
+        run: >-
+          mkdir %APPDATA%\qBittorrent &&
+          echo [Preferences] > %APPDATA%\qBittorrent\qBittorrent.ini &&
+          echo General\StartMinimized=true >> %APPDATA%\qBittorrent\qBittorrent.ini &&
+          echo WebUI\Enabled=true >> %APPDATA%\qBittorrent\qBittorrent.ini &&
+          echo WebUI\Port=9090 >> %APPDATA%\qBittorrent\qBittorrent.ini &&
+          echo WebUI\MaxAuthenticationFailCount=1000 >> %APPDATA%\qBittorrent\qBittorrent.ini &&
+          nssm install qBittorrent "C:\Program Files\qBittorrent\qbittorrent.exe" &&
+          nssm start qBittorrent
+
+      - name: Patch Ktor/Curl build issue (https://youtrack.jetbrains.com/issue/KTOR-4307)
+        if: ${{ startsWith(matrix.os, 'windows') }}
+        shell: cmd
+        run: |
+          ren "${{ runner.temp }}\msys64\mingw64\lib" lib2
+          mkdir "${{ runner.temp }}\msys64\mingw64\lib"
+          move "${{ runner.temp }}\msys64\mingw64\lib2\libcurl.a" "${{ runner.temp }}\msys64\mingw64\lib\libcurl.a"
+          move "${{ runner.temp }}\msys64\mingw64\lib2\libcurl.dll.a" "${{ runner.temp }}\msys64\mingw64\lib\libcurl.dll.a"
+
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
         with:
@@ -88,7 +122,7 @@ jobs:
         name: Test Windows Target
         if: startsWith(matrix.os, 'windows')
         with:
-          arguments: win64MainKLibrary
+          arguments: win64Test
 
       - name: Publish Test Reports
         uses: mikepenz/action-junit-report@v3

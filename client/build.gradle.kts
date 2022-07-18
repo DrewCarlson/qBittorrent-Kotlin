@@ -28,7 +28,14 @@ kotlin {
     }
     macosX64("macos")
     macosArm64()
-    mingwX64("win64")
+    mingwX64("win64") {
+        binaries.configureEach {
+            if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
+                val base = System.getenv("RUNNER_TEMP").orEmpty().ifEmpty { "C:" }
+                linkerOpts("-L$base\\msys64\\mingw64\\lib")
+            }
+        }
+    }
     linuxX64()
 
     ios()
