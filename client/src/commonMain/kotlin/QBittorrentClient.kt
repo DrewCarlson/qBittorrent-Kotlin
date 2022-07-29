@@ -483,6 +483,21 @@ class QBittorrentClient(
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
+    suspend fun getTrackers(hash: String): List<TorrentTracker>? {
+        val response = http.get("${config.baseUrl}/api/v2/torrents/trackers") {
+            parameter("hash", hash)
+        }
+        return if (response.status.isSuccess()) {
+            response.body()
+        } else {
+            if (response.status != HttpStatusCode.NotFound) {
+                response.orThrow()
+            }
+            null
+        }
+    }
+
+    @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun increasePriority(hashes: List<String> = allList) {
         http.get("${config.baseUrl}/api/v2/torrents/increasePrio") {
             parameter("hashes", hashes.joinToString("|"))
