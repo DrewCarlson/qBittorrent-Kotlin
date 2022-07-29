@@ -378,6 +378,13 @@ class QBittorrentClient(
         }.orThrow()
     }
 
+    @Throws(QBittorrentException::class, CancellationException::class)
+    suspend fun getWebseeds(hash: String): List<Webseed> {
+        return http.get("${config.baseUrl}/api/v2/torrents/webseeds") {
+            parameter("hash", hash)
+        }.bodyOrThrow()
+    }
+
     /**
      * Get the qBittorrent application preferences.
      */
