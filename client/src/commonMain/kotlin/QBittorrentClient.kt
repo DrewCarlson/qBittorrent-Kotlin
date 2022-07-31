@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.*
 import qbittorrent.internal.*
+import qbittorrent.internal.AtomicReference
 import qbittorrent.internal.FileReader
 import qbittorrent.internal.MainDataSync
 import qbittorrent.internal.RawCookiesStorage
@@ -111,6 +112,27 @@ class QBittorrentClient(
     }
     private val syncScope = CoroutineScope(SupervisorJob() + dispatcher + http.coroutineContext)
     private val mainDataSync = MainDataSync(http, config, syncScope)
+    private val peerDataSyncMapAtomic = AtomicReference(emptyMap<String, TorrentPeersSync>())
+    private var peerDataSyncMap: Map<String, TorrentPeersSync>
+        get() = peerDataSyncMapAtomic.value
+        set(value) {
+            peerDataSyncMapAtomic.value = value
+        }
+
+    private fun getPeersSync(hash: String): TorrentPeersSync? {
+        return peerDataSyncMap[hash.lowercase()]
+    }
+
+    private fun createPeersSync(hash: String): TorrentPeersSync {
+        return TorrentPeersSync(hash.lowercase(), http, config, syncScope).also { peersSync ->
+            peerDataSyncMap = peerDataSyncMap + (hash to peersSync)
+        }
+    }
+
+    private fun removePeersSync(hash: String) {
+        peerDataSyncMap[hash]?.close()
+        peerDataSyncMap = peerDataSyncMap - hash
+    }
 
     /**
      * Create a session with the username and password provided
@@ -152,7 +174,10 @@ class QBittorrentClient(
      * only once, no matter how many times you invoke [observeMainData].
      */
     fun observeMainData(): Flow<MainData> {
-        return mainDataSync.observeMainData()
+        return mainDataSync.observeData().transform { (mainData, error) ->
+            error?.let { throw it }
+            mainData?.let { emit(it) }
+        }
     }
 
     /**
@@ -165,12 +190,33 @@ class QBittorrentClient(
      */
     fun observeTorrent(hash: String, waitIfMissing: Boolean = false): Flow<Torrent> {
         return if (waitIfMissing) {
-            mainDataSync.observeMainData()
-                .takeWhile { mainData -> !mainData.torrentsRemoved.contains(hash) }
+            observeMainData().takeWhile { mainData -> !mainData.torrentsRemoved.contains(hash) }
         } else {
-            mainDataSync.observeMainData()
-                .takeWhile { mainData -> mainData.torrents.contains(hash) }
+            observeMainData().takeWhile { mainData -> mainData.torrents.contains(hash) }
         }.mapNotNull { mainData -> mainData.torrents[hash] }
+    }
+
+    /**
+     * Emits the latest [TorrentPeers] data for the [hash].
+     * If the torrent is removed or not found, the flow will complete.
+     *
+     * @param hash The info hash of the torrent to observe.
+     */
+    fun observeTorrentPeers(hash: String): Flow<TorrentPeers> {
+        val peersSync = getPeersSync(hash) ?: createPeersSync(hash)
+        return peersSync.observeData()
+            .takeWhile { (_, error) -> (error?.response?.status != HttpStatusCode.NotFound) }
+            .transform { (mainData, error) ->
+                error?.let { throw it }
+                mainData?.let { emit(it) }
+            }
+            .onCompletion {
+                syncScope.launch {
+                    if (getPeersSync(hash)?.isSyncing() == false) {
+                        removePeersSync(hash)
+                    }
+                }
+            }
     }
 
     /**

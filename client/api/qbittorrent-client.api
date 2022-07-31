@@ -57,6 +57,7 @@ public final class qbittorrent/QBittorrentClient {
 	public final fun observeMainData ()Lkotlinx/coroutines/flow/Flow;
 	public final fun observeTorrent (Ljava/lang/String;Z)Lkotlinx/coroutines/flow/Flow;
 	public static synthetic fun observeTorrent$default (Lqbittorrent/QBittorrentClient;Ljava/lang/String;ZILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun observeTorrentPeers (Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
 	public final fun pauseTorrents (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun pauseTorrents$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun reannounceTorrents (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
