@@ -202,6 +202,23 @@ class QBittorrentClientTests {
         deleteTorrents()
     }
 
+    @Test
+    fun testTorrentPeersFlow() = runTest {
+        client.addTorrent {
+            urls.add(TEST_MAGNET_URL)
+            skipChecking = true
+            dlLimit = 1
+            upLimit = 1
+        }
+        Dispatchers.Default { delay(2000) }
+        client.observeTorrentPeers(TEST_HASH).test {
+            val torrentPeers = awaitItem()
+
+            assertEquals(1, torrentPeers.rid)
+            assertTrue(torrentPeers.peers.isNotEmpty(), "Expected peers list to have at least one value.")
+        }
+    }
+
     private suspend fun deleteTorrents() {
         runCatching { client.deleteTorrents(listOf(TEST_HASH), deleteFiles = true) }
     }
