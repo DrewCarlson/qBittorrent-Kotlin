@@ -130,11 +130,14 @@ kotlin {
         val watchosX86Test by getting
         val watchosSimulatorArm64Main by getting
         val watchosSimulatorArm64Test by getting
+        val iosMain by getting
+        val iosTest by getting
         val iosSimulatorArm64Main by getting
         val iosSimulatorArm64Test by getting
 
         configure(
             listOf(
+                iosMain,
                 tvosMain,
                 tvosArm64Main,
                 macosMain,
@@ -150,6 +153,7 @@ kotlin {
         }
         configure(
             listOf(
+                iosTest,
                 tvosTest,
                 tvosArm64Test,
                 macosTest,
