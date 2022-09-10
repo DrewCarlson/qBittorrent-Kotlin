@@ -172,6 +172,9 @@ data class Torrent(
 
         @SerialName("forcedDL")
         FORCED_DL,
+        
+        @SerialName("queuedDL")
+        QUEUED_DL,
 
         @SerialName("checkingResumeData")
         CHECKING_RESUME_DATA,
