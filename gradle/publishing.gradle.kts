@@ -103,7 +103,7 @@ configure<PublishingExtension> {
 }
 
 if (!isSnapshot) {
-    tasks.named("publish") { finalizedBy("closeRepository") }
+    //tasks.named("publish") { finalizedBy("closeRepository") }
 }
 
 configure<SigningExtension> {

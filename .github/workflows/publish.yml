@@ -58,6 +58,11 @@ jobs:
         with:
           arguments: clean publish
 
+      - uses: gradle/gradle-build-action@v2
+        name: Close Repository
+        with:
+          arguments: closeRepository
+
   publish-docs:
     name: Publish KDoc to Github Pages
     runs-on: ubuntu-latest
