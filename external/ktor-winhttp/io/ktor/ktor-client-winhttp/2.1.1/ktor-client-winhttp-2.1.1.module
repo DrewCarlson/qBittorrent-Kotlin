@@ -1,0 +1,97 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.ktor",
+    "module": "ktor-client-winhttp",
+    "version": "2.1.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.4.2"
+    }
+  },
+  "variants": [
+    {
+      "name": "metadataApiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-core",
+          "version": {
+            "requires": "1.6.2"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "atomicfu",
+          "version": {
+            "requires": "0.17.3"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "ktor-client-winhttp-metadata-2.1.1-all.jar",
+          "url": "ktor-client-winhttp-2.1.1-all.jar",
+          "size": 707,
+          "sha512": "331763117eb081aaca22d888ebc7c6997087ef72dc5080d11f53350aaa2fbfae65e28cc3dee94e74863a81075a69f9df5af4d5c0742b1440844e32d44e24ed7b",
+          "sha256": "aa77061057c0c05f7c760e04b9aa902ce7ce1332df7808f0e195cbb29009196f",
+          "sha1": "716aa3e8a88eb44738aa9f3bfb162f664ad60f07",
+          "md5": "e4e1ee50e9c72f3adc32db4b08f78706"
+        }
+      ]
+    },
+    {
+      "name": "commonMainMetadataElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-core",
+          "version": {
+            "requires": "1.6.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "ktor-client-winhttp-2.1.1.jar",
+          "url": "ktor-client-winhttp-2.1.1.jar",
+          "size": 261,
+          "sha512": "4b5628f494f32a231fc81f1bc97410ba633502d7cccaf71d67eca44481ba4eaf0418b456ab6f2d2ebab0e4c87e2533306497fb87c4d74e85c27e1f876fc6cdc6",
+          "sha256": "9f75e69ae1bebb58531f64150c52f6f65cefc5fda57946e9e2295616a5c71099",
+          "sha1": "aa0631d3d50cbdd9df373541538861df10ca5d5b",
+          "md5": "b2de06eb239ec7b7b0f386148bb6fc26"
+        }
+      ]
+    },
+    {
+      "name": "mingwX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "mingw_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../ktor-client-winhttp-mingwx64/2.1.1/ktor-client-winhttp-mingwx64-2.1.1.module",
+        "group": "io.ktor",
+        "module": "ktor-client-winhttp-mingwx64",
+        "version": "2.1.1"
+      }
+    }
+  ]
+}
