@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "buildSystem": "Gradle",
+  "buildSystemVersion": "7.4.2",
+  "buildPlugin": "org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper",
+  "buildPluginVersion": "1.6.21",
+  "projectSettings": {
+    "isHmppEnabled": true,
+    "isCompatibilityMetadataVariantEnabled": true
+  },
+  "projectTargets": [
+    {
+      "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinMetadataTarget",
+      "platformType": "common"
+    },
+    {
+      "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithHostTests",
+      "platformType": "native",
+      "extras": {
+        "native": {
+          "konanTarget": "mingw_x64",
+          "konanVersion": "1.6.21",
+          "konanAbiVersion": "1.6.0"
+        }
+      }
+    }
+  ]
+}

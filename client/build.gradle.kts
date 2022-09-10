@@ -84,51 +84,38 @@ kotlin {
         val nativeCommonMain by creating {
             dependsOn(commonMain)
         }
-        val nativeCommonTest by creating {
-            dependsOn(commonTest)
-        }
-        val desktopCommonMain by creating {
+
+        val darwinMain by creating {
             dependsOn(nativeCommonMain)
         }
-        val desktopCommonTest by creating {
-            dependsOn(nativeCommonTest)
+        val darwinTest by creating {
+            dependsOn(nativeCommonMain)
+            dependsOn(commonTest)
             dependencies {
-                implementation(libs.ktor.client.curl)
+                implementation(libs.ktor.client.darwin)
             }
-        }
-        val darwinMain by creating {
-            dependsOn(commonMain)
         }
 
         val win64Main by getting
-        val win64Test by getting
+        val win64Test by getting {
+            dependencies {
+                implementation(libs.ktor.client.winhttp)
+            }
+        }
         val macosMain by getting {
             dependsOn(darwinMain)
         }
         val macosTest by getting
-        val macosArm64Main by getting {
-            dependsOn(macosMain)
-        }
+        val macosArm64Main by getting
         val macosArm64Test by getting
         val linuxX64Main by getting
-        val linuxX64Test by getting
-        configure(listOf(win64Main, macosMain, macosArm64Main, linuxX64Main)) {
-            dependsOn(desktopCommonMain)
-        }
-        configure(listOf(win64Test, macosTest, macosArm64Test, linuxX64Test)) {
-            dependsOn(desktopCommonTest)
-        }
-
-        val iosMain by getting {
-            dependsOn(darwinMain)
-            dependsOn(nativeCommonMain)
-        }
-        val iosTest by getting {
-            dependsOn(darwinMain)
-            dependsOn(nativeCommonMain)
+        val linuxX64Test by getting {
             dependencies {
-                implementation(libs.ktor.client.darwin)
+                implementation(libs.ktor.client.curl)
             }
+        }
+        configure(listOf(win64Main, macosMain, macosArm64Main, linuxX64Main)) {
+            dependsOn(nativeCommonMain)
         }
 
         val tvosMain by getting
@@ -150,6 +137,8 @@ kotlin {
             listOf(
                 tvosMain,
                 tvosArm64Main,
+                macosMain,
+                macosArm64Main,
                 watchosArm32Main,
                 watchosArm64Main,
                 watchosX86Main,
@@ -157,12 +146,14 @@ kotlin {
                 iosSimulatorArm64Main,
             )
         ) {
-            dependsOn(iosMain)
+            dependsOn(darwinMain)
         }
         configure(
             listOf(
                 tvosTest,
                 tvosArm64Test,
+                macosTest,
+                macosArm64Test,
                 watchosArm32Test,
                 watchosArm64Test,
                 watchosX86Test,
@@ -170,7 +161,7 @@ kotlin {
                 iosSimulatorArm64Test,
             )
         ) {
-            dependsOn(iosTest)
+            dependsOn(darwinTest)
         }
     }
 }

@@ -14,6 +14,7 @@ yarn.lockFileDirectory = file("gradle/kotlin-js-store")
 allprojects {
     repositories {
         mavenCentral()
+        mavenLocal { url = rootProject.uri("external/ktor-winhttp") }
     }
 }
 
