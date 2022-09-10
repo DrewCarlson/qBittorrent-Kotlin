@@ -546,6 +546,7 @@ public final class qbittorrent/models/Torrent$State : java/lang/Enum {
 	public static final field MOVING Lqbittorrent/models/Torrent$State;
 	public static final field PAUSED_DL Lqbittorrent/models/Torrent$State;
 	public static final field PAUSED_UP Lqbittorrent/models/Torrent$State;
+	public static final field QUEUED_DL Lqbittorrent/models/Torrent$State;
 	public static final field QUEUED_UP Lqbittorrent/models/Torrent$State;
 	public static final field STALLED_DL Lqbittorrent/models/Torrent$State;
 	public static final field STALLED_UP Lqbittorrent/models/Torrent$State;
