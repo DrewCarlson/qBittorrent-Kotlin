@@ -162,13 +162,13 @@ class QBittorrentClient(
     /**
      * Returns true when [observeMainData] or [observeTorrent] have at least
      * one subscriber, meaning the syncing endpoint is being polled
-     * at [mainDataSyncMs].
+     * at [syncInterval].
      */
     val isSyncing: Boolean
         get() = mainDataSync.isSyncing()
 
     /**
-     * Emits the next [MainData] every [mainDataSyncMs] while subscribed.
+     * Emits the next [MainData] every [syncInterval] while subscribed.
      *
      * NOTE: The underlying logic and network requests will be started
      * only once, no matter how many times you invoke [observeMainData].

@@ -9,6 +9,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 import kotlinx.serialization.json.*
 import kotlinx.serialization.serializer
 import qbittorrent.QBittorrentClient
@@ -86,6 +87,9 @@ internal abstract class DataSync<T>(
         } catch (e: QBittorrentException) {
             // Failed to fetch patch, keep current MainData and add the error
             state.update { (mainData, _) -> mainData to e }
+            yield()
+            // Active state subscribers have seen the error, clear it
+            state.update { (mainData, _) -> mainData to null }
         }
     }
 
