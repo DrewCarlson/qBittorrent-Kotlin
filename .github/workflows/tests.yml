@@ -35,15 +35,6 @@ jobs:
     needs: [ file-changes ]
     if: needs.file-changes.outputs.any == 'true'
     steps:
-      - name: Setup QBittorrent (Ubuntu)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
-          sudo apt-get update
-          sudo apt install libcurl4-openssl-dev qbittorrent-nox
-          wget "http://www.legittorrents.info/download.php?id=7f34612e0fac5e7b051b78bdf1060113350ebfe0&f=Big%20Buck%20Bunny%20(1920x1080%20h.264).torrent" -O ~/bbb.torrent
-          qbittorrent-nox --webui-port=9090 &
-
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
         with:
@@ -60,35 +51,25 @@ jobs:
             %USERPROFILE%\.konan
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
 
-      - uses: gradle/gradle-build-action@v2
-        name: Test Apple Targets
+      - name: Test Apple Targets
         if: startsWith(matrix.os, 'macos')
-        with:
-          arguments: macosMainKLibrary # iosTest tvosTest watchosX86Test
+        run: ./gradlew macosMainKLibrary # iosTest tvosTest watchosX86Test
 
-      - uses: gradle/gradle-build-action@v2
-        name: Test Jvm Target
+      - name: Test Jvm Target
         if: startsWith(matrix.os, 'ubuntu')
-        with:
-          arguments: jvmTest
+        run: ./gradlew jvmMainClasses
 
-      - uses: gradle/gradle-build-action@v2
-        name: Test Linux Target
+      - name: Test Linux Target
         if: startsWith(matrix.os, 'ubuntu')
-        with:
-          arguments: linuxX64Test
+        run: ./gradlew linuxX64MainKLibrary
 
-      - uses: gradle/gradle-build-action@v2
-        name: Test Js Targets
+      - name: Test Js Targets
         if: startsWith(matrix.os, 'ubuntu')
-        with:
-          arguments: jsTest
+        run: ./gradlew jsMainClasses
 
-      - uses: gradle/gradle-build-action@v2
-        name: Test Windows Target
+      - name: Test Windows Target
         if: startsWith(matrix.os, 'windows')
-        with:
-          arguments: win64MainKLibrary
+        run: ./gradlew win64MainKLibrary
 
       - name: Publish Test Reports
         uses: mikepenz/action-junit-report@v3
