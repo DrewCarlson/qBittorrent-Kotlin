@@ -830,6 +830,13 @@ class QBittorrentClient(
             parameter("peers", peers.joinToString("|"))
         }.orThrow()
     }
+
+    @Throws(QBittorrentException::class, CancellationException::class)
+    suspend fun banPeers(peers: List<String>) {
+        http.get("${config.baseUrl}/api/v2/torrents/banPeers") {
+            parameter("peers", peers.joinToString("|"))
+        }.orThrow()
+    }
 }
 
 internal suspend fun login(http: HttpClient, config: QBittorrentClient.Config): HttpResponse {
