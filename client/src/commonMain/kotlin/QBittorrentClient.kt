@@ -194,6 +194,7 @@ class QBittorrentClient(
         } else {
             observeMainData().takeWhile { mainData -> mainData.torrents.contains(hash) }
         }.mapNotNull { mainData -> mainData.torrents[hash] }
+            .distinctUntilChanged()
     }
 
     /**
