@@ -62,6 +62,10 @@ client.observeTorrent("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
     }
 ```
 
+Note that the `maindata` endpoint is only polled at the provided `syncInterval` while collecting either the
+`observeMainData()` or `observeTorrent(...)` `Flow`s.
+When all instances of these `Flow`s are completed/cancelled no API endpoints will be called until explicitly requested.
+
 ## Download
 
 ![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/qbittorrent-client?label=maven&color=blue)
