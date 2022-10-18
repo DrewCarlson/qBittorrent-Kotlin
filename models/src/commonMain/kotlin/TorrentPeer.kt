@@ -11,8 +11,8 @@ data class TorrentPeer(
     @SerialName("country_code")
     val countryCode: String = "",
     @SerialName("dl_speed")
-    val dlSpeed: Int = 0,
-    val downloaded: Int = 0,
+    val dlSpeed: Long = 0,
+    val downloaded: Long = 0,
     val files: String = "",
     val flags: String = "",
     @SerialName("flags_desc")
@@ -22,6 +22,6 @@ data class TorrentPeer(
     val progress: Float = 0f,
     val relevance: Float = 0f,
     @SerialName("up_speed")
-    val upSpeed: Int = 0,
-    val uploaded: Int = 0
+    val upSpeed: Long = 0,
+    val uploaded: Long = 0
 )
