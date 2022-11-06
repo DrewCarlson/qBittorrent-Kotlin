@@ -21,6 +21,7 @@ data class TorrentTracker(
      * Tier numbers are valid when >= 0, < 0 is used as placeholder when tier does not
      * exist for special entries (such as DHT).
      */
+    @Serializable(FlakyIntSerializer::class)
     val tier: Int,
     /** Number of peers for current torrent, as reported by the tracker */
     @SerialName("num_peers")
