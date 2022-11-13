@@ -25,7 +25,9 @@ public final class qbittorrent/QBittorrentClient {
 	public final fun getBuildInfo (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getCategories (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getDefaultSavePath (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getGlobalDownloadLimit (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getGlobalTransferInfo (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getGlobalUploadLimit (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getLogs (ZZZZILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun getLogs$default (Lqbittorrent/QBittorrentClient;ZZZZILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun getPeerLogs (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -33,6 +35,7 @@ public final class qbittorrent/QBittorrentClient {
 	public final fun getPieceHashes (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getPieceStates (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getPreferences (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getSpeedLimitsMode (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getTags (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getTorrentDownloadLimit (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun getTorrentDownloadLimit$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
@@ -78,6 +81,8 @@ public final class qbittorrent/QBittorrentClient {
 	public final fun setFilePriority (Ljava/lang/String;Ljava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun setForceStart (Ljava/util/List;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun setForceStart$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun setGlobalDownloadLimit (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setGlobalUploadLimit (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun setPreferences (Lkotlinx/serialization/json/JsonObject;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun setSuperSeeding (Ljava/util/List;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun setSuperSeeding$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
@@ -97,6 +102,7 @@ public final class qbittorrent/QBittorrentClient {
 	public static synthetic fun toggleFirstLastPriority$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun toggleSequentialDownload (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun toggleSequentialDownload$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun toggleSpeedLimitsMode (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class qbittorrent/QBittorrentClient$Companion {
