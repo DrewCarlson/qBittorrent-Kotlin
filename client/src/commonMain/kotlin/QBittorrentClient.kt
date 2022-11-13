@@ -838,6 +838,49 @@ class QBittorrentClient(
             parameter("peers", peers.joinToString("|"))
         }.orThrow()
     }
+
+    /** The response is 1 if alternative speed limits are enabled, 0 otherwise. */
+    @Throws(QBittorrentException::class, CancellationException::class)
+    suspend fun getSpeedLimitsMode(): Int {
+        return http.get("${config.baseUrl}/api/v2/transfer/speedLimitsMode").bodyOrThrow()
+    }
+
+    @Throws(QBittorrentException::class, CancellationException::class)
+    suspend fun toggleSpeedLimitsMode() {
+        http.get("${config.baseUrl}/api/v2/transfer/toggleSpeedLimitsMode").orThrow()
+    }
+
+    /**
+     * The response is the value of current global download speed limit in bytes/second;
+     * this value will be zero if no limit is applied.
+     * */
+    @Throws(QBittorrentException::class, CancellationException::class)
+    suspend fun getGlobalDownloadLimit(): Int {
+        return http.get("${config.baseUrl}/api/v2/transfer/downloadLimit").bodyOrThrow()
+    }
+
+    @Throws(QBittorrentException::class, CancellationException::class)
+    suspend fun setGlobalDownloadLimit(limit: Int) {
+        http.get("${config.baseUrl}/api/v2/transfer/setDownloadLimit") {
+            parameter("limit", limit)
+        }.orThrow()
+    }
+
+    /**
+     * The response is the value of current global upload speed limit in bytes/second;
+     * this value will be zero if no limit is applied.
+     */
+    @Throws(QBittorrentException::class, CancellationException::class)
+    suspend fun getGlobalUploadLimit(): Int {
+        return http.get("${config.baseUrl}/api/v2/transfer/uploadLimit").bodyOrThrow()
+    }
+
+    @Throws(QBittorrentException::class, CancellationException::class)
+    suspend fun setGlobalUploadLimit(limit: Int) {
+        http.get("${config.baseUrl}/api/v2/transfer/setUploadLimit") {
+            parameter("limit", limit)
+        }.orThrow()
+    }
 }
 
 internal suspend fun login(http: HttpClient, config: QBittorrentClient.Config): HttpResponse {
