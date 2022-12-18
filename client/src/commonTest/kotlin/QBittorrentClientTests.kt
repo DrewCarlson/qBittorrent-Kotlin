@@ -192,7 +192,8 @@ class QBittorrentClientTests {
 
     @Test
     fun testTorrentFlowWaitsIfMissing() = runTest {
-        val torrentFlow = client.observeTorrent(TEST_HASH, waitIfMissing = true).testIn(this)
+        val torrentFlow = client.observeTorrent(TEST_HASH, waitIfMissing = true)
+            .testIn(this, timeout = 3.seconds)
         client.addTorrent { urls.add(TEST_MAGNET_URL) }
 
         val torrent = torrentFlow.awaitItem()
