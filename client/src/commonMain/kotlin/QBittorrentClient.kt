@@ -399,10 +399,13 @@ class QBittorrentClient(
         hashes: List<String>,
         deleteFiles: Boolean = false
     ) {
-        http.get("${config.baseUrl}/api/v2/torrents/delete") {
-            parameter("hashes", hashes.joinToString("|"))
-            parameter("deleteFiles", deleteFiles)
-        }.orThrow()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/torrents/delete",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+                append("deleteFiles", deleteFiles.toString())
+            }
+        ).orThrow()
     }
 
     /**
