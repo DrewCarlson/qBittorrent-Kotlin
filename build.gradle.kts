@@ -1,4 +1,5 @@
-import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -7,13 +8,19 @@ plugins {
     alias(libs.plugins.binaryCompat) apply false
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
+    alias(libs.plugins.mavenPublish)
 }
 
-yarn.lockFileDirectory = file("gradle/kotlin-js-store")
+
+version = System.getenv("GITHUB_REF")?.substringAfter("refs/tags/v", version.toString()) ?: version
 
 allprojects {
     repositories {
         mavenCentral()
+    }
+
+    plugins.withType<NodeJsRootPlugin> {
+        the<YarnRootExtension>().lockFileDirectory = rootDir.resolve("gradle/kotlin-js-store")
     }
 }
 

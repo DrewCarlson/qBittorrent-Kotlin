@@ -4,9 +4,8 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.binaryCompat)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.mavenPublish)
 }
-
-apply(from = "$rootDir/gradle/publishing.gradle.kts")
 
 kotlin {
     jvm()
