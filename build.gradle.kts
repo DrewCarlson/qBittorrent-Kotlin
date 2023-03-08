@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.binaryCompat) apply false
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
-    alias(libs.plugins.mavenPublish)
+    alias(libs.plugins.mavenPublish) apply false
 }
 
 
