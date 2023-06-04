@@ -4,7 +4,7 @@ dokka = "1.8.10"
 coroutines = "1.7.2"
 serialization = "1.5.1"
 ktorio = "2.3.0"
-binary_compat = "0.13.0"
+binary_compat = "0.13.2"
 
 spotless = "6.15.0"
 ktlint = "0.46.1"
