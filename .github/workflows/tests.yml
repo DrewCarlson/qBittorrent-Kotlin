@@ -53,7 +53,7 @@ jobs:
 
       - name: Test Apple Targets
         if: startsWith(matrix.os, 'macos')
-        run: ./gradlew macosMainKLibrary # iosTest tvosTest watchosX86Test
+        run: ./gradlew macosX64MainKLibrary # iosTest tvosTest watchosX86Test
 
       - name: Test Jvm Target
         if: startsWith(matrix.os, 'ubuntu')
@@ -69,7 +69,7 @@ jobs:
 
       - name: Test Windows Target
         if: startsWith(matrix.os, 'windows')
-        run: ./gradlew win64MainKLibrary
+        run: ./gradlew mingwX64MainKLibrary
 
       - name: Publish Test Reports
         uses: mikepenz/action-junit-report@v4
