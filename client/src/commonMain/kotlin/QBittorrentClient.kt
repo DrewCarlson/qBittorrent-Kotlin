@@ -46,7 +46,6 @@ private const val PARAM_AUTO_TTM = "autoTTM"
 private const val PARAM_SEQUENTIAL_DOWNLOAD = "sequentialDownload"
 private const val PARAM_FIRST_LAST_PIECE = "firstLastPiecePrio"
 
-@SharedImmutable
 internal val json = Json {
     isLenient = true
     ignoreUnknownKeys = true
