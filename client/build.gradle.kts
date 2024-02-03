@@ -25,19 +25,22 @@ kotlin {
             }
         }
     }
-    macosX64("macos")
+    macosX64()
     macosArm64()
-    mingwX64("win64")
+    mingwX64()
     linuxX64()
 
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
-    tvos()
+    tvosX64()
     tvosArm64()
+    tvosSimulatorArm64()
     watchosArm32()
     watchosArm64()
-    watchosX86()
     watchosSimulatorArm64()
+
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
         val commonMain by getting {
@@ -80,91 +83,23 @@ kotlin {
             }
         }
 
-        val nativeCommonMain by creating {
-            dependsOn(commonMain)
-        }
-
-        val darwinMain by creating {
-            dependsOn(nativeCommonMain)
-        }
-        val darwinTest by creating {
-            dependsOn(nativeCommonMain)
-            dependsOn(commonTest)
+        /*val appleTest by getting {
             dependencies {
                 implementation(libs.ktor.client.darwin)
             }
-        }
+        }*/
 
-        val win64Main by getting
-        val win64Test by getting {
+        val mingwX64Main by getting
+        val mingwX64Test by getting {
             dependencies {
                 implementation(libs.ktor.client.winhttp)
             }
         }
-        val macosMain by getting {
-            dependsOn(darwinMain)
-        }
-        val macosTest by getting
-        val macosArm64Main by getting
-        val macosArm64Test by getting
         val linuxX64Main by getting
         val linuxX64Test by getting {
             dependencies {
                 implementation(libs.ktor.client.curl)
             }
-        }
-        configure(listOf(win64Main, macosMain, macosArm64Main, linuxX64Main)) {
-            dependsOn(nativeCommonMain)
-        }
-
-        val tvosMain by getting
-        val tvosTest by getting
-        val tvosArm64Main by getting
-        val tvosArm64Test by getting
-        val watchosArm32Main by getting
-        val watchosArm32Test by getting
-        val watchosArm64Main by getting
-        val watchosArm64Test by getting
-        val watchosX86Main by getting
-        val watchosX86Test by getting
-        val watchosSimulatorArm64Main by getting
-        val watchosSimulatorArm64Test by getting
-        val iosMain by getting
-        val iosTest by getting
-        val iosSimulatorArm64Main by getting
-        val iosSimulatorArm64Test by getting
-
-        configure(
-            listOf(
-                iosMain,
-                tvosMain,
-                tvosArm64Main,
-                macosMain,
-                macosArm64Main,
-                watchosArm32Main,
-                watchosArm64Main,
-                watchosX86Main,
-                watchosSimulatorArm64Main,
-                iosSimulatorArm64Main,
-            )
-        ) {
-            dependsOn(darwinMain)
-        }
-        configure(
-            listOf(
-                iosTest,
-                tvosTest,
-                tvosArm64Test,
-                macosTest,
-                macosArm64Test,
-                watchosArm32Test,
-                watchosArm64Test,
-                watchosX86Test,
-                watchosSimulatorArm64Test,
-                iosSimulatorArm64Test,
-            )
-        ) {
-            dependsOn(darwinTest)
         }
     }
 }

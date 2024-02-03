@@ -11,7 +11,10 @@ kotlin {
     }
 
     mingwX64("windows")
-    macosX64("macos")
+    macosX64()
+    macosArm64()
+
+    applyDefaultHierarchyTemplate()
 
     targets.withType<KotlinNativeTarget> {
         binaries {
@@ -37,9 +40,9 @@ kotlin {
             }
         }
 
-        named("macosMain") {
+        named("appleMain") {
             dependencies {
-                implementation(libs.ktor.client.curl)
+                implementation(libs.ktor.client.darwin)
             }
         }
 

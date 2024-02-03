@@ -1,10 +1,10 @@
 [versions]
-kotlin = { strictly = "1.8.10" }
-dokka = "1.8.20"
+kotlin = { strictly = "1.9.22" }
+dokka = "1.9.10"
 coroutines = "1.7.3"
-serialization = "1.5.1"
-ktorio = "2.3.0"
-binary_compat = "0.13.2"
+serialization = "1.6.2"
+ktorio = "2.3.8"
+binary_compat = "0.14.0"
 
 spotless = "6.15.0"
 ktlint = "0.46.1"

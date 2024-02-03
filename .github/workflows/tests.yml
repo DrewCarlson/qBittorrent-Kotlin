@@ -36,13 +36,13 @@ jobs:
     if: needs.file-changes.outputs.any == 'true'
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: 11
 
       - name: Cache Build files
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.konan
@@ -78,7 +78,7 @@ jobs:
           report_paths: '**/build/test-results/**/TEST-*.xml'
 
       - name: Archive test reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-reports
