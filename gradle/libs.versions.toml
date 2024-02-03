@@ -1,5 +1,5 @@
 [versions]
-kotlin = { strictly = "1.8.10" }
+kotlin = { strictly = "1.9.22" }
 dokka = "1.8.20"
 coroutines = "1.7.3"
 serialization = "1.5.1"
