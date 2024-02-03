@@ -8,7 +8,7 @@ internal actual object FileReader {
         val actualPath: String = if (filePath.startsWith("%USERPROFILE%", true)) {
             val userProfile: String = memScoped {
                 val out = alloc<PWSTRVar>()
-                if (SHGetKnownFolderPath(FOLDERID_Profile.ptr, 0, null, out.ptr) != 0) {
+                if (SHGetKnownFolderPath(FOLDERID_Profile.ptr, 0u, null, out.ptr) != 0) {
                     return null
                 }
                 out.value?.toKString().orEmpty()
@@ -23,10 +23,10 @@ internal actual object FileReader {
         val handle = CreateFileA(
             actualPath,
             GENERIC_READ,
-            FILE_SHARE_READ,
+            FILE_SHARE_READ.convert(),
             null,
-            OPEN_EXISTING,
-            0,
+            OPEN_EXISTING.convert(),
+            0u,
             null
         )
         if (handle == INVALID_HANDLE_VALUE) return null
