@@ -10,6 +10,7 @@ plugins {
 kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
+        optIn.add("kotlinx.cinterop.ExperimentalForeignApi")
     }
 
     jvm()
