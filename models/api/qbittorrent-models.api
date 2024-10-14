@@ -78,14 +78,14 @@ public final class qbittorrent/models/BuildInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/BuildInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/BuildInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/BuildInfo$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/BuildInfo;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/BuildInfo;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/BuildInfo;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/BuildInfo;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -107,14 +107,14 @@ public final class qbittorrent/models/Category {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/Category$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/Category$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/Category$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/Category;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/Category;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/Category;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/Category;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -169,14 +169,14 @@ public final class qbittorrent/models/GlobalTransferInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/GlobalTransferInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/GlobalTransferInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/GlobalTransferInfo$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/GlobalTransferInfo;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/GlobalTransferInfo;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/GlobalTransferInfo;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/GlobalTransferInfo;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -206,14 +206,14 @@ public final class qbittorrent/models/LogEntry {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/LogEntry$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/LogEntry$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/LogEntry$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/LogEntry;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/LogEntry;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/LogEntry;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/LogEntry;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -250,14 +250,14 @@ public final class qbittorrent/models/MainData {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/MainData$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/MainData$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/MainData$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/MainData;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/MainData;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/MainData;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/MainData;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -285,14 +285,14 @@ public final class qbittorrent/models/PeerLog {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/PeerLog$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/PeerLog$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/PeerLog$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/PeerLog;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/PeerLog;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/PeerLog;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/PeerLog;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -367,14 +367,14 @@ public final class qbittorrent/models/ServerState {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/ServerState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/ServerState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/ServerState$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/ServerState;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/ServerState;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/ServerState;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/ServerState;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -482,14 +482,14 @@ public final class qbittorrent/models/Torrent {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/Torrent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/Torrent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/Torrent$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/Torrent;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/Torrent;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/Torrent;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/Torrent;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -554,14 +554,14 @@ public final class qbittorrent/models/TorrentFile {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/TorrentFile$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/TorrentFile$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/TorrentFile$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/TorrentFile;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/TorrentFile;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/TorrentFile;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/TorrentFile;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -627,14 +627,14 @@ public final class qbittorrent/models/TorrentPeer {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/TorrentPeer$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/TorrentPeer$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/TorrentPeer$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/TorrentPeer;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/TorrentPeer;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/TorrentPeer;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/TorrentPeer;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -664,14 +664,14 @@ public final class qbittorrent/models/TorrentPeers {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/TorrentPeers$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/TorrentPeers$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/TorrentPeers$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/TorrentPeers;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/TorrentPeers;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/TorrentPeers;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/TorrentPeers;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -755,14 +755,14 @@ public final class qbittorrent/models/TorrentProperties {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/TorrentProperties$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/TorrentProperties$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/TorrentProperties$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/TorrentProperties;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/TorrentProperties;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/TorrentProperties;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/TorrentProperties;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -797,14 +797,14 @@ public final class qbittorrent/models/TorrentTracker {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/TorrentTracker$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/TorrentTracker$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/TorrentTracker$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/TorrentTracker;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/TorrentTracker;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/TorrentTracker;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/TorrentTracker;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -824,14 +824,14 @@ public final class qbittorrent/models/Webseed {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class qbittorrent/models/Webseed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class qbittorrent/models/Webseed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/Webseed$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/Webseed;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/Webseed;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/Webseed;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/Webseed;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
