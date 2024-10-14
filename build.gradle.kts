@@ -8,13 +8,13 @@ plugins {
     alias(libs.plugins.binaryCompat) apply false
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
-    alias(libs.plugins.mavenPublish) apply false
+    alias(libs.plugins.mavenPublish)
 }
 
 
-version = System.getenv("GITHUB_REF")?.substringAfter("refs/tags/v", version.toString()) ?: version
-
 allprojects {
+    version = System.getenv("GITHUB_REF")?.substringAfter("refs/tags/v", version.toString()) ?: version
+
     repositories {
         mavenCentral()
     }
