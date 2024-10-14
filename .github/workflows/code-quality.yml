@@ -37,6 +37,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 11
+      - uses: gradle/actions/setup-gradle@v4
 
       - name: Cache Build files
         uses: actions/cache@v4
@@ -45,10 +46,8 @@ jobs:
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
 
-      - uses: gradle/gradle-build-action@v3
-        name: Check spotless/ktlint rules
-        with:
-          arguments: spotlessCheck
+      - name: Check spotless/ktlint rules
+        run: ./gradlew spotlessCheck
 
   api-check:
     runs-on: ubuntu-latest
@@ -61,6 +60,8 @@ jobs:
           distribution: 'zulu'
           java-version: 11
 
+      - uses: gradle/actions/setup-gradle@v4
+
       - name: Cache Build files
         uses: actions/cache@v4
         with:
@@ -68,7 +69,5 @@ jobs:
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
 
-      - uses: gradle/gradle-build-action@v3
-        name: Check public api compatibility
-        with:
-          arguments: apiCheck
+      - name: Check public api compatibility
+        run: ./gradlew apiCheck
