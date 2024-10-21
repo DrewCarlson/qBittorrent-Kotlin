@@ -45,6 +45,7 @@ internal abstract class DataSync<T>(
             // Wait for the first subscribers
             isSyncingState.first { it }
             syncData()
+            yield()
         }
     }
 
@@ -87,6 +88,8 @@ internal abstract class DataSync<T>(
         } catch (e: QBittorrentException) {
             // Failed to fetch patch, keep current MainData and add the error
             state.update { (mainData, _) -> mainData to e }
+            // Wait for error emission
+            state.first { (_, error) -> error != null }
             yield()
             // Active state subscribers have seen the error, clear it
             state.update { (mainData, _) -> mainData to null }

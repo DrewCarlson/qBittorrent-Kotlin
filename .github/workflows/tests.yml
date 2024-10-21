@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, drew/restore-ci-testing ]
   pull_request:
     branches: [ main ]
 
@@ -35,6 +35,70 @@ jobs:
     needs: [ file-changes ]
     if: needs.file-changes.outputs.any == 'true'
     steps:
+
+      - name: Install qBittorrent on Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qbittorrent-nox
+          sudo apt-get install -y libcurl4-openssl-dev
+          qbittorrent-nox --daemon
+          sleep 10
+          pkill qbittorrent-nox
+          wget "https://github.com/webtorrent/webtorrent.io/raw/ae9660a25fd387a4b78d65e4205f111cab6e3da9/static/torrents/big-buck-bunny.torrent" -O ~/bbb.torrent
+          echo '
+          [LegalNotice]
+          Accepted=true
+          [Preferences]
+          WebUI\Enabled=true
+          WebUI\Username=admin
+          WebUI\Password_PBKDF2="@ByteArray(LcUuuGLBt/EdVIK+5OXJiw==:hnn+qrlOHqQoGNz0ieICrciBGotuiRqo4wdX5VmXBE4EsGwxTGNY+QyUDRDwoRCU2qpfKqVbU1tdK9XT/unNFg==)"
+          WebUI\Port=9090
+          WebUI\MaxAuthenticationFailCount=10000
+          ' >> "$HOME/.config/qBittorrent/qBittorrent.conf"
+          qbittorrent-nox --daemon
+
+      - name: Install qBittorrent on macOS
+        if: matrix.os == 'macos-latest'
+        run: |
+          wget "https://github.com/webtorrent/webtorrent.io/raw/ae9660a25fd387a4b78d65e4205f111cab6e3da9/static/torrents/big-buck-bunny.torrent" -O ~/bbb.torrent
+          brew install qbittorrent
+          open -a /Applications/qBittorrent.app
+          sleep 10
+          pkill -f qBittorrent
+          echo '
+          [LegalNotice]
+          Accepted=true
+          [Preferences]
+          WebUI\Enabled=true
+          WebUI\Username=admin
+          WebUI\Password_PBKDF2="@ByteArray(LcUuuGLBt/EdVIK+5OXJiw==:hnn+qrlOHqQoGNz0ieICrciBGotuiRqo4wdX5VmXBE4EsGwxTGNY+QyUDRDwoRCU2qpfKqVbU1tdK9XT/unNFg==)"
+          WebUI\Port=9090
+          WebUI\MaxAuthenticationFailCount=10000
+          ' >> "$HOME/.config/qBittorrent/qBittorrent.ini"
+          open -a /Applications/qBittorrent.app
+
+      - name: Install qBittorrent on Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/webtorrent/webtorrent.io/raw/ae9660a25fd387a4b78d65e4205f111cab6e3da9/static/torrents/big-buck-bunny.torrent" -OutFile "$env:USERPROFILE\bbb.torrent"
+          choco install qbittorrent -y --no-progress
+          Start-Process "C:\Program Files\qBittorrent\qbittorrent.exe" -WindowStyle Hidden
+          Start-Sleep -Seconds 10
+          Get-Process qbittorrent | Stop-Process
+          Add-Content -Path "$env:APPDATA\qBittorrent\qBittorrent.ini" -Value '
+          [LegalNotice]
+          Accepted=true
+          [Preferences]
+          WebUI\Enabled=true
+          WebUI\Username=admin
+          WebUI\Password_PBKDF2="@ByteArray(LcUuuGLBt/EdVIK+5OXJiw==:hnn+qrlOHqQoGNz0ieICrciBGotuiRqo4wdX5VmXBE4EsGwxTGNY+QyUDRDwoRCU2qpfKqVbU1tdK9XT/unNFg==)"
+          WebUI\Port=9090
+          WebUI\MaxAuthenticationFailCount=10000
+          '
+          Start-Process "C:\Program Files\qBittorrent\qbittorrent.exe" -WindowStyle Hidden
+          Get-Content "$env:APPDATA\qBittorrent\qBittorrent.ini"
+
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
@@ -55,33 +119,35 @@ jobs:
 
       - name: Test Apple Targets
         if: startsWith(matrix.os, 'macos')
-        run: ./gradlew macosX64MainKLibrary # iosTest tvosTest watchosX86Test
+        run: ./gradlew macosArm64Test # iosTest tvosTest watchosX86Test
 
       - name: Test Jvm Target
         if: startsWith(matrix.os, 'ubuntu')
-        run: ./gradlew jvmMainClasses
+        run: ./gradlew jvmTest
 
       - name: Test Linux Target
         if: startsWith(matrix.os, 'ubuntu')
-        run: ./gradlew linuxX64MainKLibrary
+        run: ./gradlew linuxX64Test
 
       - name: Test Js Targets
         if: startsWith(matrix.os, 'ubuntu')
-        run: ./gradlew jsMainClasses
+        run: ./gradlew jsNodeTest
 
       - name: Test Windows Target
         if: startsWith(matrix.os, 'windows')
-        run: ./gradlew mingwX64MainKLibrary
+        run: ./gradlew mingwX64Test
 
       - name: Publish Test Reports
         uses: mikepenz/action-junit-report@v4
         if: always()
         with:
+          check_name: JUnit Test Report (${{ matrix.os }})
+          include_passed: true
           report_paths: '**/build/test-results/**/TEST-*.xml'
 
       - name: Archive test reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: test-reports
+          name: test-reports-${{ matrix.os }}
           path: client/build/reports/tests/**/**

@@ -1,32 +1,45 @@
 package qbittorrent
 
 import app.cash.turbine.test
-import app.cash.turbine.testIn
+import app.cash.turbine.turbineScope
+import io.ktor.client.*
+import io.ktor.client.plugins.logging.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
 import kotlin.test.*
 import kotlin.time.Duration.Companion.seconds
 
 const val TEST_MAGNET_URL =
-    "magnet:?xt=urn:btih:P42GCLQPVRPHWBI3PC67CBQBCM2Q5P7A&dn=big_buck_bunny_1080p_h264.mov&xl=725106140&tr=http%3A%2F%2Fblender.waag.org%3A6969%2Fannounce"
-const val TEST_HASH = "7f34612e0fac5e7b051b78bdf1060113350ebfe0"
+    "magnet:?xt=urn:btih:3WBFL3G4PSSV7MF37AJSHWDQMLNR63I4&dn=Big%20Buck%20Bunny&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969"
+const val TEST_HASH = "dd8255ecdc7ca55fb0bbf81323d87062db1f6d1c"
 
-@OptIn(ExperimentalCoroutinesApi::class)
+expect val isWindows: Boolean
+
 class QBittorrentClientTests {
 
+    private lateinit var httpClient: HttpClient
     private lateinit var client: QBittorrentClient
 
     @BeforeTest
     fun setup() {
+        httpClient = HttpClient {
+            Logging {
+                level = LogLevel.ALL
+                logger = Logger.SIMPLE
+            }
+        }
         client = QBittorrentClient(
             baseUrl = "http://localhost:9090",
             syncInterval = 1.seconds,
+            httpClient = httpClient
         )
     }
 
     @AfterTest
-    fun cleanup() {
+    fun cleanup() = runTest {
+        deleteTorrents()
         client.http.close()
     }
 
@@ -36,6 +49,7 @@ class QBittorrentClientTests {
             baseUrl = "http://localhost:9090",
             username = "aaa",
             password = "aaa",
+            httpClient = httpClient
         )
         val error = assertFailsWith<QBittorrentException> {
             client.login()
@@ -57,6 +71,7 @@ class QBittorrentClientTests {
             baseUrl = "http://localhost:9090",
             username = "aaa",
             password = "aaa",
+            httpClient = httpClient
         )
         val error = assertFailsWith<QBittorrentException> {
             client.getApiVersion()
@@ -84,6 +99,7 @@ class QBittorrentClientTests {
             baseUrl = "http://localhost:9090",
             username = "aaa",
             password = "aaa",
+            httpClient = httpClient
         )
         val error = assertFailsWith<QBittorrentException> {
             client.observeMainData().firstOrNull()
@@ -97,19 +113,22 @@ class QBittorrentClientTests {
     fun testAddTorrentLocalFile() = runTest {
         try {
             client.addTorrent {
-                torrents.add("~/bbb.torrent")
-                torrents.add("%USERPROFILE%/bbb.torrent")
+                if (isWindows) {
+                    torrents.add("%USERPROFILE%/bbb.torrent")
+                } else {
+                    torrents.add("~/bbb.torrent")
+                }
             }
         } catch (_: NotImplementedError) {
             return@runTest // Unsupported on JS targets
         }
 
+        Default { delay(2. seconds) }
+
         val torrents = client.getTorrents()
         val torrent = assertNotNull(torrents.singleOrNull())
 
         assertEquals(TEST_HASH, torrent.hash)
-
-        deleteTorrents()
     }
 
     @Test
@@ -119,8 +138,6 @@ class QBittorrentClientTests {
         val torrent = assertNotNull(torrents.singleOrNull())
 
         assertEquals(TEST_HASH, torrent.hash)
-
-        deleteTorrents()
     }
 
     @Test
@@ -138,12 +155,14 @@ class QBittorrentClientTests {
 
     @Test
     fun testMainDataSyncingIsStoppedWithoutSubscribers() = runTest {
-        val mainDataFlow = client.observeMainData().testIn(this)
-        mainDataFlow.awaitItem()
-        assertTrue(client.isSyncing)
-        mainDataFlow.cancelAndIgnoreRemainingEvents()
-        withContext(Dispatchers.Default) { delay(10) }
-        assertFalse(client.isSyncing)
+        turbineScope {
+            val mainDataFlow = client.observeMainData().testIn(this)
+            mainDataFlow.awaitItem()
+            assertTrue(client.isSyncing)
+            mainDataFlow.cancelAndIgnoreRemainingEvents()
+            Default { delay(10) }
+            assertFalse(client.isSyncing)
+        }
     }
 
     @Test
@@ -161,6 +180,7 @@ class QBittorrentClientTests {
             baseUrl = "http://localhost:9090",
             username = "aaa",
             password = "aaa",
+            httpClient = httpClient
         )
 
         client.observeMainData().test {
@@ -179,7 +199,6 @@ class QBittorrentClientTests {
         client.observeTorrent(TEST_HASH, waitIfMissing = false).test {
             val torrent = awaitItem()
             assertEquals(TEST_HASH, torrent.hash)
-            deleteTorrents()
         }
     }
 
@@ -192,15 +211,16 @@ class QBittorrentClientTests {
 
     @Test
     fun testTorrentFlowWaitsIfMissing() = runTest {
-        val torrentFlow = client.observeTorrent(TEST_HASH, waitIfMissing = true)
-            .testIn(this, timeout = 3.seconds)
-        client.addTorrent { urls.add(TEST_MAGNET_URL) }
+        turbineScope {
+            val torrentFlow = client.observeTorrent(TEST_HASH, waitIfMissing = true)
+                .testIn(this, timeout = 3.seconds)
+            client.addTorrent { urls.add(TEST_MAGNET_URL) }
 
-        val torrent = torrentFlow.awaitItem()
-        assertEquals(TEST_HASH, torrent.hash)
+            val torrent = torrentFlow.awaitItem()
+            assertEquals(TEST_HASH, torrent.hash)
 
-        torrentFlow.cancelAndIgnoreRemainingEvents()
-        deleteTorrents()
+            torrentFlow.cancelAndIgnoreRemainingEvents()
+        }
     }
 
     @Test
@@ -211,7 +231,9 @@ class QBittorrentClientTests {
             dlLimit = 1
             upLimit = 1
         }
-        Dispatchers.Default { delay(2000) }
+
+        Default { delay(2.seconds) }
+
         client.observeTorrentPeers(TEST_HASH).test {
             val torrentPeers = awaitItem()
 

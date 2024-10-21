@@ -59,13 +59,13 @@ kotlin {
                 implementation(libs.coroutines.core)
                 implementation(libs.serialization.json)
                 implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.logging)
                 implementation(libs.ktor.client.contentNegotiation)
                 implementation(libs.ktor.serialization)
             }
         }
         val commonTest by getting {
             dependencies {
+                implementation(libs.ktor.client.logging)
                 implementation(libs.coroutines.test)
                 implementation(libs.coroutines.turbine)
                 implementation(kotlin("test-common"))
@@ -93,20 +93,18 @@ kotlin {
             }
         }
 
-        /*val appleTest by getting {
+        val appleTest by getting {
             dependencies {
                 implementation(libs.ktor.client.darwin)
             }
-        }*/
+        }
 
-        val mingwX64Main by getting
-        val mingwX64Test by getting {
+        val mingwTest by getting {
             dependencies {
                 implementation(libs.ktor.client.winhttp)
             }
         }
-        val linuxX64Main by getting
-        val linuxX64Test by getting {
+        val linuxTest by getting {
             dependencies {
                 implementation(libs.ktor.client.curl)
             }

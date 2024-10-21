@@ -14,10 +14,14 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.*
+import kotlinx.io.buffered
+import kotlinx.io.files.Path
+import kotlinx.io.files.SystemFileSystem
+import kotlinx.io.files.SystemPathSeparator
+import kotlinx.io.readByteArray
 import kotlinx.serialization.json.*
 import qbittorrent.internal.*
 import qbittorrent.internal.AtomicReference
-import qbittorrent.internal.FileReader
 import qbittorrent.internal.MainDataSync
 import qbittorrent.internal.RawCookiesStorage
 import qbittorrent.internal.bodyOrThrow
@@ -71,7 +75,7 @@ class QBittorrentClient(
     password: String = "adminadmin",
     syncInterval: Duration = 5.seconds,
     httpClient: HttpClient = HttpClient(),
-    dispatcher: CoroutineDispatcher = Default,
+    private val dispatcher: CoroutineDispatcher = Default,
 ) {
     companion object {
         const val RATIO_LIMIT_NONE = -1
@@ -235,6 +239,15 @@ class QBittorrentClient(
     suspend fun addTorrent(configure: AddTorrentBody.() -> Unit) {
         val body = AddTorrentBody().apply(configure)
 
+        val torrentFiles = withContext(dispatcher) {
+            body.torrents.associate { filePath ->
+                val resolvedPath = SystemFileSystem.resolve(Path(FilePathResolver.resolve(filePath)))
+                val fileBytes = SystemFileSystem.source(resolvedPath)
+                    .buffered()
+                    .use { it.readByteArray() }
+                resolvedPath.toString() to fileBytes
+            }
+        }
         http.submitFormWithBinaryData(
             "${config.baseUrl}/api/v2/torrents/add",
             formData {
@@ -265,16 +278,8 @@ class QBittorrentClient(
                 appendUnlessNull(PARAM_AUTO_TTM, body.autoTMM)
                 appendUnlessNull(PARAM_SEQUENTIAL_DOWNLOAD, body.sequentialDownload)
                 appendUnlessNull(PARAM_FIRST_LAST_PIECE, body.firstLastPiecePriority)
-                val torrentFiles = body.torrents
-                    .mapNotNull { filePath ->
-                        FileReader.contentOrNull(filePath)?.let { filePath to it }
-                    }
-                    .toMap()
-                    .plus(body.rawTorrents)
-                torrentFiles.forEach { (torrentPath, fileContent) ->
-                    val filename = torrentPath
-                        .substringAfterLast('/')
-                        .substringAfterLast('\\')
+                (torrentFiles + body.rawTorrents).forEach { (torrentPath, fileContent) ->
+                    val filename = torrentPath.substringAfterLast(SystemPathSeparator)
                     append(
                         PARAM_TORRENTS,
                         fileContent,
