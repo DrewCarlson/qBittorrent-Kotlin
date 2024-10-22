@@ -80,3 +80,9 @@ tasks.withType<KotlinCompilationTask<*>>().all {
         dependsOn("kspCommonMainKotlinMetadata")
     }
 }
+
+tasks.withType<AbstractArchiveTask>().all {
+    if (name.endsWith("SourcesJar")) {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
