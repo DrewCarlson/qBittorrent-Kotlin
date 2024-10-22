@@ -8,7 +8,7 @@ binary_compat = "0.16.3"
 spotless = "6.15.0"
 ktlint = "0.46.1"
 jvmToolchain = "11"
-compileTesting = "0.4.1"
+compileTesting = "0.5.1"
 ksp = "2.0.21-1.0.25"
 kotlinpoet = "2.0.0"
 
