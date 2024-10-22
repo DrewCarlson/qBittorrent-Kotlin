@@ -2,7 +2,9 @@ package qbittorrent.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.reflect.KProperty1
 
+@GenerateSerialNameMapper
 @Serializable
 data class Torrent(
     /** Time (Unix Epoch) when the torrent was added to the client */
@@ -186,3 +188,10 @@ data class Torrent(
         UNKNOWN
     }
 }
+
+/**
+ * Returns the serial name for the given model property to use with API calls
+ * requiring field names such as sorting in `getTorrents(...)`.
+ */
+val KProperty1<Torrent, *>.serialName: String
+    get() = TorrentSerialNameMap.map(name)

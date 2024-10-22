@@ -585,6 +585,10 @@ public final class qbittorrent/models/TorrentFilter : java/lang/Enum {
 	public static fun values ()[Lqbittorrent/models/TorrentFilter;
 }
 
+public final class qbittorrent/models/TorrentKt {
+	public static final fun getSerialName (Lkotlin/reflect/KProperty1;)Ljava/lang/String;
+}
+
 public final class qbittorrent/models/TorrentPeer {
 	public static final field Companion Lqbittorrent/models/TorrentPeer$Companion;
 	public fun <init> ()V

@@ -62,7 +62,7 @@ internal val json = Json {
  *
  * https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)
  *
- * @param baseUrl The base URL of qBittorrent, ex. http://localhost:9000
+ * @param baseUrl The base URL of qBittorrent, ex. http://localhost:8080
  * @param username The qBittorrent username, default: admin
  * @param password The qBittorrent password, default: adminadmin
  * @param syncInterval The sync endpoint polling rate when subscribed to a [Flow], defaults to 5 seconds.
@@ -224,7 +224,7 @@ class QBittorrentClient(
     }
 
     /**
-     * This method can add torrents from server local file or from URLs.
+     * Add torrents from server local file or from URLs.
      * http://, https://, magnet: and bc://bt/ links are supported.
      *
      * To include torrents, add HTTP and magnet urls to [AddTorrentBody.urls],
@@ -292,10 +292,20 @@ class QBittorrentClient(
         ).orThrow()
     }
 
+    /**
+     * @param filter Filter torrent list by state, see [TorrentFilter]. Default: [TorrentFilter.ALL]
+     * @param category Get torrents with the given category name, `null` for 'any category', or `""` for 'no category'. Default: `null`
+     * @param tag Get torrents with the given tag, `null` for 'any tag', or `""` for 'no tag'. Default: `null`
+     * @param sort Sort torrents by given key, for example: `Torrent::lastActivity.serialName`
+     * @param reverse Enable reverse sorting. Defaults: `false`
+     * @param limit Limit the number of torrents returned.
+     * @param offset Set offset (if less than 0, offset from end).
+     * @param hashes Filter by torrent hashes.
+     */
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun getTorrents(
         filter: TorrentFilter = TorrentFilter.ALL,
-        category: String = "",
+        category: String? = null,
         sort: String = "",
         reverse: Boolean = false,
         limit: Int = 0,
@@ -311,7 +321,7 @@ class QBittorrentClient(
             if (hashes.isNotEmpty()) {
                 parameter("hashes", hashes.joinToString("|"))
             }
-            if (category.isNotBlank()) {
+            if (category != null) {
                 parameter("category", category)
             }
             if (sort.isNotBlank()) {
