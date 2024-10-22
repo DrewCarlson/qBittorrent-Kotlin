@@ -18,7 +18,7 @@ import qbittorrent.json
 import qbittorrent.models.MainData
 import qbittorrent.models.TorrentPeers
 
-typealias DataStatePair<T> = Pair<T?, QBittorrentException?>
+private typealias DataStatePair<T> = Pair<T?, QBittorrentException?>
 
 internal abstract class DataSync<T>(
     private val typeInfo: TypeInfo,
