@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [ main, drew/restore-ci-testing ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
