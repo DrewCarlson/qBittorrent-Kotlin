@@ -1,13 +1,16 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
-    application
 }
 
 kotlin {
     jvm {
-        withJava()
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        mainRun {
+            mainClass.set("demo.MainKt")
+        }
     }
 
     mingwX64("windows")
@@ -53,8 +56,4 @@ kotlin {
             }
         }
     }
-}
-
-application {
-    mainClass.set("demo.MainKt")
 }
