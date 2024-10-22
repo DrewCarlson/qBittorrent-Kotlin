@@ -123,7 +123,7 @@ class QBittorrentClientTests {
             return@runTest // Unsupported on JS targets
         }
 
-        Default { delay(2. seconds) }
+        Default { delay(2.seconds) }
 
         val torrents = client.getTorrents()
         val torrent = assertNotNull(torrents.singleOrNull())
