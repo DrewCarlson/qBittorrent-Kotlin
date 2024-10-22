@@ -232,7 +232,7 @@ class QBittorrentClientTests {
             upLimit = 1
         }
 
-        Default { delay(2.seconds) }
+        Default { delay(5.seconds) }
 
         client.observeTorrentPeers(TEST_HASH).test {
             val torrentPeers = awaitItem()
