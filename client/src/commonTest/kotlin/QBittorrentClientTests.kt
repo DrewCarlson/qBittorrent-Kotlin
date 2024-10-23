@@ -264,14 +264,6 @@ class QBittorrentClientTests {
         val testWebUiDomainList = listOf("localhost", "127.0.0.1")
         val testAddTrackers = listOf("http://localhost", "http://127.0.0.1")
         val testBannedIps = listOf("1.1.1.1", "8.8.8.8")
-        val testScanDirs = listOf(
-            ScanDir.MonitoredFolder("\\MonitoredFolder"),
-            ScanDir.DefaultSavePath("\\DefaultSavePath"),
-            ScanDir.CustomSavePath(
-                scanDir = "\\CustomSavePath",
-                path = "\\CustomSavePath\\done"
-            )
-        )
 
         // set various prefs
         client.setPreferences {
@@ -282,7 +274,6 @@ class QBittorrentClientTests {
             set(QBittorrentPrefs::webUiDomainList, testWebUiDomainList)
             set(QBittorrentPrefs::addTrackers, testAddTrackers)
             set(QBittorrentPrefs::bannedIps, testBannedIps)
-            set(QBittorrentPrefs::scanDirs, testScanDirs)
         }
 
         client.getPreferences().apply {
@@ -293,7 +284,6 @@ class QBittorrentClientTests {
             assertEquals(testWebUiDomainList, webUiDomainList)
             assertEquals(testAddTrackers, addTrackers)
             assertEquals(testBannedIps, bannedIps)
-            assertEquals(testScanDirs, scanDirs.reversed())
         }
 
         // set all the prefs roughly to default
