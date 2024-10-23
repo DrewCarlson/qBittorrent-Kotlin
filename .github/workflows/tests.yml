@@ -30,7 +30,7 @@ jobs:
   tests:
     strategy:
       matrix:
-        os: [ macos-latest, windows-latest ]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
     runs-on: ${{ matrix.os }}
     needs: [ file-changes ]
     if: needs.file-changes.outputs.any == 'true'
@@ -39,6 +39,7 @@ jobs:
       - name: Install qBittorrent on Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
+          sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
           sudo apt-get update
           sudo apt-get install -y qbittorrent-nox
           sudo apt-get install -y libcurl4-openssl-dev
