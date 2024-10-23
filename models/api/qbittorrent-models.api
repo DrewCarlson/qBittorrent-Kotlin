@@ -1197,6 +1197,7 @@ public final class qbittorrent/models/preferences/MaxRatioAction : java/lang/Enu
 }
 
 public final class qbittorrent/models/preferences/ProxyType : java/lang/Enum {
+	public static final field Companion Lqbittorrent/models/preferences/ProxyType$Companion;
 	public static final field HTTP Lqbittorrent/models/preferences/ProxyType;
 	public static final field NONE Lqbittorrent/models/preferences/ProxyType;
 	public static final field SOCKS4 Lqbittorrent/models/preferences/ProxyType;
@@ -1204,6 +1205,10 @@ public final class qbittorrent/models/preferences/ProxyType : java/lang/Enum {
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/preferences/ProxyType;
 	public static fun values ()[Lqbittorrent/models/preferences/ProxyType;
+}
+
+public final class qbittorrent/models/preferences/ProxyType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public abstract class qbittorrent/models/preferences/ScanDir {
