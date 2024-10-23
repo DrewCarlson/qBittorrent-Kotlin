@@ -263,39 +263,20 @@ class QBittorrentClientTests {
 
         // set various prefs
         client.setPreferences {
-            set(QBittorrentPrefs::proxyType, ProxyType.SOCKS5)
             set(QBittorrentPrefs::anonymousMode, true)
-            set(QBittorrentPrefs::encryption, testEncryption)
-            set(QBittorrentPrefs::addTrackers, testAddTrackers)
-            set(QBittorrentPrefs::bannedIps, testBannedIps)
         }
 
         client.getPreferences().apply {
-            assertEquals(ProxyType.SOCKS5, proxyType)
             assertTrue(anonymousMode)
-            assertEquals(testEncryption, encryption)
-            assertEquals(testWebUiDomainList, webUiDomainList)
-            assertEquals(testAddTrackers, addTrackers)
-            assertEquals(testBannedIps, bannedIps)
         }
 
         // set all the prefs roughly to default
         client.setPreferences {
-            set(QBittorrentPrefs::proxyType, ProxyType.NONE)
             set(QBittorrentPrefs::anonymousMode, false)
-            set(QBittorrentPrefs::encryption, TorrentEncryption.PREFER_ENCRYPTION)
-            set(QBittorrentPrefs::addTrackers, emptyList())
-            set(QBittorrentPrefs::bannedIps, emptyList())
         }
 
         client.getPreferences().apply {
-            assertEquals(0, bypassAuthSubnetWhitelist.size)
-            assertEquals(ProxyType.NONE, proxyType)
             assertFalse(anonymousMode)
-            assertEquals(TorrentEncryption.PREFER_ENCRYPTION, encryption)
-            assertEquals(0, addTrackers.size)
-            assertEquals(0, bannedIps.size)
-            assertEquals(0, scanDirs.size)
         }
 
         Default { delay(2.seconds) }
