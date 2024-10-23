@@ -19,6 +19,7 @@ import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
 import kotlinx.io.files.SystemPathSeparator
 import kotlinx.io.readByteArray
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
 import qbittorrent.internal.*
 import qbittorrent.internal.AtomicReference
@@ -453,22 +454,21 @@ class QBittorrentClient(
      * Get the qBittorrent application preferences.
      */
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun getPreferences(): JsonObject =
+    suspend fun getPreferences(): QBittorrentPrefs =
         http.get("${config.baseUrl}/api/v2/app/preferences").bodyOrThrow()
 
     /**
      * Set one or more qBittorrent application preferences.
      */
     @Throws(QBittorrentException::class, CancellationException::class)
-    suspend fun setPreferences(prefs: JsonObject) {
-        http.post("${config.baseUrl}/api/v2/app/setPreferences") {
-            contentType(ContentType.Application.Json)
-            setBody(
-                buildJsonObject {
-                    put("json", prefs)
-                }
-            )
-        }.orThrow()
+    suspend fun setPreferences(prefsBuilder: QBittorrentPrefsBuilder.() -> Unit) {
+        val prefsJson = QBittorrentPrefsBuilder().apply(prefsBuilder).build()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/app/setPreferences",
+            formParameters = Parameters.build {
+                append("json", json.encodeToString(prefsJson))
+            }
+        ).orThrow()
     }
 
     /** Get the application version. */

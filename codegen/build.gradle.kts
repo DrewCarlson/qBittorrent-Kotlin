@@ -13,6 +13,7 @@ kotlin {
 
 dependencies {
     implementation(libs.ksp)
+    implementation(libs.serialization.core)
     implementation(libs.compileTesting)
     implementation(libs.compileTesting.ksp)
     implementation(libs.kotlinpoet)

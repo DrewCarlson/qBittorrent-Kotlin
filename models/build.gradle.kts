@@ -11,7 +11,7 @@ plugins {
 }
 
 dependencies {
-    add("kspCommonMainMetadata", project(":serialname-codegen"))
+    add("kspCommonMainMetadata", project(":codegen"))
 }
 
 kotlin {

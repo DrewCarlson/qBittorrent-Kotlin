@@ -83,7 +83,7 @@ public final class qbittorrent/QBittorrentClient {
 	public static synthetic fun setForceStart$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun setGlobalDownloadLimit (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun setGlobalUploadLimit (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun setPreferences (Lkotlinx/serialization/json/JsonObject;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setPreferences (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun setSuperSeeding (Ljava/util/List;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun setSuperSeeding$default (Lqbittorrent/QBittorrentClient;Ljava/util/List;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun setTorrentCategory (Ljava/util/List;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

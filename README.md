@@ -30,7 +30,7 @@ val client = QBittorrentClient(
 )
 ```
 
-Add a new torrent:
+**Add a new torrent:**
 ```kotlin
 client.addTorrent {
     // Add HTTP/Magnet URLs:
@@ -44,7 +44,7 @@ client.addTorrent {
 }
 ```
 
-Subscribe to MainData updates:
+**Subscribe to MainData updates:**
 ```kotlin
 client.observeMainData()
     .collect { mainData ->
@@ -53,7 +53,7 @@ client.observeMainData()
     }
 ```
 
-Subscribe to Torrent updates:
+**Subscribe to Torrent updates:**
 
 ```kotlin
 client.observeTorrent("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
@@ -65,6 +65,17 @@ client.observeTorrent("c12fe1c06bba254a9dc9f519b335aa7c1367a88a")
 Note that the `maindata` endpoint is only polled at the provided `syncInterval` while collecting either the
 `observeMainData()` or `observeTorrent(...)` `Flow`s.
 When all instances of these `Flow`s are completed/cancelled no API endpoints will be called until explicitly requested.
+
+**Update qBittorrent preferences:**
+
+```kotlin
+client.setPreferences {
+    QBittorrentPrefs::bannedIps set listOf("1.1.1.1", "8.8.8.8")
+    QBittorrentPrefs::maxRatioAction set MaxRatioAction.PAUSE_TORRENT
+    QBittorrentPrefs::createSubfolderEnabled set true
+    // etc..
+}
+```
 
 ## Download
 

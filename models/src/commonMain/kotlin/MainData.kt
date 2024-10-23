@@ -2,6 +2,7 @@ package qbittorrent.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import qbittorrent.models.serialization.KeyMergingTransformer
 
 @Serializable
 data class MainData(

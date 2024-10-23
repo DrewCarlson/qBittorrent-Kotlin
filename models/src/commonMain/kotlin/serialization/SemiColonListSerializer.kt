@@ -1,4 +1,4 @@
-package qbittorrent.models
+package qbittorrent.models.serialization
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -7,15 +7,15 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-internal object TagListSerializer : KSerializer<List<String>> {
+internal object SemiColonListSerializer : KSerializer<List<String>> {
 
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Tag", PrimitiveKind.STRING)
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("SemiColonList", PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): List<String> {
-        return decoder.decodeString().split(",")
+        return decoder.decodeString().split(";").filter { it.isNotEmpty() }
     }
 
     override fun serialize(encoder: Encoder, value: List<String>) {
-        encoder.encodeString(value.joinToString(","))
+        encoder.encodeString(value.joinToString(";"))
     }
 }

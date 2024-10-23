@@ -309,6 +309,331 @@ public final class qbittorrent/models/PieceState : java/lang/Enum {
 	public static fun values ()[Lqbittorrent/models/PieceState;
 }
 
+public final class qbittorrent/models/QBittorrentPrefs {
+	public static final field Companion Lqbittorrent/models/QBittorrentPrefs$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;IZZZZZZLjava/lang/String;ZLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZIIIZIIIZFLqbittorrent/models/preferences/MaxRatioAction;IZZIIIIIIIZLqbittorrent/models/preferences/BittorrentProtocol;ZZZIIZIIIILqbittorrent/models/preferences/SchedulerDays;ZZZLqbittorrent/models/preferences/TorrentEncryption;ZLqbittorrent/models/preferences/ProxyType;Ljava/lang/String;IZZLjava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;ZLjava/lang/String;ZLjava/util/List;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;ZZZIIIZZZLjava/util/List;ZLjava/lang/String;ZLjava/lang/String;Ljava/lang/String;ZLqbittorrent/models/preferences/DyndnsService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZLjava/lang/String;ZLjava/util/List;ZLjava/util/List;ZILjava/lang/String;ZZILjava/util/List;ILjava/lang/String;Ljava/lang/String;IIIZZZLjava/lang/Boolean;ZIIIZZIIIIILqbittorrent/models/preferences/UploadChokingAlgorithm;Lqbittorrent/models/preferences/UploadSlotsBehavior;ILqbittorrent/models/preferences/UtpTcpMixedMode;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;IZZZZZZLjava/lang/String;ZLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZIIIZIIIZFLqbittorrent/models/preferences/MaxRatioAction;IZZIIIIIIIZLqbittorrent/models/preferences/BittorrentProtocol;ZZZIIZIIIILqbittorrent/models/preferences/SchedulerDays;ZZZLqbittorrent/models/preferences/TorrentEncryption;ZLqbittorrent/models/preferences/ProxyType;Ljava/lang/String;IZZLjava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;ZLjava/lang/String;ZLjava/util/List;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;ZZZIIIZZZLjava/util/List;ZLjava/lang/String;ZLjava/lang/String;Ljava/lang/String;ZLqbittorrent/models/preferences/DyndnsService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZLjava/lang/String;ZLjava/util/List;ZLjava/util/List;ZILjava/lang/String;ZZILjava/util/List;ILjava/lang/String;Ljava/lang/String;IIIZZZLjava/lang/Boolean;ZIIIZZIIIIILqbittorrent/models/preferences/UploadChokingAlgorithm;Lqbittorrent/models/preferences/UploadSlotsBehavior;ILqbittorrent/models/preferences/UtpTcpMixedMode;IIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Z
+	public final fun component100 ()Ljava/lang/String;
+	public final fun component101 ()Ljava/lang/String;
+	public final fun component102 ()Ljava/lang/String;
+	public final fun component103 ()I
+	public final fun component104 ()I
+	public final fun component105 ()Z
+	public final fun component106 ()Z
+	public final fun component107 ()Z
+	public final fun component108 ()Ljava/lang/String;
+	public final fun component109 ()Z
+	public final fun component11 ()Ljava/lang/String;
+	public final fun component110 ()Ljava/util/List;
+	public final fun component111 ()Z
+	public final fun component112 ()Ljava/util/List;
+	public final fun component113 ()Z
+	public final fun component114 ()I
+	public final fun component115 ()Ljava/lang/String;
+	public final fun component116 ()Z
+	public final fun component117 ()Z
+	public final fun component118 ()I
+	public final fun component119 ()Ljava/util/List;
+	public final fun component12 ()Z
+	public final fun component120 ()I
+	public final fun component121 ()Ljava/lang/String;
+	public final fun component122 ()Ljava/lang/String;
+	public final fun component123 ()I
+	public final fun component124 ()I
+	public final fun component125 ()I
+	public final fun component126 ()Z
+	public final fun component127 ()Z
+	public final fun component128 ()Z
+	public final fun component129 ()Ljava/lang/Boolean;
+	public final fun component13 ()Ljava/lang/String;
+	public final fun component130 ()Z
+	public final fun component131 ()I
+	public final fun component132 ()I
+	public final fun component133 ()I
+	public final fun component134 ()Z
+	public final fun component135 ()Z
+	public final fun component136 ()I
+	public final fun component137 ()I
+	public final fun component138 ()I
+	public final fun component139 ()I
+	public final fun component14 ()Ljava/util/List;
+	public final fun component140 ()I
+	public final fun component141 ()Lqbittorrent/models/preferences/UploadChokingAlgorithm;
+	public final fun component142 ()Lqbittorrent/models/preferences/UploadSlotsBehavior;
+	public final fun component143 ()I
+	public final fun component144 ()Lqbittorrent/models/preferences/UtpTcpMixedMode;
+	public final fun component15 ()Ljava/lang/String;
+	public final fun component16 ()Ljava/lang/String;
+	public final fun component17 ()Z
+	public final fun component18 ()Ljava/lang/String;
+	public final fun component19 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Boolean;
+	public final fun component20 ()Ljava/lang/String;
+	public final fun component21 ()Z
+	public final fun component22 ()Z
+	public final fun component23 ()Ljava/lang/String;
+	public final fun component24 ()Ljava/lang/String;
+	public final fun component25 ()Z
+	public final fun component26 ()Ljava/lang/String;
+	public final fun component27 ()Z
+	public final fun component28 ()I
+	public final fun component29 ()I
+	public final fun component3 ()Ljava/lang/Boolean;
+	public final fun component30 ()I
+	public final fun component31 ()Z
+	public final fun component32 ()I
+	public final fun component33 ()I
+	public final fun component34 ()I
+	public final fun component35 ()Z
+	public final fun component36 ()F
+	public final fun component37 ()Lqbittorrent/models/preferences/MaxRatioAction;
+	public final fun component38 ()I
+	public final fun component39 ()Z
+	public final fun component4 ()I
+	public final fun component40 ()Z
+	public final fun component41 ()I
+	public final fun component42 ()I
+	public final fun component43 ()I
+	public final fun component44 ()I
+	public final fun component45 ()I
+	public final fun component46 ()I
+	public final fun component47 ()I
+	public final fun component48 ()Z
+	public final fun component49 ()Lqbittorrent/models/preferences/BittorrentProtocol;
+	public final fun component5 ()Z
+	public final fun component50 ()Z
+	public final fun component51 ()Z
+	public final fun component52 ()Z
+	public final fun component53 ()I
+	public final fun component54 ()I
+	public final fun component55 ()Z
+	public final fun component56 ()I
+	public final fun component57 ()I
+	public final fun component58 ()I
+	public final fun component59 ()I
+	public final fun component6 ()Z
+	public final fun component60 ()Lqbittorrent/models/preferences/SchedulerDays;
+	public final fun component61 ()Z
+	public final fun component62 ()Z
+	public final fun component63 ()Z
+	public final fun component64 ()Lqbittorrent/models/preferences/TorrentEncryption;
+	public final fun component65 ()Z
+	public final fun component66 ()Lqbittorrent/models/preferences/ProxyType;
+	public final fun component67 ()Ljava/lang/String;
+	public final fun component68 ()I
+	public final fun component69 ()Z
+	public final fun component7 ()Z
+	public final fun component70 ()Z
+	public final fun component71 ()Ljava/lang/String;
+	public final fun component72 ()Ljava/lang/String;
+	public final fun component73 ()Ljava/lang/Boolean;
+	public final fun component74 ()Z
+	public final fun component75 ()Ljava/lang/String;
+	public final fun component76 ()Z
+	public final fun component77 ()Ljava/util/List;
+	public final fun component78 ()Ljava/lang/String;
+	public final fun component79 ()I
+	public final fun component8 ()Z
+	public final fun component80 ()Z
+	public final fun component81 ()Ljava/lang/String;
+	public final fun component82 ()Ljava/lang/String;
+	public final fun component83 ()Z
+	public final fun component84 ()Z
+	public final fun component85 ()Z
+	public final fun component86 ()I
+	public final fun component87 ()I
+	public final fun component88 ()I
+	public final fun component89 ()Z
+	public final fun component9 ()Z
+	public final fun component90 ()Z
+	public final fun component91 ()Z
+	public final fun component92 ()Ljava/util/List;
+	public final fun component93 ()Z
+	public final fun component94 ()Ljava/lang/String;
+	public final fun component95 ()Z
+	public final fun component96 ()Ljava/lang/String;
+	public final fun component97 ()Ljava/lang/String;
+	public final fun component98 ()Z
+	public final fun component99 ()Lqbittorrent/models/preferences/DyndnsService;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;IZZZZZZLjava/lang/String;ZLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZIIIZIIIZFLqbittorrent/models/preferences/MaxRatioAction;IZZIIIIIIIZLqbittorrent/models/preferences/BittorrentProtocol;ZZZIIZIIIILqbittorrent/models/preferences/SchedulerDays;ZZZLqbittorrent/models/preferences/TorrentEncryption;ZLqbittorrent/models/preferences/ProxyType;Ljava/lang/String;IZZLjava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;ZLjava/lang/String;ZLjava/util/List;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;ZZZIIIZZZLjava/util/List;ZLjava/lang/String;ZLjava/lang/String;Ljava/lang/String;ZLqbittorrent/models/preferences/DyndnsService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZLjava/lang/String;ZLjava/util/List;ZLjava/util/List;ZILjava/lang/String;ZZILjava/util/List;ILjava/lang/String;Ljava/lang/String;IIIZZZLjava/lang/Boolean;ZIIIZZIIIIILqbittorrent/models/preferences/UploadChokingAlgorithm;Lqbittorrent/models/preferences/UploadSlotsBehavior;ILqbittorrent/models/preferences/UtpTcpMixedMode;)Lqbittorrent/models/QBittorrentPrefs;
+	public static synthetic fun copy$default (Lqbittorrent/models/QBittorrentPrefs;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;IZZZZZZLjava/lang/String;ZLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZIIIZIIIZFLqbittorrent/models/preferences/MaxRatioAction;IZZIIIIIIIZLqbittorrent/models/preferences/BittorrentProtocol;ZZZIIZIIIILqbittorrent/models/preferences/SchedulerDays;ZZZLqbittorrent/models/preferences/TorrentEncryption;ZLqbittorrent/models/preferences/ProxyType;Ljava/lang/String;IZZLjava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;ZLjava/lang/String;ZLjava/util/List;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;ZZZIIIZZZLjava/util/List;ZLjava/lang/String;ZLjava/lang/String;Ljava/lang/String;ZLqbittorrent/models/preferences/DyndnsService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZLjava/lang/String;ZLjava/util/List;ZLjava/util/List;ZILjava/lang/String;ZZILjava/util/List;ILjava/lang/String;Ljava/lang/String;IIIZZZLjava/lang/Boolean;ZIIIZZIIIIILqbittorrent/models/preferences/UploadChokingAlgorithm;Lqbittorrent/models/preferences/UploadSlotsBehavior;ILqbittorrent/models/preferences/UtpTcpMixedMode;IIIIILjava/lang/Object;)Lqbittorrent/models/QBittorrentPrefs;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAddTrackers ()Ljava/util/List;
+	public final fun getAddTrackersEnabled ()Z
+	public final fun getAltDlLimit ()I
+	public final fun getAltUpLimit ()I
+	public final fun getAlternativeWebUiEnabled ()Z
+	public final fun getAlternativeWebUiPath ()Ljava/lang/String;
+	public final fun getAnnounceIp ()Ljava/lang/String;
+	public final fun getAnnounceToAllTiers ()Z
+	public final fun getAnnounceToAllTrackers ()Z
+	public final fun getAnonymousMode ()Z
+	public final fun getAsyncIoThreads ()I
+	public final fun getAutoDeleteMode ()I
+	public final fun getAutoTmmEnabled ()Z
+	public final fun getAutorunEnabled ()Z
+	public final fun getAutorunProgram ()Ljava/lang/String;
+	public final fun getBannedIps ()Ljava/util/List;
+	public final fun getBittorrentProtocol ()Lqbittorrent/models/preferences/BittorrentProtocol;
+	public final fun getBypassAuthSubnetWhitelist ()Ljava/util/List;
+	public final fun getBypassAuthSubnetWhitelistEnabled ()Z
+	public final fun getBypassLocalAuth ()Z
+	public final fun getCategoryChangedTmmEnabled ()Z
+	public final fun getCheckingMemoryUse ()I
+	public final fun getCreateSubfolderEnabled ()Ljava/lang/Boolean;
+	public final fun getCurrentInterfaceAddress ()Ljava/lang/String;
+	public final fun getCurrentNetworkInterface ()Ljava/lang/String;
+	public final fun getDht ()Z
+	public final fun getDiskCache ()I
+	public final fun getDiskCacheTtl ()I
+	public final fun getDlLimit ()I
+	public final fun getDontCountSlowTorrents ()Z
+	public final fun getDyndnsDomain ()Ljava/lang/String;
+	public final fun getDyndnsEnabled ()Z
+	public final fun getDyndnsPassword ()Ljava/lang/String;
+	public final fun getDyndnsService ()Lqbittorrent/models/preferences/DyndnsService;
+	public final fun getDyndnsUsername ()Ljava/lang/String;
+	public final fun getEmbeddedTrackerPort ()I
+	public final fun getEnableCoalesceReadWrite ()Z
+	public final fun getEnableEmbeddedTracker ()Z
+	public final fun getEnableMultiConnectionsFromSameIp ()Z
+	public final fun getEnableOsCache ()Ljava/lang/Boolean;
+	public final fun getEnablePieceExtentAffinity ()Z
+	public final fun getEnableUploadSuggestions ()Z
+	public final fun getEncryption ()Lqbittorrent/models/preferences/TorrentEncryption;
+	public final fun getExportDir ()Ljava/lang/String;
+	public final fun getExportDirFinished ()Ljava/lang/String;
+	public final fun getFilePoolSize ()I
+	public final fun getIncompleteFilesExt ()Z
+	public final fun getIpFilterEnabled ()Z
+	public final fun getIpFilterPath ()Ljava/lang/String;
+	public final fun getIpFilterTrackers ()Z
+	public final fun getLimitLanPeers ()Z
+	public final fun getLimitTcpOverhead ()Z
+	public final fun getLimitUtpRate ()Z
+	public final fun getListenPort ()I
+	public final fun getLocale ()Ljava/lang/String;
+	public final fun getLsd ()Z
+	public final fun getMailNotificationAuthEnabled ()Z
+	public final fun getMailNotificationEmail ()Ljava/lang/String;
+	public final fun getMailNotificationEnabled ()Z
+	public final fun getMailNotificationPassword ()Ljava/lang/String;
+	public final fun getMailNotificationSender ()Ljava/lang/String;
+	public final fun getMailNotificationSmtp ()Ljava/lang/String;
+	public final fun getMailNotificationSslEnabled ()Z
+	public final fun getMailNotificationUsername ()Ljava/lang/String;
+	public final fun getMaxActiveDownloads ()I
+	public final fun getMaxActiveTorrents ()I
+	public final fun getMaxActiveUploads ()I
+	public final fun getMaxConnections ()I
+	public final fun getMaxConnectionsPerTorrent ()I
+	public final fun getMaxRatio ()F
+	public final fun getMaxRatioAction ()Lqbittorrent/models/preferences/MaxRatioAction;
+	public final fun getMaxRatioEnabled ()Z
+	public final fun getMaxSeedingTime ()I
+	public final fun getMaxSeedingTimeEnabled ()Z
+	public final fun getMaxUploads ()I
+	public final fun getMaxUploadsPerTorrent ()I
+	public final fun getOutgoingPortsMax ()I
+	public final fun getOutgoingPortsMin ()I
+	public final fun getPex ()Z
+	public final fun getPreallocateAll ()Z
+	public final fun getProxyAuthEnabled ()Z
+	public final fun getProxyIp ()Ljava/lang/String;
+	public final fun getProxyPassword ()Ljava/lang/String;
+	public final fun getProxyPeerConnections ()Z
+	public final fun getProxyPort ()I
+	public final fun getProxyTorrentsOnly ()Ljava/lang/Boolean;
+	public final fun getProxyType ()Lqbittorrent/models/preferences/ProxyType;
+	public final fun getProxyUsername ()Ljava/lang/String;
+	public final fun getQueueingEnabled ()Z
+	public final fun getRandomPort ()Z
+	public final fun getRecheckCompletedTorrents ()Z
+	public final fun getResolvePeerCountries ()Z
+	public final fun getRssAutoDownloadingEnabled ()Z
+	public final fun getRssDownloadRepackProperEpisodes ()Z
+	public final fun getRssMaxArticlesPerFeed ()I
+	public final fun getRssProcessingEnabled ()Z
+	public final fun getRssRefreshInterval ()I
+	public final fun getRssSmartEpisodeFilters ()Ljava/lang/String;
+	public final fun getSavePath ()Ljava/lang/String;
+	public final fun getSavePathChangedTmmEnabled ()Z
+	public final fun getSaveResumeDataInterval ()I
+	public final fun getScanDirs ()Ljava/util/List;
+	public final fun getScheduleFromHour ()I
+	public final fun getScheduleFromMin ()I
+	public final fun getScheduleToHour ()I
+	public final fun getScheduleToMin ()I
+	public final fun getSchedulerDays ()Lqbittorrent/models/preferences/SchedulerDays;
+	public final fun getSchedulerEnabled ()Z
+	public final fun getSendBufferLowWatermark ()I
+	public final fun getSendBufferWatermark ()I
+	public final fun getSendBufferWatermarkFactor ()I
+	public final fun getSlowTorrentDlRateThreshold ()I
+	public final fun getSlowTorrentInactiveTimer ()I
+	public final fun getSlowTorrentUlRateThreshold ()I
+	public final fun getSocketBacklogSize ()I
+	public final fun getStartPausedEnabled ()Ljava/lang/Boolean;
+	public final fun getStopTrackerTimeout ()I
+	public final fun getTempPath ()Ljava/lang/String;
+	public final fun getTempPathEnabled ()Z
+	public final fun getTorrentChangedTmmEnabled ()Z
+	public final fun getUpLimit ()I
+	public final fun getUploadChokingAlgorithm ()Lqbittorrent/models/preferences/UploadChokingAlgorithm;
+	public final fun getUploadSlotsBehavior ()Lqbittorrent/models/preferences/UploadSlotsBehavior;
+	public final fun getUpnp ()Z
+	public final fun getUpnpLeaseDuration ()I
+	public final fun getUseHttps ()Z
+	public final fun getUtpTcpMixedMode ()Lqbittorrent/models/preferences/UtpTcpMixedMode;
+	public final fun getWebUiAddress ()Ljava/lang/String;
+	public final fun getWebUiBanDuration ()I
+	public final fun getWebUiClickjackingProtectionEnabled ()Z
+	public final fun getWebUiCsrfProtectionEnabled ()Z
+	public final fun getWebUiCustomHttpHeaders ()Ljava/util/List;
+	public final fun getWebUiDomainList ()Ljava/util/List;
+	public final fun getWebUiHostHeaderValidationEnabled ()Z
+	public final fun getWebUiHttpsCertPath ()Ljava/lang/String;
+	public final fun getWebUiHttpsKeyPath ()Ljava/lang/String;
+	public final fun getWebUiMaxAuthFailCount ()I
+	public final fun getWebUiPassword ()Ljava/lang/String;
+	public final fun getWebUiPort ()I
+	public final fun getWebUiSecureCookieEnabled ()Z
+	public final fun getWebUiSessionTimeout ()I
+	public final fun getWebUiUpnp ()Z
+	public final fun getWebUiUseCustomHttpHeadersEnabled ()Z
+	public final fun getWebUiUsername ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class qbittorrent/models/QBittorrentPrefs$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lqbittorrent/models/QBittorrentPrefs$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/QBittorrentPrefs;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/QBittorrentPrefs;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/QBittorrentPrefs$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/QBittorrentPrefsBuilder {
+	public fun <init> ()V
+	public final fun build ()Lkotlinx/serialization/json/JsonObject;
+	public final fun set (Lkotlin/reflect/KProperty1;Ljava/lang/Object;)V
+	public final fun setInfix (Lkotlin/reflect/KProperty1;Ljava/lang/Object;)V
+}
+
+public final class qbittorrent/models/QBittorrentPrefsSerializerMappingKt {
+	public static final fun getSerializer (Lkotlin/reflect/KProperty1;)Lkotlinx/serialization/KSerializer;
+}
+
 public final class qbittorrent/models/ServerState {
 	public static final field Companion Lqbittorrent/models/ServerState$Companion;
 	public fun <init> (JJILqbittorrent/models/ConnectionStatus;IJJJJLjava/lang/String;IZLjava/lang/String;Ljava/lang/String;IIIIJJJIZLjava/lang/String;)V
@@ -841,5 +1166,200 @@ public synthetic class qbittorrent/models/Webseed$$serializer : kotlinx/serializ
 
 public final class qbittorrent/models/Webseed$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/preferences/BittorrentProtocol : java/lang/Enum {
+	public static final field TCP Lqbittorrent/models/preferences/BittorrentProtocol;
+	public static final field TCP_AND_UTP Lqbittorrent/models/preferences/BittorrentProtocol;
+	public static final field UTP Lqbittorrent/models/preferences/BittorrentProtocol;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()I
+	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/preferences/BittorrentProtocol;
+	public static fun values ()[Lqbittorrent/models/preferences/BittorrentProtocol;
+}
+
+public final class qbittorrent/models/preferences/DyndnsService : java/lang/Enum {
+	public static final field DyDNS Lqbittorrent/models/preferences/DyndnsService;
+	public static final field NOIP Lqbittorrent/models/preferences/DyndnsService;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()I
+	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/preferences/DyndnsService;
+	public static fun values ()[Lqbittorrent/models/preferences/DyndnsService;
+}
+
+public final class qbittorrent/models/preferences/MaxRatioAction : java/lang/Enum {
+	public static final field PAUSE_TORRENT Lqbittorrent/models/preferences/MaxRatioAction;
+	public static final field REMOVE_TORRENT Lqbittorrent/models/preferences/MaxRatioAction;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()I
+	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/preferences/MaxRatioAction;
+	public static fun values ()[Lqbittorrent/models/preferences/MaxRatioAction;
+}
+
+public final class qbittorrent/models/preferences/ProxyType : java/lang/Enum {
+	public static final field HTTP Lqbittorrent/models/preferences/ProxyType;
+	public static final field NONE Lqbittorrent/models/preferences/ProxyType;
+	public static final field SOCKS4 Lqbittorrent/models/preferences/ProxyType;
+	public static final field SOCKS5 Lqbittorrent/models/preferences/ProxyType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/preferences/ProxyType;
+	public static fun values ()[Lqbittorrent/models/preferences/ProxyType;
+}
+
+public abstract class qbittorrent/models/preferences/ScanDir {
+	public static final field Companion Lqbittorrent/models/preferences/ScanDir$Companion;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public static final synthetic fun write$Self (Lqbittorrent/models/preferences/ScanDir;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class qbittorrent/models/preferences/ScanDir$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/preferences/ScanDir$CustomSavePath : qbittorrent/models/preferences/ScanDir {
+	public static final field Companion Lqbittorrent/models/preferences/ScanDir$CustomSavePath$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lqbittorrent/models/preferences/ScanDir$CustomSavePath;
+	public static synthetic fun copy$default (Lqbittorrent/models/preferences/ScanDir$CustomSavePath;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/preferences/ScanDir$CustomSavePath;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getScanDir ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class qbittorrent/models/preferences/ScanDir$CustomSavePath$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lqbittorrent/models/preferences/ScanDir$CustomSavePath$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/preferences/ScanDir$CustomSavePath;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/preferences/ScanDir$CustomSavePath;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/preferences/ScanDir$CustomSavePath$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/preferences/ScanDir$DefaultSavePath : qbittorrent/models/preferences/ScanDir {
+	public static final field Companion Lqbittorrent/models/preferences/ScanDir$DefaultSavePath$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lqbittorrent/models/preferences/ScanDir$DefaultSavePath;
+	public static synthetic fun copy$default (Lqbittorrent/models/preferences/ScanDir$DefaultSavePath;Ljava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/preferences/ScanDir$DefaultSavePath;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getScanDir ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class qbittorrent/models/preferences/ScanDir$DefaultSavePath$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lqbittorrent/models/preferences/ScanDir$DefaultSavePath$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/preferences/ScanDir$DefaultSavePath;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/preferences/ScanDir$DefaultSavePath;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/preferences/ScanDir$DefaultSavePath$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/preferences/ScanDir$MonitoredFolder : qbittorrent/models/preferences/ScanDir {
+	public static final field Companion Lqbittorrent/models/preferences/ScanDir$MonitoredFolder$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lqbittorrent/models/preferences/ScanDir$MonitoredFolder;
+	public static synthetic fun copy$default (Lqbittorrent/models/preferences/ScanDir$MonitoredFolder;Ljava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/preferences/ScanDir$MonitoredFolder;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getScanDir ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class qbittorrent/models/preferences/ScanDir$MonitoredFolder$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lqbittorrent/models/preferences/ScanDir$MonitoredFolder$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lqbittorrent/models/preferences/ScanDir$MonitoredFolder;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lqbittorrent/models/preferences/ScanDir$MonitoredFolder;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/preferences/ScanDir$MonitoredFolder$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/preferences/SchedulerDays : java/lang/Enum {
+	public static final field EVERY_DAY Lqbittorrent/models/preferences/SchedulerDays;
+	public static final field EVERY_WEEKDAY Lqbittorrent/models/preferences/SchedulerDays;
+	public static final field EVERY_WEEKEND Lqbittorrent/models/preferences/SchedulerDays;
+	public static final field FRIDAY Lqbittorrent/models/preferences/SchedulerDays;
+	public static final field MONDAY Lqbittorrent/models/preferences/SchedulerDays;
+	public static final field SATURDAY Lqbittorrent/models/preferences/SchedulerDays;
+	public static final field SUNDAY Lqbittorrent/models/preferences/SchedulerDays;
+	public static final field THURSDAY Lqbittorrent/models/preferences/SchedulerDays;
+	public static final field TUESDAY Lqbittorrent/models/preferences/SchedulerDays;
+	public static final field WEDNESDAY Lqbittorrent/models/preferences/SchedulerDays;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()I
+	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/preferences/SchedulerDays;
+	public static fun values ()[Lqbittorrent/models/preferences/SchedulerDays;
+}
+
+public final class qbittorrent/models/preferences/TorrentEncryption : java/lang/Enum {
+	public static final field FORCE_ENCRYPTION_OFF Lqbittorrent/models/preferences/TorrentEncryption;
+	public static final field FORCE_ENCRYPTION_ON Lqbittorrent/models/preferences/TorrentEncryption;
+	public static final field PREFER_ENCRYPTION Lqbittorrent/models/preferences/TorrentEncryption;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()I
+	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/preferences/TorrentEncryption;
+	public static fun values ()[Lqbittorrent/models/preferences/TorrentEncryption;
+}
+
+public final class qbittorrent/models/preferences/UploadChokingAlgorithm : java/lang/Enum {
+	public static final field ANTI_LEECH Lqbittorrent/models/preferences/UploadChokingAlgorithm;
+	public static final field FASTEST_UPLOAD Lqbittorrent/models/preferences/UploadChokingAlgorithm;
+	public static final field ROUND_ROBIN Lqbittorrent/models/preferences/UploadChokingAlgorithm;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()I
+	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/preferences/UploadChokingAlgorithm;
+	public static fun values ()[Lqbittorrent/models/preferences/UploadChokingAlgorithm;
+}
+
+public final class qbittorrent/models/preferences/UploadSlotsBehavior : java/lang/Enum {
+	public static final field FIXED_SLOTS Lqbittorrent/models/preferences/UploadSlotsBehavior;
+	public static final field UPLOAD_RATE_BASED Lqbittorrent/models/preferences/UploadSlotsBehavior;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()I
+	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/preferences/UploadSlotsBehavior;
+	public static fun values ()[Lqbittorrent/models/preferences/UploadSlotsBehavior;
+}
+
+public final class qbittorrent/models/preferences/UtpTcpMixedMode : java/lang/Enum {
+	public static final field PEER_PROPORTIONAL Lqbittorrent/models/preferences/UtpTcpMixedMode;
+	public static final field PREFER_TCP Lqbittorrent/models/preferences/UtpTcpMixedMode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()I
+	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/preferences/UtpTcpMixedMode;
+	public static fun values ()[Lqbittorrent/models/preferences/UtpTcpMixedMode;
+}
+
+public final class qbittorrent/models/serialization/ScanDirSerializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Lqbittorrent/models/serialization/ScanDirSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/util/List;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/util/List;)V
 }
 

@@ -2,6 +2,8 @@ package qbittorrent.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import qbittorrent.models.serialization.CommaListSerializer
+import qbittorrent.models.serialization.GenerateSerialNameMapper
 import kotlin.reflect.KProperty1
 
 @GenerateSerialNameMapper
@@ -103,7 +105,7 @@ data class Torrent(
     @SerialName("super_seeding")
     val superSeeding: Boolean,
     /** Tag list of the torrent */
-    @Serializable(with = TagListSerializer::class)
+    @Serializable(with = CommaListSerializer::class)
     val tags: List<String>,
     /** Total active time (seconds) */
     @SerialName("time_active")
