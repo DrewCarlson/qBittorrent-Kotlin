@@ -250,12 +250,11 @@ class QBittorrentClientTests {
 
     @Test
     fun testGetApplicationPreferences() = runTest {
+        Default { delay(2.seconds) }
         val preferences = client.getPreferences()
 
         assertEquals("admin", preferences.webUiUsername)
         assertEquals(ProxyType.NONE, preferences.proxyType)
-
-        println(preferences)
     }
 
     @Test
@@ -266,11 +265,11 @@ class QBittorrentClientTests {
         val testAddTrackers = listOf("http://localhost", "http://127.0.0.1")
         val testBannedIps = listOf("1.1.1.1", "8.8.8.8")
         val testScanDirs = listOf(
-            ScanDir.MonitoredFolder("${SystemPathSeparator}MonitoredFolder"),
-            ScanDir.DefaultSavePath("${SystemPathSeparator}DefaultSavePath"),
+            ScanDir.MonitoredFolder("\\MonitoredFolder"),
+            ScanDir.DefaultSavePath("\\DefaultSavePath"),
             ScanDir.CustomSavePath(
-                scanDir = "${SystemPathSeparator}CustomSavePath",
-                path = "${SystemPathSeparator}CustomSavePath${SystemPathSeparator}done"
+                scanDir = "\\CustomSavePath",
+                path = "\\CustomSavePath\\done"
             )
         )
 
@@ -319,6 +318,8 @@ class QBittorrentClientTests {
             assertEquals(0, bannedIps.size)
             assertEquals(0, scanDirs.size)
         }
+
+        Default { delay(2.seconds) }
     }
 
     private suspend fun deleteTorrents() {
