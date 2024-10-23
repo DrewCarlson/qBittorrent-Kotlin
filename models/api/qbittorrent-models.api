@@ -742,15 +742,15 @@ public final class qbittorrent/models/TorrentProperties$Companion {
 
 public final class qbittorrent/models/TorrentTracker {
 	public static final field Companion Lqbittorrent/models/TorrentTracker$Companion;
-	public fun <init> (Ljava/lang/String;IIIIIILjava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;IIIIIILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lqbittorrent/models/TrackerStatus;IIIIILjava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Lqbittorrent/models/TrackerStatus;IIIIILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getMsg ()Ljava/lang/String;
 	public final fun getNumDownloaded ()I
 	public final fun getNumLeeches ()I
 	public final fun getNumPeers ()I
 	public final fun getNumSeeds ()I
-	public final fun getStatus ()I
+	public final fun getStatus ()Lqbittorrent/models/TrackerStatus;
 	public final fun getTier ()I
 	public final fun getUrl ()Ljava/lang/String;
 	public fun hashCode ()I
@@ -770,6 +770,18 @@ public synthetic class qbittorrent/models/TorrentTracker$$serializer : kotlinx/s
 
 public final class qbittorrent/models/TorrentTracker$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class qbittorrent/models/TrackerStatus : java/lang/Enum {
+	public static final field DISABLED Lqbittorrent/models/TrackerStatus;
+	public static final field NOT_CONTACTED Lqbittorrent/models/TrackerStatus;
+	public static final field NOT_WORKING Lqbittorrent/models/TrackerStatus;
+	public static final field UPDATING Lqbittorrent/models/TrackerStatus;
+	public static final field WORKING Lqbittorrent/models/TrackerStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()I
+	public static fun valueOf (Ljava/lang/String;)Lqbittorrent/models/TrackerStatus;
+	public static fun values ()[Lqbittorrent/models/TrackerStatus;
 }
 
 public final class qbittorrent/models/Webseed {
