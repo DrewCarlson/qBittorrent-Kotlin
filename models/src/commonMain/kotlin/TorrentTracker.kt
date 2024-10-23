@@ -3,6 +3,7 @@ package qbittorrent.models
 import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import qbittorrent.models.serialization.FlakyIntSerializer
 
 @Poko
 @Serializable

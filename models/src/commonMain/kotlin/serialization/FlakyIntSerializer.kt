@@ -1,4 +1,4 @@
-package qbittorrent.models
+package qbittorrent.models.serialization
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
