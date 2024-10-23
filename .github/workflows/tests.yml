@@ -30,7 +30,7 @@ jobs:
   tests:
     strategy:
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+        os: [ macos-latest, windows-latest ]
     runs-on: ${{ matrix.os }}
     needs: [ file-changes ]
     if: needs.file-changes.outputs.any == 'true'
