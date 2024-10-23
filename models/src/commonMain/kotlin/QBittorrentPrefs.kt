@@ -1,5 +1,6 @@
 package qbittorrent.models
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import qbittorrent.models.preferences.*
@@ -9,10 +10,11 @@ import qbittorrent.models.serialization.GenerateSerialNameMapper
 import qbittorrent.models.serialization.NewLineListSerializer
 import qbittorrent.models.serialization.SemiColonListSerializer
 
+@Poko
 @GeneratePropertySerializerMapper
 @GenerateSerialNameMapper
 @Serializable
-data class QBittorrentPrefs(
+class QBittorrentPrefs(
     /** Currently selected language (e.g. en_GB for English) */
     val locale: String,
     /** True if a subfolder should be created when adding a torrent */

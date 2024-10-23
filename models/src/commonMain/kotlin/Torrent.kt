@@ -1,14 +1,16 @@
 package qbittorrent.models
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import qbittorrent.models.serialization.CommaListSerializer
 import qbittorrent.models.serialization.GenerateSerialNameMapper
 import kotlin.reflect.KProperty1
 
+@Poko
 @GenerateSerialNameMapper
 @Serializable
-data class Torrent(
+class Torrent(
     /** Time (Unix Epoch) when the torrent was added to the client */
     @SerialName("added_on")
     val addedOn: Long,

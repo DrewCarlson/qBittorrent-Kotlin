@@ -1,11 +1,13 @@
 package qbittorrent.models
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import qbittorrent.models.serialization.KeyMergingTransformer
 
+@Poko
 @Serializable
-data class MainData(
+class MainData(
     /** Response ID */
     val rid: Long,
     /** Whether the response contains all the data or partial data */

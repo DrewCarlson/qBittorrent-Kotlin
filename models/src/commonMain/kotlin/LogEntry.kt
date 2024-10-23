@@ -1,9 +1,11 @@
 package qbittorrent.models
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.Serializable
 
+@Poko
 @Serializable
-data class LogEntry(
+class LogEntry(
     /** ID of the message */
     val id: Int,
     /** Text of the message */

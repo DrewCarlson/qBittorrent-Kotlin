@@ -1,10 +1,12 @@
 package qbittorrent.models
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Poko
 @Serializable
-data class TorrentFile(
+class TorrentFile(
     /** The index of this file in the torrent contents list */
     val index: Int,
     /** File name (including relative path) */
