@@ -266,7 +266,6 @@ class QBittorrentClientTests {
             set(QBittorrentPrefs::proxyType, ProxyType.SOCKS5)
             set(QBittorrentPrefs::anonymousMode, true)
             set(QBittorrentPrefs::encryption, testEncryption)
-            set(QBittorrentPrefs::webUiDomainList, testWebUiDomainList)
             set(QBittorrentPrefs::addTrackers, testAddTrackers)
             set(QBittorrentPrefs::bannedIps, testBannedIps)
         }
@@ -285,7 +284,6 @@ class QBittorrentClientTests {
             set(QBittorrentPrefs::proxyType, ProxyType.NONE)
             set(QBittorrentPrefs::anonymousMode, false)
             set(QBittorrentPrefs::encryption, TorrentEncryption.PREFER_ENCRYPTION)
-            set(QBittorrentPrefs::webUiDomainList, emptyList())
             set(QBittorrentPrefs::addTrackers, emptyList())
             set(QBittorrentPrefs::bannedIps, emptyList())
         }
@@ -295,7 +293,6 @@ class QBittorrentClientTests {
             assertEquals(ProxyType.NONE, proxyType)
             assertFalse(anonymousMode)
             assertEquals(TorrentEncryption.PREFER_ENCRYPTION, encryption)
-            assertEquals(0, webUiDomainList.size)
             assertEquals(0, addTrackers.size)
             assertEquals(0, bannedIps.size)
             assertEquals(0, scanDirs.size)
