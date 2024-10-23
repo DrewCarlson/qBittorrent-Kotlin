@@ -8,12 +8,9 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
-import kotlinx.io.files.SystemPathSeparator
 import qbittorrent.models.*
 import qbittorrent.models.preferences.ProxyType
-import qbittorrent.models.preferences.ScanDir
 import qbittorrent.models.preferences.TorrentEncryption
-import qbittorrent.models.serialization.ScanDirSerializer
 import kotlin.test.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -259,7 +256,6 @@ class QBittorrentClientTests {
 
     @Test
     fun testSetApplicationPreferences() = runTest {
-        val testBypassAuthSubnetWhitelist = listOf("192.168.8.30/32", "192.168.2.20/32")
         val testEncryption = TorrentEncryption.FORCE_ENCRYPTION_ON
         val testWebUiDomainList = listOf("localhost", "127.0.0.1")
         val testAddTrackers = listOf("http://localhost", "http://127.0.0.1")
@@ -267,7 +263,6 @@ class QBittorrentClientTests {
 
         // set various prefs
         client.setPreferences {
-            set(QBittorrentPrefs::bypassAuthSubnetWhitelist, testBypassAuthSubnetWhitelist)
             set(QBittorrentPrefs::proxyType, ProxyType.SOCKS5)
             set(QBittorrentPrefs::anonymousMode, true)
             set(QBittorrentPrefs::encryption, testEncryption)
@@ -277,7 +272,6 @@ class QBittorrentClientTests {
         }
 
         client.getPreferences().apply {
-            assertEquals(testBypassAuthSubnetWhitelist, bypassAuthSubnetWhitelist)
             assertEquals(ProxyType.SOCKS5, proxyType)
             assertTrue(anonymousMode)
             assertEquals(testEncryption, encryption)
@@ -288,14 +282,12 @@ class QBittorrentClientTests {
 
         // set all the prefs roughly to default
         client.setPreferences {
-            set(QBittorrentPrefs::bypassAuthSubnetWhitelist, emptyList())
             set(QBittorrentPrefs::proxyType, ProxyType.NONE)
             set(QBittorrentPrefs::anonymousMode, false)
             set(QBittorrentPrefs::encryption, TorrentEncryption.PREFER_ENCRYPTION)
             set(QBittorrentPrefs::webUiDomainList, emptyList())
             set(QBittorrentPrefs::addTrackers, emptyList())
             set(QBittorrentPrefs::bannedIps, emptyList())
-            set(QBittorrentPrefs::scanDirs, emptyList())
         }
 
         client.getPreferences().apply {
