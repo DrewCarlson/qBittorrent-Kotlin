@@ -30,14 +30,14 @@ jobs:
   tests:
     strategy:
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+        os: [ macos-latest, ubuntu-24.04, windows-latest ]
     runs-on: ${{ matrix.os }}
     needs: [ file-changes ]
     if: needs.file-changes.outputs.any == 'true'
     steps:
 
       - name: Install qBittorrent on Linux
-        if: matrix.os == 'ubuntu-latest'
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
           sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
           sudo apt-get update
@@ -60,7 +60,7 @@ jobs:
           qbittorrent-nox --daemon
 
       - name: Install qBittorrent on macOS
-        if: matrix.os == 'macos-latest'
+        if: startsWith(matrix.os, 'macos')
         run: |
           wget "https://github.com/webtorrent/webtorrent.io/raw/ae9660a25fd387a4b78d65e4205f111cab6e3da9/static/torrents/big-buck-bunny.torrent" -O ~/bbb.torrent
           brew install qbittorrent
@@ -80,7 +80,7 @@ jobs:
           open -a /Applications/qBittorrent.app
 
       - name: Install qBittorrent on Windows
-        if: matrix.os == 'windows-latest'
+        if: startsWith(matrix.os, 'windows')
         run: |
           Invoke-WebRequest -Uri "https://github.com/webtorrent/webtorrent.io/raw/ae9660a25fd387a4b78d65e4205f111cab6e3da9/static/torrents/big-buck-bunny.torrent" -OutFile "$env:USERPROFILE\bbb.torrent"
           choco install qbittorrent -y --no-progress
