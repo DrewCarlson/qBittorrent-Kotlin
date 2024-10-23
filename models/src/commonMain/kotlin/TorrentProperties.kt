@@ -1,10 +1,12 @@
 package qbittorrent.models
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Poko
 @Serializable
-data class TorrentProperties(
+class TorrentProperties(
     /** Torrent save path */
     @SerialName("save_path")
     val savePath: String,

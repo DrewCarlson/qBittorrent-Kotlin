@@ -1,10 +1,12 @@
 package qbittorrent.models
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Poko
 @Serializable
-data class TorrentPeers(
+class TorrentPeers(
     @SerialName("full_update")
     val fullUpdate: Boolean = false,
     val rid: Int = 0,

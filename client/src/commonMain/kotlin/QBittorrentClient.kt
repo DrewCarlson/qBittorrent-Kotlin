@@ -87,7 +87,7 @@ class QBittorrentClient(
         private val allList = listOf("all")
     }
 
-    internal data class Config(
+    internal class Config(
         val baseUrl: String,
         val username: String,
         val password: String,

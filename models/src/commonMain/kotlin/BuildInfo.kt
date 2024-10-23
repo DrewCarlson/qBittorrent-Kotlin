@@ -1,9 +1,11 @@
 package qbittorrent.models
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.Serializable
 
+@Poko
 @Serializable
-data class BuildInfo(
+class BuildInfo(
     val qt: String,
     val libtorrent: String,
     val boost: String,

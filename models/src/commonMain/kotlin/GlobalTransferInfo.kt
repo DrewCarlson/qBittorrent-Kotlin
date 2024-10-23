@@ -1,10 +1,12 @@
 package qbittorrent.models
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Poko
 @Serializable
-data class GlobalTransferInfo(
+class GlobalTransferInfo(
     /** Global download rate (bytes/s) */
     @SerialName("dl_info_speed")
     val dlInfoSpeed: Long,

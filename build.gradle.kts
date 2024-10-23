@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.multiplatform) apply false
     alias(libs.plugins.serialization) apply false
     alias(libs.plugins.binaryCompat) apply false
+    alias(libs.plugins.poko) apply false
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
     alias(libs.plugins.mavenPublish)

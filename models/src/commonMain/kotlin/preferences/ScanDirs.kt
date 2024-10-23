@@ -1,5 +1,6 @@
 package qbittorrent.models.preferences
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -8,20 +9,23 @@ sealed class ScanDir {
     /**
      * Download to the monitored folder
      */
+    @Poko
     @Serializable // 0
-    data class MonitoredFolder(val scanDir: String) : ScanDir()
+    class MonitoredFolder(val scanDir: String) : ScanDir()
 
     /**
      * Download to the default save path
      */
+    @Poko
     @Serializable // 1
-    data class DefaultSavePath(val scanDir: String) : ScanDir()
+    class DefaultSavePath(val scanDir: String) : ScanDir()
 
     /**
      * Download to this [path]
      */
+    @Poko
     @Serializable
-    data class CustomSavePath(
+    class CustomSavePath(
         val scanDir: String,
         val path: String
     ) : ScanDir()

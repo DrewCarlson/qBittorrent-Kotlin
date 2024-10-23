@@ -2,7 +2,7 @@ package qbittorrent.models
 
 import kotlin.time.*
 
-data class AddTorrentBody(
+class AddTorrentBody(
     /**
      * Torrent file HTTP or Magnet urls.
      */

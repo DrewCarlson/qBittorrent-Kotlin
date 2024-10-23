@@ -1,10 +1,12 @@
 package qbittorrent.models
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Poko
 @Serializable
-data class TorrentTracker(
+class TorrentTracker(
     /** The tracker URL. */
     val url: String,
     /**

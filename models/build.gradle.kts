@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.dokka)
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.poko)
 }
 
 dependencies {

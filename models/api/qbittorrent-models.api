@@ -1,27 +1,6 @@
 public final class qbittorrent/models/AddTorrentBody {
 	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Float;Lkotlin/time/Duration;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Float;Lkotlin/time/Duration;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/util/List;
-	public final fun component10 ()Ljava/lang/Boolean;
-	public final fun component11 ()Ljava/lang/String;
-	public final fun component12 ()Ljava/lang/Long;
-	public final fun component13 ()Ljava/lang/Long;
-	public final fun component14 ()Ljava/lang/Float;
-	public final fun component15-FghU774 ()Lkotlin/time/Duration;
-	public final fun component16 ()Ljava/lang/Boolean;
-	public final fun component17 ()Ljava/lang/Boolean;
-	public final fun component18 ()Ljava/lang/Boolean;
-	public final fun component2 ()Ljava/util/List;
-	public final fun component3 ()Ljava/util/Map;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/util/List;
-	public final fun component8 ()Ljava/lang/Boolean;
-	public final fun component9 ()Ljava/lang/Boolean;
-	public final fun copy-2X2vDag (Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Float;Lkotlin/time/Duration;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lqbittorrent/models/AddTorrentBody;
-	public static synthetic fun copy-2X2vDag$default (Lqbittorrent/models/AddTorrentBody;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Float;Lkotlin/time/Duration;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lqbittorrent/models/AddTorrentBody;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAutoTMM ()Ljava/lang/Boolean;
 	public final fun getCategory ()Ljava/lang/String;
 	public final fun getCookie ()Ljava/lang/String;
@@ -40,7 +19,6 @@ public final class qbittorrent/models/AddTorrentBody {
 	public final fun getTorrents ()Ljava/util/List;
 	public final fun getUpLimit ()Ljava/lang/Long;
 	public final fun getUrls ()Ljava/util/List;
-	public fun hashCode ()I
 	public final fun setAutoTMM (Ljava/lang/Boolean;)V
 	public final fun setCategory (Ljava/lang/String;)V
 	public final fun setCookie (Ljava/lang/String;)V
@@ -55,19 +33,11 @@ public final class qbittorrent/models/AddTorrentBody {
 	public final fun setSequentialDownload (Ljava/lang/Boolean;)V
 	public final fun setSkipChecking (Ljava/lang/Boolean;)V
 	public final fun setUpLimit (Ljava/lang/Long;)V
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class qbittorrent/models/BuildInfo {
 	public static final field Companion Lqbittorrent/models/BuildInfo$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()I
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Lqbittorrent/models/BuildInfo;
-	public static synthetic fun copy$default (Lqbittorrent/models/BuildInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;)Lqbittorrent/models/BuildInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBitness ()I
 	public final fun getBoost ()Ljava/lang/String;
@@ -96,10 +66,6 @@ public final class qbittorrent/models/BuildInfo$Companion {
 public final class qbittorrent/models/Category {
 	public static final field Companion Lqbittorrent/models/Category$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lqbittorrent/models/Category;
-	public static synthetic fun copy$default (Lqbittorrent/models/Category;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/Category;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getName ()Ljava/lang/String;
 	public final fun getSavePath ()Ljava/lang/String;
@@ -140,19 +106,6 @@ public final class qbittorrent/models/GlobalTransferInfo {
 	public static final field Companion Lqbittorrent/models/GlobalTransferInfo$Companion;
 	public fun <init> (JJJJJJILqbittorrent/models/ConnectionStatus;ZZJ)V
 	public synthetic fun <init> (JJJJJJILqbittorrent/models/ConnectionStatus;ZZJILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()J
-	public final fun component10 ()Z
-	public final fun component11 ()J
-	public final fun component2 ()J
-	public final fun component3 ()J
-	public final fun component4 ()J
-	public final fun component5 ()J
-	public final fun component6 ()J
-	public final fun component7 ()I
-	public final fun component8 ()Lqbittorrent/models/ConnectionStatus;
-	public final fun component9 ()Z
-	public final fun copy (JJJJJJILqbittorrent/models/ConnectionStatus;ZZJ)Lqbittorrent/models/GlobalTransferInfo;
-	public static synthetic fun copy$default (Lqbittorrent/models/GlobalTransferInfo;JJJJJJILqbittorrent/models/ConnectionStatus;ZZJILjava/lang/Object;)Lqbittorrent/models/GlobalTransferInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getConnectionStatus ()Lqbittorrent/models/ConnectionStatus;
 	public final fun getDhtNodes ()I
@@ -191,12 +144,6 @@ public final class qbittorrent/models/LogEntry {
 	public static final field TYPE_NORMAL I
 	public static final field TYPE_WARNING I
 	public fun <init> (ILjava/lang/String;JI)V
-	public final fun component1 ()I
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()J
-	public final fun component4 ()I
-	public final fun copy (ILjava/lang/String;JI)Lqbittorrent/models/LogEntry;
-	public static synthetic fun copy$default (Lqbittorrent/models/LogEntry;ILjava/lang/String;JIILjava/lang/Object;)Lqbittorrent/models/LogEntry;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getId ()I
 	public final fun getMessage ()Ljava/lang/String;
@@ -225,17 +172,6 @@ public final class qbittorrent/models/MainData {
 	public static final field Companion Lqbittorrent/models/MainData$Companion;
 	public fun <init> (JZLjava/util/Map;Ljava/util/List;Ljava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lqbittorrent/models/ServerState;)V
 	public synthetic fun <init> (JZLjava/util/Map;Ljava/util/List;Ljava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lqbittorrent/models/ServerState;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()J
-	public final fun component2 ()Z
-	public final fun component3 ()Ljava/util/Map;
-	public final fun component4 ()Ljava/util/List;
-	public final fun component5 ()Ljava/util/Map;
-	public final fun component6 ()Ljava/util/List;
-	public final fun component7 ()Ljava/util/List;
-	public final fun component8 ()Ljava/util/List;
-	public final fun component9 ()Lqbittorrent/models/ServerState;
-	public final fun copy (JZLjava/util/Map;Ljava/util/List;Ljava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lqbittorrent/models/ServerState;)Lqbittorrent/models/MainData;
-	public static synthetic fun copy$default (Lqbittorrent/models/MainData;JZLjava/util/Map;Ljava/util/List;Ljava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lqbittorrent/models/ServerState;ILjava/lang/Object;)Lqbittorrent/models/MainData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCategories ()Ljava/util/Map;
 	public final fun getCategoriesRemoved ()Ljava/util/List;
@@ -268,13 +204,6 @@ public final class qbittorrent/models/MainData$Companion {
 public final class qbittorrent/models/PeerLog {
 	public static final field Companion Lqbittorrent/models/PeerLog$Companion;
 	public fun <init> (ILjava/lang/String;JZLjava/lang/String;)V
-	public final fun component1 ()I
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()J
-	public final fun component4 ()Z
-	public final fun component5 ()Ljava/lang/String;
-	public final fun copy (ILjava/lang/String;JZLjava/lang/String;)Lqbittorrent/models/PeerLog;
-	public static synthetic fun copy$default (Lqbittorrent/models/PeerLog;ILjava/lang/String;JZLjava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/PeerLog;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBlocked ()Z
 	public final fun getId ()I
@@ -313,152 +242,6 @@ public final class qbittorrent/models/QBittorrentPrefs {
 	public static final field Companion Lqbittorrent/models/QBittorrentPrefs$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;IZZZZZZLjava/lang/String;ZLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZIIIZIIIZFLqbittorrent/models/preferences/MaxRatioAction;IZZIIIIIIIZLqbittorrent/models/preferences/BittorrentProtocol;ZZZIIZIIIILqbittorrent/models/preferences/SchedulerDays;ZZZLqbittorrent/models/preferences/TorrentEncryption;ZLqbittorrent/models/preferences/ProxyType;Ljava/lang/String;IZZLjava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;ZLjava/lang/String;ZLjava/util/List;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;ZZZIIIZZZLjava/util/List;ZLjava/lang/String;ZLjava/lang/String;Ljava/lang/String;ZLqbittorrent/models/preferences/DyndnsService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZLjava/lang/String;ZLjava/util/List;ZLjava/util/List;ZILjava/lang/String;ZZILjava/util/List;ILjava/lang/String;Ljava/lang/String;IIIZZZLjava/lang/Boolean;ZIIIZZIIIIILqbittorrent/models/preferences/UploadChokingAlgorithm;Lqbittorrent/models/preferences/UploadSlotsBehavior;ILqbittorrent/models/preferences/UtpTcpMixedMode;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;IZZZZZZLjava/lang/String;ZLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZIIIZIIIZFLqbittorrent/models/preferences/MaxRatioAction;IZZIIIIIIIZLqbittorrent/models/preferences/BittorrentProtocol;ZZZIIZIIIILqbittorrent/models/preferences/SchedulerDays;ZZZLqbittorrent/models/preferences/TorrentEncryption;ZLqbittorrent/models/preferences/ProxyType;Ljava/lang/String;IZZLjava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;ZLjava/lang/String;ZLjava/util/List;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;ZZZIIIZZZLjava/util/List;ZLjava/lang/String;ZLjava/lang/String;Ljava/lang/String;ZLqbittorrent/models/preferences/DyndnsService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZLjava/lang/String;ZLjava/util/List;ZLjava/util/List;ZILjava/lang/String;ZZILjava/util/List;ILjava/lang/String;Ljava/lang/String;IIIZZZLjava/lang/Boolean;ZIIIZZIIIIILqbittorrent/models/preferences/UploadChokingAlgorithm;Lqbittorrent/models/preferences/UploadSlotsBehavior;ILqbittorrent/models/preferences/UtpTcpMixedMode;IIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component10 ()Z
-	public final fun component100 ()Ljava/lang/String;
-	public final fun component101 ()Ljava/lang/String;
-	public final fun component102 ()Ljava/lang/String;
-	public final fun component103 ()I
-	public final fun component104 ()I
-	public final fun component105 ()Z
-	public final fun component106 ()Z
-	public final fun component107 ()Z
-	public final fun component108 ()Ljava/lang/String;
-	public final fun component109 ()Z
-	public final fun component11 ()Ljava/lang/String;
-	public final fun component110 ()Ljava/util/List;
-	public final fun component111 ()Z
-	public final fun component112 ()Ljava/util/List;
-	public final fun component113 ()Z
-	public final fun component114 ()I
-	public final fun component115 ()Ljava/lang/String;
-	public final fun component116 ()Z
-	public final fun component117 ()Z
-	public final fun component118 ()I
-	public final fun component119 ()Ljava/util/List;
-	public final fun component12 ()Z
-	public final fun component120 ()I
-	public final fun component121 ()Ljava/lang/String;
-	public final fun component122 ()Ljava/lang/String;
-	public final fun component123 ()I
-	public final fun component124 ()I
-	public final fun component125 ()I
-	public final fun component126 ()Z
-	public final fun component127 ()Z
-	public final fun component128 ()Z
-	public final fun component129 ()Ljava/lang/Boolean;
-	public final fun component13 ()Ljava/lang/String;
-	public final fun component130 ()Z
-	public final fun component131 ()I
-	public final fun component132 ()I
-	public final fun component133 ()I
-	public final fun component134 ()Z
-	public final fun component135 ()Z
-	public final fun component136 ()I
-	public final fun component137 ()I
-	public final fun component138 ()I
-	public final fun component139 ()I
-	public final fun component14 ()Ljava/util/List;
-	public final fun component140 ()I
-	public final fun component141 ()Lqbittorrent/models/preferences/UploadChokingAlgorithm;
-	public final fun component142 ()Lqbittorrent/models/preferences/UploadSlotsBehavior;
-	public final fun component143 ()I
-	public final fun component144 ()Lqbittorrent/models/preferences/UtpTcpMixedMode;
-	public final fun component15 ()Ljava/lang/String;
-	public final fun component16 ()Ljava/lang/String;
-	public final fun component17 ()Z
-	public final fun component18 ()Ljava/lang/String;
-	public final fun component19 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/Boolean;
-	public final fun component20 ()Ljava/lang/String;
-	public final fun component21 ()Z
-	public final fun component22 ()Z
-	public final fun component23 ()Ljava/lang/String;
-	public final fun component24 ()Ljava/lang/String;
-	public final fun component25 ()Z
-	public final fun component26 ()Ljava/lang/String;
-	public final fun component27 ()Z
-	public final fun component28 ()I
-	public final fun component29 ()I
-	public final fun component3 ()Ljava/lang/Boolean;
-	public final fun component30 ()I
-	public final fun component31 ()Z
-	public final fun component32 ()I
-	public final fun component33 ()I
-	public final fun component34 ()I
-	public final fun component35 ()Z
-	public final fun component36 ()F
-	public final fun component37 ()Lqbittorrent/models/preferences/MaxRatioAction;
-	public final fun component38 ()I
-	public final fun component39 ()Z
-	public final fun component4 ()I
-	public final fun component40 ()Z
-	public final fun component41 ()I
-	public final fun component42 ()I
-	public final fun component43 ()I
-	public final fun component44 ()I
-	public final fun component45 ()I
-	public final fun component46 ()I
-	public final fun component47 ()I
-	public final fun component48 ()Z
-	public final fun component49 ()Lqbittorrent/models/preferences/BittorrentProtocol;
-	public final fun component5 ()Z
-	public final fun component50 ()Z
-	public final fun component51 ()Z
-	public final fun component52 ()Z
-	public final fun component53 ()I
-	public final fun component54 ()I
-	public final fun component55 ()Z
-	public final fun component56 ()I
-	public final fun component57 ()I
-	public final fun component58 ()I
-	public final fun component59 ()I
-	public final fun component6 ()Z
-	public final fun component60 ()Lqbittorrent/models/preferences/SchedulerDays;
-	public final fun component61 ()Z
-	public final fun component62 ()Z
-	public final fun component63 ()Z
-	public final fun component64 ()Lqbittorrent/models/preferences/TorrentEncryption;
-	public final fun component65 ()Z
-	public final fun component66 ()Lqbittorrent/models/preferences/ProxyType;
-	public final fun component67 ()Ljava/lang/String;
-	public final fun component68 ()I
-	public final fun component69 ()Z
-	public final fun component7 ()Z
-	public final fun component70 ()Z
-	public final fun component71 ()Ljava/lang/String;
-	public final fun component72 ()Ljava/lang/String;
-	public final fun component73 ()Ljava/lang/Boolean;
-	public final fun component74 ()Z
-	public final fun component75 ()Ljava/lang/String;
-	public final fun component76 ()Z
-	public final fun component77 ()Ljava/util/List;
-	public final fun component78 ()Ljava/lang/String;
-	public final fun component79 ()I
-	public final fun component8 ()Z
-	public final fun component80 ()Z
-	public final fun component81 ()Ljava/lang/String;
-	public final fun component82 ()Ljava/lang/String;
-	public final fun component83 ()Z
-	public final fun component84 ()Z
-	public final fun component85 ()Z
-	public final fun component86 ()I
-	public final fun component87 ()I
-	public final fun component88 ()I
-	public final fun component89 ()Z
-	public final fun component9 ()Z
-	public final fun component90 ()Z
-	public final fun component91 ()Z
-	public final fun component92 ()Ljava/util/List;
-	public final fun component93 ()Z
-	public final fun component94 ()Ljava/lang/String;
-	public final fun component95 ()Z
-	public final fun component96 ()Ljava/lang/String;
-	public final fun component97 ()Ljava/lang/String;
-	public final fun component98 ()Z
-	public final fun component99 ()Lqbittorrent/models/preferences/DyndnsService;
-	public final fun copy (Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;IZZZZZZLjava/lang/String;ZLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZIIIZIIIZFLqbittorrent/models/preferences/MaxRatioAction;IZZIIIIIIIZLqbittorrent/models/preferences/BittorrentProtocol;ZZZIIZIIIILqbittorrent/models/preferences/SchedulerDays;ZZZLqbittorrent/models/preferences/TorrentEncryption;ZLqbittorrent/models/preferences/ProxyType;Ljava/lang/String;IZZLjava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;ZLjava/lang/String;ZLjava/util/List;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;ZZZIIIZZZLjava/util/List;ZLjava/lang/String;ZLjava/lang/String;Ljava/lang/String;ZLqbittorrent/models/preferences/DyndnsService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZLjava/lang/String;ZLjava/util/List;ZLjava/util/List;ZILjava/lang/String;ZZILjava/util/List;ILjava/lang/String;Ljava/lang/String;IIIZZZLjava/lang/Boolean;ZIIIZZIIIIILqbittorrent/models/preferences/UploadChokingAlgorithm;Lqbittorrent/models/preferences/UploadSlotsBehavior;ILqbittorrent/models/preferences/UtpTcpMixedMode;)Lqbittorrent/models/QBittorrentPrefs;
-	public static synthetic fun copy$default (Lqbittorrent/models/QBittorrentPrefs;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;IZZZZZZLjava/lang/String;ZLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZIIIZIIIZFLqbittorrent/models/preferences/MaxRatioAction;IZZIIIIIIIZLqbittorrent/models/preferences/BittorrentProtocol;ZZZIIZIIIILqbittorrent/models/preferences/SchedulerDays;ZZZLqbittorrent/models/preferences/TorrentEncryption;ZLqbittorrent/models/preferences/ProxyType;Ljava/lang/String;IZZLjava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;ZLjava/lang/String;ZLjava/util/List;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;ZZZIIIZZZLjava/util/List;ZLjava/lang/String;ZLjava/lang/String;Ljava/lang/String;ZLqbittorrent/models/preferences/DyndnsService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZLjava/lang/String;ZLjava/util/List;ZLjava/util/List;ZILjava/lang/String;ZZILjava/util/List;ILjava/lang/String;Ljava/lang/String;IIIZZZLjava/lang/Boolean;ZIIIZZIIIIILqbittorrent/models/preferences/UploadChokingAlgorithm;Lqbittorrent/models/preferences/UploadSlotsBehavior;ILqbittorrent/models/preferences/UtpTcpMixedMode;IIIIILjava/lang/Object;)Lqbittorrent/models/QBittorrentPrefs;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAddTrackers ()Ljava/util/List;
 	public final fun getAddTrackersEnabled ()Z
@@ -637,32 +420,6 @@ public final class qbittorrent/models/QBittorrentPrefsSerializerMappingKt {
 public final class qbittorrent/models/ServerState {
 	public static final field Companion Lqbittorrent/models/ServerState$Companion;
 	public fun <init> (JJILqbittorrent/models/ConnectionStatus;IJJJJLjava/lang/String;IZLjava/lang/String;Ljava/lang/String;IIIIJJJIZLjava/lang/String;)V
-	public final fun component1 ()J
-	public final fun component10 ()Ljava/lang/String;
-	public final fun component11 ()I
-	public final fun component12 ()Z
-	public final fun component13 ()Ljava/lang/String;
-	public final fun component14 ()Ljava/lang/String;
-	public final fun component15 ()I
-	public final fun component16 ()I
-	public final fun component17 ()I
-	public final fun component18 ()I
-	public final fun component19 ()J
-	public final fun component2 ()J
-	public final fun component20 ()J
-	public final fun component21 ()J
-	public final fun component22 ()I
-	public final fun component23 ()Z
-	public final fun component24 ()Ljava/lang/String;
-	public final fun component3 ()I
-	public final fun component4 ()Lqbittorrent/models/ConnectionStatus;
-	public final fun component5 ()I
-	public final fun component6 ()J
-	public final fun component7 ()J
-	public final fun component8 ()J
-	public final fun component9 ()J
-	public final fun copy (JJILqbittorrent/models/ConnectionStatus;IJJJJLjava/lang/String;IZLjava/lang/String;Ljava/lang/String;IIIIJJJIZLjava/lang/String;)Lqbittorrent/models/ServerState;
-	public static synthetic fun copy$default (Lqbittorrent/models/ServerState;JJILqbittorrent/models/ConnectionStatus;IJJJJLjava/lang/String;IZLjava/lang/String;Ljava/lang/String;IIIIJJJIZLjava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/ServerState;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAllTimeDownload ()J
 	public final fun getAllTimeUpload ()J
@@ -710,53 +467,6 @@ public final class qbittorrent/models/ServerState$Companion {
 public final class qbittorrent/models/Torrent {
 	public static final field Companion Lqbittorrent/models/Torrent$Companion;
 	public fun <init> (JJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJJLjava/lang/String;JJJJ)V
-	public final fun component1 ()J
-	public final fun component10 ()J
-	public final fun component11 ()F
-	public final fun component12 ()F
-	public final fun component13 ()J
-	public final fun component14 ()Z
-	public final fun component15 ()Z
-	public final fun component16 ()Ljava/lang/String;
-	public final fun component17 ()J
-	public final fun component18 ()Ljava/lang/String;
-	public final fun component19 ()F
-	public final fun component2 ()J
-	public final fun component20 ()J
-	public final fun component21 ()Ljava/lang/String;
-	public final fun component22 ()I
-	public final fun component23 ()I
-	public final fun component24 ()I
-	public final fun component25 ()I
-	public final fun component26 ()I
-	public final fun component27 ()F
-	public final fun component28 ()F
-	public final fun component29 ()F
-	public final fun component3 ()Z
-	public final fun component30 ()Ljava/lang/String;
-	public final fun component31 ()J
-	public final fun component32 ()J
-	public final fun component33 ()Z
-	public final fun component34 ()J
-	public final fun component35 ()Lqbittorrent/models/Torrent$State;
-	public final fun component36 ()Z
-	public final fun component37 ()Ljava/util/List;
-	public final fun component38 ()J
-	public final fun component39 ()J
-	public final fun component4 ()F
-	public final fun component40 ()J
-	public final fun component41 ()Ljava/lang/String;
-	public final fun component42 ()J
-	public final fun component43 ()J
-	public final fun component44 ()J
-	public final fun component45 ()J
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()J
-	public final fun component7 ()J
-	public final fun component8 ()Ljava/lang/String;
-	public final fun component9 ()J
-	public final fun copy (JJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJJLjava/lang/String;JJJJ)Lqbittorrent/models/Torrent;
-	public static synthetic fun copy$default (Lqbittorrent/models/Torrent;JJZFLjava/lang/String;JJLjava/lang/String;JJFFJZZLjava/lang/String;JLjava/lang/String;FJLjava/lang/String;IIIIIFFFLjava/lang/String;JJZJLqbittorrent/models/Torrent$State;ZLjava/util/List;JJJLjava/lang/String;JJJJIILjava/lang/Object;)Lqbittorrent/models/Torrent;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAddedOn ()J
 	public final fun getAmountLeft ()J
@@ -856,16 +566,6 @@ public final class qbittorrent/models/TorrentFile {
 	public static final field Companion Lqbittorrent/models/TorrentFile$Companion;
 	public fun <init> (ILjava/lang/String;JFILjava/lang/Boolean;Ljava/util/List;F)V
 	public synthetic fun <init> (ILjava/lang/String;JFILjava/lang/Boolean;Ljava/util/List;FILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()I
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()J
-	public final fun component4 ()F
-	public final fun component5 ()I
-	public final fun component6 ()Ljava/lang/Boolean;
-	public final fun component7 ()Ljava/util/List;
-	public final fun component8 ()F
-	public final fun copy (ILjava/lang/String;JFILjava/lang/Boolean;Ljava/util/List;F)Lqbittorrent/models/TorrentFile;
-	public static synthetic fun copy$default (Lqbittorrent/models/TorrentFile;ILjava/lang/String;JFILjava/lang/Boolean;Ljava/util/List;FILjava/lang/Object;)Lqbittorrent/models/TorrentFile;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAvailability ()F
 	public final fun getIndex ()I
@@ -919,23 +619,6 @@ public final class qbittorrent/models/TorrentPeer {
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IFFJJ)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IFFJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component10 ()Ljava/lang/String;
-	public final fun component11 ()I
-	public final fun component12 ()F
-	public final fun component13 ()F
-	public final fun component14 ()J
-	public final fun component15 ()J
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()J
-	public final fun component6 ()J
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/lang/String;
-	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IFFJJ)Lqbittorrent/models/TorrentPeer;
-	public static synthetic fun copy$default (Lqbittorrent/models/TorrentPeer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IFFJJILjava/lang/Object;)Lqbittorrent/models/TorrentPeer;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getClient ()Ljava/lang/String;
 	public final fun getConnection ()Ljava/lang/String;
@@ -976,13 +659,6 @@ public final class qbittorrent/models/TorrentPeers {
 	public fun <init> ()V
 	public fun <init> (ZIZLjava/util/Map;Ljava/util/List;)V
 	public synthetic fun <init> (ZIZLjava/util/Map;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Z
-	public final fun component2 ()I
-	public final fun component3 ()Z
-	public final fun component4 ()Ljava/util/Map;
-	public final fun component5 ()Ljava/util/List;
-	public final fun copy (ZIZLjava/util/Map;Ljava/util/List;)Lqbittorrent/models/TorrentPeers;
-	public static synthetic fun copy$default (Lqbittorrent/models/TorrentPeers;ZIZLjava/util/Map;Ljava/util/List;ILjava/lang/Object;)Lqbittorrent/models/TorrentPeers;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getFullUpdate ()Z
 	public final fun getPeers ()Ljava/util/Map;
@@ -1011,41 +687,6 @@ public final class qbittorrent/models/TorrentPeers$Companion {
 public final class qbittorrent/models/TorrentProperties {
 	public static final field Companion Lqbittorrent/models/TorrentProperties$Companion;
 	public fun <init> (Ljava/lang/String;JJLjava/lang/String;JJJJJJJJJIIFJJLjava/lang/String;JJJJIIIIJIIJJJ)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component10 ()J
-	public final fun component11 ()J
-	public final fun component12 ()J
-	public final fun component13 ()J
-	public final fun component14 ()I
-	public final fun component15 ()I
-	public final fun component16 ()F
-	public final fun component17 ()J
-	public final fun component18 ()J
-	public final fun component19 ()Ljava/lang/String;
-	public final fun component2 ()J
-	public final fun component20 ()J
-	public final fun component21 ()J
-	public final fun component22 ()J
-	public final fun component23 ()J
-	public final fun component24 ()I
-	public final fun component25 ()I
-	public final fun component26 ()I
-	public final fun component27 ()I
-	public final fun component28 ()J
-	public final fun component29 ()I
-	public final fun component3 ()J
-	public final fun component30 ()I
-	public final fun component31 ()J
-	public final fun component32 ()J
-	public final fun component33 ()J
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()J
-	public final fun component6 ()J
-	public final fun component7 ()J
-	public final fun component8 ()J
-	public final fun component9 ()J
-	public final fun copy (Ljava/lang/String;JJLjava/lang/String;JJJJJJJJJIIFJJLjava/lang/String;JJJJIIIIJIIJJJ)Lqbittorrent/models/TorrentProperties;
-	public static synthetic fun copy$default (Lqbittorrent/models/TorrentProperties;Ljava/lang/String;JJLjava/lang/String;JJJJJJJJJIIFJJLjava/lang/String;JJJJIIIIJIIJJJIILjava/lang/Object;)Lqbittorrent/models/TorrentProperties;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAdditionDate ()J
 	public final fun getComment ()Ljava/lang/String;
@@ -1103,16 +744,6 @@ public final class qbittorrent/models/TorrentTracker {
 	public static final field Companion Lqbittorrent/models/TorrentTracker$Companion;
 	public fun <init> (Ljava/lang/String;IIIIIILjava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;IIIIIILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()I
-	public final fun component3 ()I
-	public final fun component4 ()I
-	public final fun component5 ()I
-	public final fun component6 ()I
-	public final fun component7 ()I
-	public final fun component8 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;IIIIIILjava/lang/String;)Lqbittorrent/models/TorrentTracker;
-	public static synthetic fun copy$default (Lqbittorrent/models/TorrentTracker;Ljava/lang/String;IIIIIILjava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/TorrentTracker;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getMsg ()Ljava/lang/String;
 	public final fun getNumDownloaded ()I
@@ -1144,9 +775,6 @@ public final class qbittorrent/models/TorrentTracker$Companion {
 public final class qbittorrent/models/Webseed {
 	public static final field Companion Lqbittorrent/models/Webseed$Companion;
 	public fun <init> (Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lqbittorrent/models/Webseed;
-	public static synthetic fun copy$default (Lqbittorrent/models/Webseed;Ljava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/Webseed;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getUrl ()Ljava/lang/String;
 	public fun hashCode ()I
@@ -1224,10 +852,6 @@ public final class qbittorrent/models/preferences/ScanDir$Companion {
 public final class qbittorrent/models/preferences/ScanDir$CustomSavePath : qbittorrent/models/preferences/ScanDir {
 	public static final field Companion Lqbittorrent/models/preferences/ScanDir$CustomSavePath$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lqbittorrent/models/preferences/ScanDir$CustomSavePath;
-	public static synthetic fun copy$default (Lqbittorrent/models/preferences/ScanDir$CustomSavePath;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/preferences/ScanDir$CustomSavePath;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getPath ()Ljava/lang/String;
 	public final fun getScanDir ()Ljava/lang/String;
@@ -1253,9 +877,6 @@ public final class qbittorrent/models/preferences/ScanDir$CustomSavePath$Compani
 public final class qbittorrent/models/preferences/ScanDir$DefaultSavePath : qbittorrent/models/preferences/ScanDir {
 	public static final field Companion Lqbittorrent/models/preferences/ScanDir$DefaultSavePath$Companion;
 	public fun <init> (Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lqbittorrent/models/preferences/ScanDir$DefaultSavePath;
-	public static synthetic fun copy$default (Lqbittorrent/models/preferences/ScanDir$DefaultSavePath;Ljava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/preferences/ScanDir$DefaultSavePath;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getScanDir ()Ljava/lang/String;
 	public fun hashCode ()I
@@ -1280,9 +901,6 @@ public final class qbittorrent/models/preferences/ScanDir$DefaultSavePath$Compan
 public final class qbittorrent/models/preferences/ScanDir$MonitoredFolder : qbittorrent/models/preferences/ScanDir {
 	public static final field Companion Lqbittorrent/models/preferences/ScanDir$MonitoredFolder$Companion;
 	public fun <init> (Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lqbittorrent/models/preferences/ScanDir$MonitoredFolder;
-	public static synthetic fun copy$default (Lqbittorrent/models/preferences/ScanDir$MonitoredFolder;Ljava/lang/String;ILjava/lang/Object;)Lqbittorrent/models/preferences/ScanDir$MonitoredFolder;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getScanDir ()Ljava/lang/String;
 	public fun hashCode ()I
