@@ -143,8 +143,8 @@ class Torrent(
         @SerialName("uploading")
         UPLOADING,
 
-        @SerialName("pausedUP")
-        PAUSED_UP,
+        @SerialName("stoppedUP")
+        STOPPED_UP,
 
         @SerialName("queuedUP")
         QUEUED_UP,
@@ -158,17 +158,20 @@ class Torrent(
         @SerialName("forcedUP")
         FORCED_UP,
 
-        @SerialName("allocating")
-        ALLOCATING,
-
         @SerialName("downloading")
         DOWNLOADING,
 
         @SerialName("metaDL")
         META_DL,
 
-        @SerialName("pausedDL")
-        PAUSED_DL,
+        @SerialName("forcedMetaDL")
+        FORCED_META_DL,
+
+        @SerialName("stoppedDL")
+        STOPPED_DL,
+
+        @SerialName("queuedDL")
+        QUEUED_DL,
 
         @SerialName("stalledDL")
         STALLED_DL,
@@ -178,9 +181,6 @@ class Torrent(
 
         @SerialName("forcedDL")
         FORCED_DL,
-
-        @SerialName("queuedDL")
-        QUEUED_DL,
 
         @SerialName("checkingResumeData")
         CHECKING_RESUME_DATA,
