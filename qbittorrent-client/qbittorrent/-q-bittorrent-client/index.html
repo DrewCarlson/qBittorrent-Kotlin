@@ -1,0 +1,1162 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>QBittorrentClient</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            qBittorrent
+                    </a>            </div>
+            <div class="library-version">1.1.0-alpha02
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":qbittorrent-client:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="qbittorrent-client::qbittorrent/QBittorrentClient///PointingToDeclaration//-1314248977">
+  <div class="breadcrumbs"><a href="../../index.html">qbittorrent-client</a><span class="delimiter">/</span><a href="../index.html">qbittorrent</a><span class="delimiter">/</span><span class="current">QBittorrentClient</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>QBittorrent</span><wbr><span><span>Client</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">QBittorrentClient</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">baseUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">username<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">"admin"</span><span class="token punctuation">, </span></span><span class="parameter ">password<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">"adminadmin"</span><span class="token punctuation">, </span></span><span class="parameter ">syncInterval<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a><span class="token operator"> = </span>5.seconds<span class="token punctuation">, </span></span><span class="parameter ">httpClient<span class="token operator">: </span><span data-unresolved-link="io.ktor.client/HttpClient///PointingToDeclaration/">HttpClient</span><span class="token operator"> = </span>HttpClient()<span class="token punctuation">, </span></span><span class="parameter ">dispatcher<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineDispatcher///PointingToDeclaration/">CoroutineDispatcher</span><span class="token operator"> = </span>Default</span></span><span class="token punctuation">)</span></div><p class="paragraph">qBittorrent Web API wrapper.</p><p class="paragraph">https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>base</span><wbr><span><span>Url</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The base URL of qBittorrent, ex. http://localhost:8080</p></div></div></div></div><div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>username</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The qBittorrent username, default: admin</p></div></div></div></div><div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>password</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The qBittorrent password, default: adminadmin</p></div></div></div></div><div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>sync</span><wbr><span><span>Interval</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The sync endpoint polling rate when subscribed to a <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>, defaults to 5 seconds.</p></div></div></div></div><div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>http</span><wbr><span><span>Client</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Custom HTTPClient, useful when a default client engine is not used</p></div></div></div></div><div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>dispatcher</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Coroutine dispatcher for flow API processing, defaults to <span data-unresolved-link="kotlinx.coroutines/Dispatchers/Default/#/PointingToDeclaration/">Dispatchers.Default</span>.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="942186243%2FConstructors%2F-1314248977" anchor-label="QBittorrentClient" id="942186243%2FConstructors%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-q-bittorrent-client.html"><span>QBittorrent</span><wbr><span><span>Client</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="942186243%2FConstructors%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">baseUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">username<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">"admin"</span><span class="token punctuation">, </span></span><span class="parameter ">password<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">"adminadmin"</span><span class="token punctuation">, </span></span><span class="parameter ">syncInterval<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a><span class="token operator"> = </span>5.seconds<span class="token punctuation">, </span></span><span class="parameter ">httpClient<span class="token operator">: </span><span data-unresolved-link="io.ktor.client/HttpClient///PointingToDeclaration/">HttpClient</span><span class="token operator"> = </span>HttpClient()<span class="token punctuation">, </span></span><span class="parameter ">dispatcher<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineDispatcher///PointingToDeclaration/">CoroutineDispatcher</span><span class="token operator"> = </span>Default</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1077662255%2FClasslikes%2F-1314248977" anchor-label="Companion" id="1077662255%2FClasslikes%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1077662255%2FClasslikes%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-999028565%2FProperties%2F-1314248977" anchor-label="isSyncing" id="-999028565%2FProperties%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-syncing.html"><span>is</span><wbr><span><span>Syncing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-999028565%2FProperties%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="is-syncing.html">isSyncing</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true when <a href="observe-main-data.html">observeMainData</a> or <a href="observe-torrent.html">observeTorrent</a> have at least one subscriber, meaning the syncing endpoint is being polled at syncInterval.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-225503427%2FFunctions%2F-1314248977" anchor-label="addPeers" id="-225503427%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-peers.html"><span>add</span><wbr><span><span>Peers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-225503427%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="add-peers.html"><span class="token function">addPeers</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">peers<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="816208723%2FFunctions%2F-1314248977" anchor-label="addTorrent" id="816208723%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-torrent.html"><span>add</span><wbr><span><span>Torrent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="816208723%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="add-torrent.html"><span class="token function">addTorrent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">configure<span class="token operator">: </span><a href="../../../qbittorrent-models/qbittorrent.models/-add-torrent-body/index.html">AddTorrentBody</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Add torrents from server local file or from URLs. http://, https://, magnet: and bc://bt/ links are supported.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-347669579%2FFunctions%2F-1314248977" anchor-label="addTorrentTags" id="-347669579%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-torrent-tags.html"><span>add</span><wbr><span>Torrent</span><wbr><span><span>Tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-347669579%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="add-torrent-tags.html"><span class="token function">addTorrentTags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList<span class="token punctuation">, </span></span><span class="parameter ">tags<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1735259855%2FFunctions%2F-1314248977" anchor-label="addTrackers" id="-1735259855%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-trackers.html"><span>add</span><wbr><span><span>Trackers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1735259855%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="add-trackers.html"><span class="token function">addTrackers</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">urls<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1050391226%2FFunctions%2F-1314248977" anchor-label="banPeers" id="1050391226%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ban-peers.html"><span>ban</span><wbr><span><span>Peers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1050391226%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="ban-peers.html"><span class="token function">banPeers</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">peers<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="13190993%2FFunctions%2F-1314248977" anchor-label="createCategory" id="13190993%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-category.html"><span>create</span><wbr><span><span>Category</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="13190993%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="create-category.html"><span class="token function">createCategory</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">savePath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="949855335%2FFunctions%2F-1314248977" anchor-label="createTags" id="949855335%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-tags.html"><span>create</span><wbr><span><span>Tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="949855335%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="create-tags.html"><span class="token function">createTags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tags<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-45921830%2FFunctions%2F-1314248977" anchor-label="decreasePriority" id="-45921830%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="decrease-priority.html"><span>decrease</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-45921830%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="decrease-priority.html"><span class="token function">decreasePriority</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2073150808%2FFunctions%2F-1314248977" anchor-label="deleteTags" id="2073150808%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-tags.html"><span>delete</span><wbr><span><span>Tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2073150808%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="delete-tags.html"><span class="token function">deleteTags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tags<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-37583882%2FFunctions%2F-1314248977" anchor-label="deleteTorrents" id="-37583882%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-torrents.html"><span>delete</span><wbr><span><span>Torrents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-37583882%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="delete-torrents.html"><span class="token function">deleteTorrents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">deleteFiles<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Delete one or more torrents.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1726436833%2FFunctions%2F-1314248977" anchor-label="editCategory" id="-1726436833%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="edit-category.html"><span>edit</span><wbr><span><span>Category</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1726436833%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="edit-category.html"><span class="token function">editCategory</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">savePath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-851478335%2FFunctions%2F-1314248977" anchor-label="editTrackers" id="-851478335%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="edit-trackers.html"><span>edit</span><wbr><span><span>Trackers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-851478335%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="edit-trackers.html"><span class="token function">editTrackers</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">originalUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">newUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-490563436%2FFunctions%2F-1314248977" anchor-label="getApiVersion" id="-490563436%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-api-version.html"><span>get</span><wbr><span>Api</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-490563436%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-api-version.html"><span class="token function">getApiVersion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Get the Web API version.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1795871764%2FFunctions%2F-1314248977" anchor-label="getBuildInfo" id="-1795871764%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-build-info.html"><span>get</span><wbr><span>Build</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1795871764%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-build-info.html"><span class="token function">getBuildInfo</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../qbittorrent-models/qbittorrent.models/-build-info/index.html">BuildInfo</a></div><div class="brief "><p class="paragraph">Get the build info</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1228934550%2FFunctions%2F-1314248977" anchor-label="getCategories" id="1228934550%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-categories.html"><span>get</span><wbr><span><span>Categories</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1228934550%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-categories.html"><span class="token function">getCategories</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-category/index.html">Category</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1752972581%2FFunctions%2F-1314248977" anchor-label="getDefaultSavePath" id="1752972581%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-default-save-path.html"><span>get</span><wbr><span>Default</span><wbr><span>Save</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1752972581%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-default-save-path.html"><span class="token function">getDefaultSavePath</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Get the default torrent save path, ex. /user/home/downloads</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2134679480%2FFunctions%2F-1314248977" anchor-label="getGlobalDownloadLimit" id="2134679480%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-global-download-limit.html"><span>get</span><wbr><span>Global</span><wbr><span>Download</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2134679480%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-global-download-limit.html"><span class="token function">getGlobalDownloadLimit</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The response is the value of current global download speed limit in bytes/second; this value will be zero if no limit is applied.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1589928906%2FFunctions%2F-1314248977" anchor-label="getGlobalTransferInfo" id="-1589928906%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-global-transfer-info.html"><span>get</span><wbr><span>Global</span><wbr><span>Transfer</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1589928906%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-global-transfer-info.html"><span class="token function">getGlobalTransferInfo</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../qbittorrent-models/qbittorrent.models/-global-transfer-info/index.html">GlobalTransferInfo</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-85451023%2FFunctions%2F-1314248977" anchor-label="getGlobalUploadLimit" id="-85451023%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-global-upload-limit.html"><span>get</span><wbr><span>Global</span><wbr><span>Upload</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-85451023%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-global-upload-limit.html"><span class="token function">getGlobalUploadLimit</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The response is the value of current global upload speed limit in bytes/second; this value will be zero if no limit is applied.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="125768193%2FFunctions%2F-1314248977" anchor-label="getLogs" id="125768193%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-logs.html"><span>get</span><wbr><span><span>Logs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="125768193%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-logs.html"><span class="token function">getLogs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">normal<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">info<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">warning<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">critical<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">lastKnownId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>-1</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-log-entry/index.html">LogEntry</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1321154369%2FFunctions%2F-1314248977" anchor-label="getPeerLogs" id="-1321154369%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-peer-logs.html"><span>get</span><wbr><span>Peer</span><wbr><span><span>Logs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1321154369%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-peer-logs.html"><span class="token function">getPeerLogs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">lastKnownId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>-1</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-peer-log/index.html">PeerLog</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-403048602%2FFunctions%2F-1314248977" anchor-label="getPieceHashes" id="-403048602%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-piece-hashes.html"><span>get</span><wbr><span>Piece</span><wbr><span><span>Hashes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-403048602%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-piece-hashes.html"><span class="token function">getPieceHashes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Get piece hashes for the torrent at <a href="get-piece-hashes.html">hash</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1583480492%2FFunctions%2F-1314248977" anchor-label="getPieceStates" id="1583480492%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-piece-states.html"><span>get</span><wbr><span>Piece</span><wbr><span><span>States</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1583480492%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-piece-states.html"><span class="token function">getPieceStates</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-piece-state/index.html">PieceState</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Get piece states for the torrent at <a href="get-piece-states.html">hash</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-792313360%2FFunctions%2F-1314248977" anchor-label="getPreferences" id="-792313360%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-preferences.html"><span>get</span><wbr><span><span>Preferences</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-792313360%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-preferences.html"><span class="token function">getPreferences</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../qbittorrent-models/qbittorrent.models/-q-bittorrent-prefs/index.html">QBittorrentPrefs</a></div><div class="brief "><p class="paragraph">Get the qBittorrent application preferences.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-572971738%2FFunctions%2F-1314248977" anchor-label="getSpeedLimitsMode" id="-572971738%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-speed-limits-mode.html"><span>get</span><wbr><span>Speed</span><wbr><span>Limits</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-572971738%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-speed-limits-mode.html"><span class="token function">getSpeedLimitsMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The response is 1 if alternative speed limits are enabled, 0 otherwise.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="820093433%2FFunctions%2F-1314248977" anchor-label="getTags" id="820093433%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tags.html"><span>get</span><wbr><span><span>Tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="820093433%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-tags.html"><span class="token function">getTags</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-528131335%2FFunctions%2F-1314248977" anchor-label="getTorrentDownloadLimit" id="-528131335%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-torrent-download-limit.html"><span>get</span><wbr><span>Torrent</span><wbr><span>Download</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-528131335%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-torrent-download-limit.html"><span class="token function">getTorrentDownloadLimit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="22237816%2FFunctions%2F-1314248977" anchor-label="getTorrentFiles" id="22237816%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-torrent-files.html"><span>get</span><wbr><span>Torrent</span><wbr><span><span>Files</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="22237816%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-torrent-files.html"><span class="token function">getTorrentFiles</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">indexes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-torrent-file/index.html">TorrentFile</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Get the <a href="../../../qbittorrent-models/qbittorrent.models/-torrent-file/index.html">TorrentFile</a>s for <a href="get-torrent-files.html">hash</a> or an empty list if not yet not available.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1603551359%2FFunctions%2F-1314248977" anchor-label="getTorrentProperties" id="1603551359%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-torrent-properties.html"><span>get</span><wbr><span>Torrent</span><wbr><span><span>Properties</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1603551359%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-torrent-properties.html"><span class="token function">getTorrentProperties</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../qbittorrent-models/qbittorrent.models/-torrent-properties/index.html">TorrentProperties</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-202920771%2FFunctions%2F-1314248977" anchor-label="getTorrents" id="-202920771%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-torrents.html"><span>get</span><wbr><span><span>Torrents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-202920771%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-torrents.html"><span class="token function">getTorrents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">filter<span class="token operator">: </span><a href="../../../qbittorrent-models/qbittorrent.models/-torrent-filter/index.html">TorrentFilter</a><span class="token operator"> = </span>TorrentFilter.ALL<span class="token punctuation">, </span></span><span class="parameter ">category<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">sort<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">""</span><span class="token punctuation">, </span></span><span class="parameter ">reverse<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">limit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">offset<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">tag<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-torrent/index.html">Torrent</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="602052914%2FFunctions%2F-1314248977" anchor-label="getTorrentUploadLimit" id="602052914%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-torrent-upload-limit.html"><span>get</span><wbr><span>Torrent</span><wbr><span>Upload</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="602052914%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-torrent-upload-limit.html"><span class="token function">getTorrentUploadLimit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-4984627%2FFunctions%2F-1314248977" anchor-label="getTrackers" id="-4984627%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-trackers.html"><span>get</span><wbr><span><span>Trackers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-4984627%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-trackers.html"><span class="token function">getTrackers</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-torrent-tracker/index.html">TorrentTracker</a><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1804391024%2FFunctions%2F-1314248977" anchor-label="getVersion" id="-1804391024%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-version.html"><span>get</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1804391024%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-version.html"><span class="token function">getVersion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Get the application version.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2029101984%2FFunctions%2F-1314248977" anchor-label="getWebseeds" id="2029101984%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-webseeds.html"><span>get</span><wbr><span><span>Webseeds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2029101984%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-webseeds.html"><span class="token function">getWebseeds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-webseed/index.html">Webseed</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="35361718%2FFunctions%2F-1314248977" anchor-label="increasePriority" id="35361718%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="increase-priority.html"><span>increase</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="35361718%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="increase-priority.html"><span class="token function">increasePriority</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2012370719%2FFunctions%2F-1314248977" anchor-label="login" id="2012370719%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="login.html"><span><span>login</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2012370719%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="login.html"><span class="token function">login</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a session with the username and password provided in the constructor.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="464169000%2FFunctions%2F-1314248977" anchor-label="logout" id="464169000%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="logout.html"><span><span>logout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="464169000%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="logout.html"><span class="token function">logout</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">End the current session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-498099254%2FFunctions%2F-1314248977" anchor-label="maxPriority" id="-498099254%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-priority.html"><span>max</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-498099254%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="max-priority.html"><span class="token function">maxPriority</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="63161116%2FFunctions%2F-1314248977" anchor-label="minPriority" id="63161116%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="min-priority.html"><span>min</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="63161116%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="min-priority.html"><span class="token function">minPriority</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1504826551%2FFunctions%2F-1314248977" anchor-label="observeMainData" id="-1504826551%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="observe-main-data.html"><span>observe</span><wbr><span>Main</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1504826551%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="observe-main-data.html"><span class="token function">observeMainData</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-main-data/index.html">MainData</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Emits the next <a href="../../../qbittorrent-models/qbittorrent.models/-main-data/index.html">MainData</a> every syncInterval while subscribed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-129021794%2FFunctions%2F-1314248977" anchor-label="observeTorrent" id="-129021794%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="observe-torrent.html"><span>observe</span><wbr><span><span>Torrent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-129021794%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="observe-torrent.html"><span class="token function">observeTorrent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">waitIfMissing<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-torrent/index.html">Torrent</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Emits the latest <a href="../../../qbittorrent-models/qbittorrent.models/-torrent/index.html">Torrent</a> data for the <a href="observe-torrent.html">hash</a>. If the torrent is removed or not found, the flow will complete unless <a href="observe-torrent.html">waitIfMissing</a> is true.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2140965767%2FFunctions%2F-1314248977" anchor-label="observeTorrentPeers" id="-2140965767%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="observe-torrent-peers.html"><span>observe</span><wbr><span>Torrent</span><wbr><span><span>Peers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2140965767%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="observe-torrent-peers.html"><span class="token function">observeTorrentPeers</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><a href="../../../qbittorrent-models/qbittorrent.models/-torrent-peers/index.html">TorrentPeers</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Emits the latest <a href="../../../qbittorrent-models/qbittorrent.models/-torrent-peers/index.html">TorrentPeers</a> data for the <a href="observe-torrent-peers.html">hash</a>. If the torrent is removed or not found, the flow will complete.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="172054681%2FFunctions%2F-1314248977" anchor-label="pauseTorrents" id="172054681%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pause-torrents.html"><span>pause</span><wbr><span><span>Torrents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="172054681%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="pause-torrents.html"><span class="token function">pauseTorrents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Pause one or more torrents</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="494429245%2FFunctions%2F-1314248977" anchor-label="reannounceTorrents" id="494429245%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reannounce-torrents.html"><span>reannounce</span><wbr><span><span>Torrents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="494429245%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="reannounce-torrents.html"><span class="token function">reannounceTorrents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Reannounce a torrent.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-309885894%2FFunctions%2F-1314248977" anchor-label="recheckTorrents" id="-309885894%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="recheck-torrents.html"><span>recheck</span><wbr><span><span>Torrents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-309885894%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="recheck-torrents.html"><span class="token function">recheckTorrents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Recheck a torrent in qBittorrent.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-942098244%2FFunctions%2F-1314248977" anchor-label="removeCategories" id="-942098244%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-categories.html"><span>remove</span><wbr><span><span>Categories</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-942098244%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="remove-categories.html"><span class="token function">removeCategories</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">names<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="481723772%2FFunctions%2F-1314248977" anchor-label="removeTorrentTags" id="481723772%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-torrent-tags.html"><span>remove</span><wbr><span>Torrent</span><wbr><span><span>Tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="481723772%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="remove-torrent-tags.html"><span class="token function">removeTorrentTags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList<span class="token punctuation">, </span></span><span class="parameter ">tags<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1817981816%2FFunctions%2F-1314248977" anchor-label="removeTrackers" id="1817981816%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-trackers.html"><span>remove</span><wbr><span><span>Trackers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1817981816%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="remove-trackers.html"><span class="token function">removeTrackers</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">urls<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-893324202%2FFunctions%2F-1314248977" anchor-label="renameFile" id="-893324202%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rename-file.html"><span>rename</span><wbr><span><span>File</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-893324202%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="rename-file.html"><span class="token function">renameFile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">newName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1665401500%2FFunctions%2F-1314248977" anchor-label="renameFolder" id="-1665401500%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rename-folder.html"><span>rename</span><wbr><span><span>Folder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1665401500%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="rename-folder.html"><span class="token function">renameFolder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">newName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2055459084%2FFunctions%2F-1314248977" anchor-label="resumeTorrents" id="2055459084%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="resume-torrents.html"><span>resume</span><wbr><span><span>Torrents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2055459084%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="resume-torrents.html"><span class="token function">resumeTorrents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Resume one or more torrents</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="263521098%2FFunctions%2F-1314248977" anchor-label="setAutoTorrentManagement" id="263521098%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-auto-torrent-management.html"><span>set</span><wbr><span>Auto</span><wbr><span>Torrent</span><wbr><span><span>Management</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="263521098%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-auto-torrent-management.html"><span class="token function">setAutoTorrentManagement</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList<span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-377879040%2FFunctions%2F-1314248977" anchor-label="setFilePriority" id="-377879040%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-file-priority.html"><span>set</span><wbr><span>File</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-377879040%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-file-priority.html"><span class="token function">setFilePriority</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">ids<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">priority<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1833185931%2FFunctions%2F-1314248977" anchor-label="setForceStart" id="1833185931%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-force-start.html"><span>set</span><wbr><span>Force</span><wbr><span><span>Start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1833185931%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-force-start.html"><span class="token function">setForceStart</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList<span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="901300066%2FFunctions%2F-1314248977" anchor-label="setGlobalDownloadLimit" id="901300066%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-global-download-limit.html"><span>set</span><wbr><span>Global</span><wbr><span>Download</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="901300066%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-global-download-limit.html"><span class="token function">setGlobalDownloadLimit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">limit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="541122139%2FFunctions%2F-1314248977" anchor-label="setGlobalUploadLimit" id="541122139%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-global-upload-limit.html"><span>set</span><wbr><span>Global</span><wbr><span>Upload</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="541122139%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-global-upload-limit.html"><span class="token function">setGlobalUploadLimit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">limit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1999081960%2FFunctions%2F-1314248977" anchor-label="setPreferences" id="1999081960%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-preferences.html"><span>set</span><wbr><span><span>Preferences</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1999081960%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-preferences.html"><span class="token function">setPreferences</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">prefsBuilder<span class="token operator">: </span><a href="../../../qbittorrent-models/qbittorrent.models/-q-bittorrent-prefs-builder/index.html">QBittorrentPrefsBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set one or more qBittorrent application preferences.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-584039894%2FFunctions%2F-1314248977" anchor-label="setSuperSeeding" id="-584039894%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-super-seeding.html"><span>set</span><wbr><span>Super</span><wbr><span><span>Seeding</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-584039894%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-super-seeding.html"><span class="token function">setSuperSeeding</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList<span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="654597941%2FFunctions%2F-1314248977" anchor-label="setTorrentCategory" id="654597941%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-torrent-category.html"><span>set</span><wbr><span>Torrent</span><wbr><span><span>Category</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="654597941%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-torrent-category.html"><span class="token function">setTorrentCategory</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList<span class="token punctuation">, </span></span><span class="parameter ">category<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="605321837%2FFunctions%2F-1314248977" anchor-label="setTorrentDownloadLimit" id="605321837%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-torrent-download-limit.html"><span>set</span><wbr><span>Torrent</span><wbr><span>Download</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="605321837%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-torrent-download-limit.html"><span class="token function">setTorrentDownloadLimit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1103620642%2FFunctions%2F-1314248977" anchor-label="setTorrentLocation" id="-1103620642%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-torrent-location.html"><span>set</span><wbr><span>Torrent</span><wbr><span><span>Location</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1103620642%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-torrent-location.html"><span class="token function">setTorrentLocation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList<span class="token punctuation">, </span></span><span class="parameter ">location<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1530095184%2FFunctions%2F-1314248977" anchor-label="setTorrentName" id="-1530095184%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-torrent-name.html"><span>set</span><wbr><span>Torrent</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1530095184%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-torrent-name.html"><span class="token function">setTorrentName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="86134416%2FFunctions%2F-1314248977" anchor-label="setTorrentShareLimits" id="86134416%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-torrent-share-limits.html"><span>set</span><wbr><span>Torrent</span><wbr><span>Share</span><wbr><span><span>Limits</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="86134416%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-torrent-share-limits.html"><span class="token function">setTorrentShareLimits</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList<span class="token punctuation">, </span></span><span class="parameter ">ratioLimit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">seedingTimeLimit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="492497920%2FFunctions%2F-1314248977" anchor-label="setTorrentUploadLimit" id="492497920%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-torrent-upload-limit.html"><span>set</span><wbr><span>Torrent</span><wbr><span>Upload</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="492497920%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-torrent-upload-limit.html"><span class="token function">setTorrentUploadLimit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList<span class="token punctuation">, </span></span><span class="parameter ">limit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-799597668%2FFunctions%2F-1314248977" anchor-label="shutdown" id="-799597668%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="shutdown.html"><span><span>shutdown</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-799597668%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="shutdown.html"><span class="token function">shutdown</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Shutdown qBittorrent</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="146962556%2FFunctions%2F-1314248977" anchor-label="toggleFirstLastPriority" id="146962556%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="toggle-first-last-priority.html"><span>toggle</span><wbr><span>First</span><wbr><span>Last</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="146962556%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="toggle-first-last-priority.html"><span class="token function">toggleFirstLastPriority</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1273851647%2FFunctions%2F-1314248977" anchor-label="toggleSequentialDownload" id="-1273851647%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="toggle-sequential-download.html"><span>toggle</span><wbr><span>Sequential</span><wbr><span><span>Download</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1273851647%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="toggle-sequential-download.html"><span class="token function">toggleSequentialDownload</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>allList</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1617384294%2FFunctions%2F-1314248977" anchor-label="toggleSpeedLimitsMode" id="-1617384294%2FFunctions%2F-1314248977" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-client:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-client:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="toggle-speed-limits-mode.html"><span>toggle</span><wbr><span>Speed</span><wbr><span>Limits</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1617384294%2FFunctions%2F-1314248977"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-client:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="toggle-speed-limits-mode.html"><span class="token function">toggleSpeedLimitsMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

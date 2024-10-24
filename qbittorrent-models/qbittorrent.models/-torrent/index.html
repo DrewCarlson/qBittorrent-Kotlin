@@ -1,0 +1,798 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Torrent</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            qBittorrent
+                    </a>            </div>
+            <div class="library-version">1.1.0-alpha02
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":qbittorrent-models:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="qbittorrent-models::qbittorrent.models/Torrent///PointingToDeclaration//-2052275024">
+  <div class="breadcrumbs"><a href="../../index.html">qbittorrent-models</a><span class="delimiter">/</span><a href="../index.html">qbittorrent.models</a><span class="delimiter">/</span><span class="current">Torrent</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Torrent</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">class </span><a href="index.html">Torrent</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>addedOn<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>amountLeft<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>autoTmm<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>availability<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>category<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>completed<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>completedOn<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>contentPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>dlLimit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>dlspeed<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>downloaded<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>downloadedSession<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>eta<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>firstLastPiecePriority<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>forceStart<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>lastActivity<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>magnetUri<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxRatio<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxSeedingTime<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seedsInSwarm<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>leechersInSwarm<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>connectedLeechers<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>connectedSeeds<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>priority<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>progress<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>ratio<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>ratioLimit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>savePath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seedingTimeLimit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seenCompleted<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>sequentialDownload<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>size<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>state<span class="token operator">: </span><a href="-state/index.html">Torrent.State</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>superSeeding<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tags<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>timeActive<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seedingTime<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>totalSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tracker<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>uploadLimit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>uploaded<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>uploadedSession<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>uploadSpeed<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="2128804123%2FConstructors%2F-2052275024" anchor-label="Torrent" id="2128804123%2FConstructors%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-torrent.html"><span><span>Torrent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2128804123%2FConstructors%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">addedOn<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">amountLeft<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">autoTmm<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">availability<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">category<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">completed<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">completedOn<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">contentPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">dlLimit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">dlspeed<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">downloaded<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">downloadedSession<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">eta<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">firstLastPiecePriority<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">forceStart<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">hash<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">lastActivity<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">magnetUri<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">maxRatio<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">maxSeedingTime<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">seedsInSwarm<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">leechersInSwarm<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">connectedLeechers<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">connectedSeeds<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">priority<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">progress<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">ratio<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">ratioLimit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">savePath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">seedingTimeLimit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">seenCompleted<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">sequentialDownload<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">size<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">state<span class="token operator">: </span><a href="-state/index.html">Torrent.State</a><span class="token punctuation">, </span></span><span class="parameter ">superSeeding<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">tags<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">timeActive<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">seedingTime<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">totalSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">tracker<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">uploadLimit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">uploaded<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">uploadedSession<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">uploadSpeed<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1907977975%2FClasslikes%2F-2052275024" anchor-label="State" id="-1907977975%2FClasslikes%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-state/index.html"><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1907977975%2FClasslikes%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">enum </span><a href="-state/index.html">State</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-state/index.html">Torrent.State</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-622085752%2FProperties%2F-2052275024" anchor-label="addedOn" id="-622085752%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="added-on.html"><span>added</span><wbr><span><span>On</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-622085752%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"added_on"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="added-on.html">addedOn</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Time (Unix Epoch) when the torrent was added to the client</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1740557324%2FProperties%2F-2052275024" anchor-label="amountLeft" id="-1740557324%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="amount-left.html"><span>amount</span><wbr><span><span>Left</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1740557324%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"amount_left"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="amount-left.html">amountLeft</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Amount of data left to download (bytes)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1897866654%2FProperties%2F-2052275024" anchor-label="autoTmm" id="-1897866654%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="auto-tmm.html"><span>auto</span><wbr><span><span>Tmm</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1897866654%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"auto_tmm"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="auto-tmm.html">autoTmm</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this torrent is managed by Automatic Torrent Management</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1808197912%2FProperties%2F-2052275024" anchor-label="availability" id="1808197912%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="availability.html"><span><span>availability</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1808197912%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="availability.html">availability</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Percentage of file pieces currently available</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="402565589%2FProperties%2F-2052275024" anchor-label="category" id="402565589%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="category.html"><span><span>category</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="402565589%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="category.html">category</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Category of the torrent</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="92154172%2FProperties%2F-2052275024" anchor-label="completed" id="92154172%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="completed.html"><span><span>completed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="92154172%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="completed.html">completed</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Amount of transfer data completed (bytes)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="827893853%2FProperties%2F-2052275024" anchor-label="completedOn" id="827893853%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="completed-on.html"><span>completed</span><wbr><span><span>On</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="827893853%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"completion_on"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="completed-on.html">completedOn</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Time (Unix Epoch) when the torrent completed</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-822134167%2FProperties%2F-2052275024" anchor-label="connectedLeechers" id="-822134167%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connected-leechers.html"><span>connected</span><wbr><span><span>Leechers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-822134167%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"num_leechs"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="connected-leechers.html">connectedLeechers</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Number of leechers connected to</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2089555942%2FProperties%2F-2052275024" anchor-label="connectedSeeds" id="-2089555942%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connected-seeds.html"><span>connected</span><wbr><span><span>Seeds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2089555942%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"num_seeds"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="connected-seeds.html">connectedSeeds</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Number of seeds connected to</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1884507177%2FProperties%2F-2052275024" anchor-label="contentPath" id="1884507177%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="content-path.html"><span>content</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1884507177%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"content_path"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="content-path.html">contentPath</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Absolute path of torrent content (root path for multifile torrents, absolute file path for singlefile torrents)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="75439860%2FProperties%2F-2052275024" anchor-label="dlLimit" id="75439860%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="dl-limit.html"><span>dl</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="75439860%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"dl_limit"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="dl-limit.html">dlLimit</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Torrent download speed limit (bytes/s). -1 if unlimited.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1231367224%2FProperties%2F-2052275024" anchor-label="dlspeed" id="-1231367224%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="dlspeed.html"><span><span>dlspeed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1231367224%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="dlspeed.html">dlspeed</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Torrent download speed (bytes/s)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1797039692%2FProperties%2F-2052275024" anchor-label="downloaded" id="1797039692%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="downloaded.html"><span><span>downloaded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1797039692%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="downloaded.html">downloaded</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Amount of data downloaded</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-917968744%2FProperties%2F-2052275024" anchor-label="downloadedSession" id="-917968744%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="downloaded-session.html"><span>downloaded</span><wbr><span><span>Session</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-917968744%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"downloaded_session"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="downloaded-session.html">downloadedSession</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Amount of data downloaded this session</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-424223915%2FProperties%2F-2052275024" anchor-label="eta" id="-424223915%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="eta.html"><span><span>eta</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-424223915%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="eta.html">eta</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Torrent ETA (seconds)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1647378727%2FProperties%2F-2052275024" anchor-label="firstLastPiecePriority" id="1647378727%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="first-last-piece-priority.html"><span>first</span><wbr><span>Last</span><wbr><span>Piece</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1647378727%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"f_l_piece_prio"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="first-last-piece-priority.html">firstLastPiecePriority</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">True if first last piece are prioritized</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1988991172%2FProperties%2F-2052275024" anchor-label="forceStart" id="-1988991172%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="force-start.html"><span>force</span><wbr><span><span>Start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1988991172%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"force_start"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="force-start.html">forceStart</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">True if force start is enabled for this torrent</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-582454587%2FProperties%2F-2052275024" anchor-label="hash" id="-582454587%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hash.html"><span><span>hash</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-582454587%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="hash.html">hash</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Torrent hash</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1727449618%2FProperties%2F-2052275024" anchor-label="lastActivity" id="-1727449618%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="last-activity.html"><span>last</span><wbr><span><span>Activity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1727449618%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"last_activity"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="last-activity.html">lastActivity</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Last time (Unix Epoch) when a chunk was downloaded/uploaded</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1750772265%2FProperties%2F-2052275024" anchor-label="leechersInSwarm" id="1750772265%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="leechers-in-swarm.html"><span>leechers</span><wbr><span>In</span><wbr><span><span>Swarm</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1750772265%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"num_incomplete"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="leechers-in-swarm.html">leechersInSwarm</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Number of leechers in the swarm</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1543422405%2FProperties%2F-2052275024" anchor-label="magnetUri" id="1543422405%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="magnet-uri.html"><span>magnet</span><wbr><span><span>Uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1543422405%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"magnet_uri"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="magnet-uri.html">magnetUri</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Magnet URI corresponding to this torrent</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-283289108%2FProperties%2F-2052275024" anchor-label="maxRatio" id="-283289108%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-ratio.html"><span>max</span><wbr><span><span>Ratio</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-283289108%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"max_ratio"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="max-ratio.html">maxRatio</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Maximum share ratio until torrent is stopped from seeding/uploading</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="400773017%2FProperties%2F-2052275024" anchor-label="maxSeedingTime" id="400773017%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-seeding-time.html"><span>max</span><wbr><span>Seeding</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="400773017%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"max_seeding_time"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="max-seeding-time.html">maxSeedingTime</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Maximum seeding time (seconds) until torrent is stopped from seeding</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2008379368%2FProperties%2F-2052275024" anchor-label="name" id="2008379368%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="name.html"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2008379368%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="name.html">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Torrent name</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1007703023%2FProperties%2F-2052275024" anchor-label="priority" id="1007703023%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="priority.html"><span><span>priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1007703023%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="priority.html">priority</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Torrent priority. Returns -1 if queuing is disabled or torrent is in seed mode</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1401780346%2FProperties%2F-2052275024" anchor-label="progress" id="-1401780346%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="progress.html"><span><span>progress</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1401780346%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="progress.html">progress</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Torrent progress (percentage/100)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1385991292%2FProperties%2F-2052275024" anchor-label="ratio" id="1385991292%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ratio.html"><span><span>ratio</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1385991292%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="ratio.html">ratio</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Torrent share ratio. Max ratio value: 9999.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2089988899%2FProperties%2F-2052275024" anchor-label="ratioLimit" id="2089988899%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ratio-limit.html"><span>ratio</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2089988899%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"ratio_limit"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="ratio-limit.html">ratioLimit</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1864128495%2FProperties%2F-2052275024" anchor-label="savePath" id="-1864128495%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="save-path.html"><span>save</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1864128495%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"save_path"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="save-path.html">savePath</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Path where this torrent's data is stored</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1496733225%2FProperties%2F-2052275024" anchor-label="seedingTime" id="1496733225%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seeding-time.html"><span>seeding</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1496733225%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"seeding_time"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="seeding-time.html">seedingTime</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Torrent elapsed time while complete (seconds)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-756748906%2FProperties%2F-2052275024" anchor-label="seedingTimeLimit" id="-756748906%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seeding-time-limit.html"><span>seeding</span><wbr><span>Time</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-756748906%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"seeding_time_limit"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="seeding-time-limit.html">seedingTimeLimit</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-827552158%2FProperties%2F-2052275024" anchor-label="seedsInSwarm" id="-827552158%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seeds-in-swarm.html"><span>seeds</span><wbr><span>In</span><wbr><span><span>Swarm</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-827552158%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"num_complete"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="seeds-in-swarm.html">seedsInSwarm</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Number of seeds in the swarm</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="271142935%2FProperties%2F-2052275024" anchor-label="seenCompleted" id="271142935%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seen-completed.html"><span>seen</span><wbr><span><span>Completed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="271142935%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"seen_complete"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="seen-completed.html">seenCompleted</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Time (Unix Epoch) when this torrent was last seen complete</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-643033908%2FProperties%2F-2052275024" anchor-label="sequentialDownload" id="-643033908%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sequential-download.html"><span>sequential</span><wbr><span><span>Download</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-643033908%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"seq_dl"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="sequential-download.html">sequentialDownload</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">True if sequential download is enabled</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1242891470%2FProperties%2F-2052275024" anchor-label="size" id="-1242891470%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="size.html"><span><span>size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1242891470%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="size.html">size</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Total size (bytes) of files selected for download</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-390980938%2FProperties%2F-2052275024" anchor-label="state" id="-390980938%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="state.html"><span><span>state</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-390980938%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="state.html">state</a><span class="token operator">: </span><a href="-state/index.html">Torrent.State</a></div><div class="brief "><p class="paragraph">Torrent state.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1682829053%2FProperties%2F-2052275024" anchor-label="superSeeding" id="1682829053%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="super-seeding.html"><span>super</span><wbr><span><span>Seeding</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1682829053%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"super_seeding"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="super-seeding.html">superSeeding</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">True if super seeding is enabled</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="831582746%2FProperties%2F-2052275024" anchor-label="tags" id="831582746%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tags.html"><span><span>tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="831582746%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../../qbittorrent-models/qbittorrent.models.serialization/-comma-list-serializer/index.html">CommaListSerializer::class</a></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="tags.html">tags</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Tag list of the torrent</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1076408640%2FProperties%2F-2052275024" anchor-label="timeActive" id="-1076408640%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="time-active.html"><span>time</span><wbr><span><span>Active</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1076408640%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"time_active"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="time-active.html">timeActive</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Total active time (seconds)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="154043234%2FProperties%2F-2052275024" anchor-label="totalSize" id="154043234%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="total-size.html"><span>total</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="154043234%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"total_size"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="total-size.html">totalSize</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Total size (bytes) of all file in this torrent (including unselected ones)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1353289583%2FProperties%2F-2052275024" anchor-label="tracker" id="1353289583%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tracker.html"><span><span>tracker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1353289583%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tracker.html">tracker</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The first tracker with working status. Returns empty string if no tracker is working.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-357975373%2FProperties%2F-2052275024" anchor-label="uploaded" id="-357975373%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="uploaded.html"><span><span>uploaded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-357975373%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="uploaded.html">uploaded</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Amount of data uploaded</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2076810671%2FProperties%2F-2052275024" anchor-label="uploadedSession" id="-2076810671%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="uploaded-session.html"><span>uploaded</span><wbr><span><span>Session</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2076810671%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"uploaded_session"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="uploaded-session.html">uploadedSession</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Amount of data uploaded this session</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-106823251%2FProperties%2F-2052275024" anchor-label="uploadLimit" id="-106823251%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="upload-limit.html"><span>upload</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-106823251%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"up_limit"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="upload-limit.html">uploadLimit</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Torrent upload speed limit (bytes/s). -1 if unlimited.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1775746399%2FProperties%2F-2052275024" anchor-label="uploadSpeed" id="-1775746399%2FProperties%2F-2052275024" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":qbittorrent-models:dokkaHtmlPartial/commonMain" data-filterable-set=":qbittorrent-models:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="upload-speed.html"><span>upload</span><wbr><span><span>Speed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1775746399%2FProperties%2F-2052275024"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":qbittorrent-models:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"upspeed"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="upload-speed.html">uploadSpeed</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Torrent upload speed (bytes/s)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

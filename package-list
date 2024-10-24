@@ -1,0 +1,9 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:qbittorrent-client
+qbittorrent
+module:qbittorrent-models
+qbittorrent.models
+qbittorrent.models.preferences
+qbittorrent.models.serialization
