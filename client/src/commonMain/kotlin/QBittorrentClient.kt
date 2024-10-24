@@ -547,10 +547,13 @@ class QBittorrentClient(
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun removeTrackers(hash: String, urls: List<String>) {
-        http.get("${config.baseUrl}/api/v2/torrents/removeTrackers") {
-            parameter("hash", hash)
-            parameter("urls", urls.joinToString("|"))
-        }.orThrow()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/torrents/removeTrackers",
+            formParameters = Parameters.build {
+                append("hash", hash)
+                append("urls", urls.joinToString("|"))
+            }
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
