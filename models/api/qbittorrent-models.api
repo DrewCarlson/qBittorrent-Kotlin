@@ -533,7 +533,6 @@ public final class qbittorrent/models/Torrent$Companion {
 }
 
 public final class qbittorrent/models/Torrent$State : java/lang/Enum {
-	public static final field ALLOCATING Lqbittorrent/models/Torrent$State;
 	public static final field CHECKING_DL Lqbittorrent/models/Torrent$State;
 	public static final field CHECKING_RESUME_DATA Lqbittorrent/models/Torrent$State;
 	public static final field CHECKING_UP Lqbittorrent/models/Torrent$State;
@@ -541,16 +540,17 @@ public final class qbittorrent/models/Torrent$State : java/lang/Enum {
 	public static final field DOWNLOADING Lqbittorrent/models/Torrent$State;
 	public static final field ERROR Lqbittorrent/models/Torrent$State;
 	public static final field FORCED_DL Lqbittorrent/models/Torrent$State;
+	public static final field FORCED_META_DL Lqbittorrent/models/Torrent$State;
 	public static final field FORCED_UP Lqbittorrent/models/Torrent$State;
 	public static final field META_DL Lqbittorrent/models/Torrent$State;
 	public static final field MISSING_FILES Lqbittorrent/models/Torrent$State;
 	public static final field MOVING Lqbittorrent/models/Torrent$State;
-	public static final field PAUSED_DL Lqbittorrent/models/Torrent$State;
-	public static final field PAUSED_UP Lqbittorrent/models/Torrent$State;
 	public static final field QUEUED_DL Lqbittorrent/models/Torrent$State;
 	public static final field QUEUED_UP Lqbittorrent/models/Torrent$State;
 	public static final field STALLED_DL Lqbittorrent/models/Torrent$State;
 	public static final field STALLED_UP Lqbittorrent/models/Torrent$State;
+	public static final field STOPPED_DL Lqbittorrent/models/Torrent$State;
+	public static final field STOPPED_UP Lqbittorrent/models/Torrent$State;
 	public static final field UNKNOWN Lqbittorrent/models/Torrent$State;
 	public static final field UPLOADING Lqbittorrent/models/Torrent$State;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
