@@ -386,9 +386,12 @@ class QBittorrentClient(
      */
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun pauseTorrents(hashes: List<String> = allList) {
-        http.get("${config.baseUrl}/api/v2/torrents/pause") {
-            parameter("hashes", hashes.joinToString("|"))
-        }.orThrow()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/torrents/pause",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+            }
+        ).orThrow()
     }
 
     /**
@@ -398,9 +401,12 @@ class QBittorrentClient(
      */
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun resumeTorrents(hashes: List<String> = allList) {
-        http.get("${config.baseUrl}/api/v2/torrents/resume") {
-            parameter("hashes", hashes.joinToString("|"))
-        }.orThrow()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/torrents/resume",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+            }
+        ).orThrow()
     }
 
     /**
@@ -527,11 +533,14 @@ class QBittorrentClient(
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun editTrackers(hash: String, originalUrl: String, newUrl: String) {
-        http.get("${config.baseUrl}/api/v2/torrents/editTracker") {
-            parameter("hash", hash)
-            parameter("origUrl", originalUrl)
-            parameter("newUrl", newUrl)
-        }.orThrow()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/torrents/editTracker",
+            formParameters = Parameters.build {
+                append("hash", hash)
+                append("origUrl", originalUrl)
+                append("newUrl", newUrl)
+            }
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
@@ -573,39 +582,54 @@ class QBittorrentClient(
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun increasePriority(hashes: List<String> = allList) {
-        http.get("${config.baseUrl}/api/v2/torrents/increasePrio") {
-            parameter("hashes", hashes.joinToString("|"))
-        }.orThrow()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/torrents/increasePrio",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+            }
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun decreasePriority(hashes: List<String> = allList) {
-        http.get("${config.baseUrl}/api/v2/torrents/decreasePrio") {
-            parameter("hashes", hashes.joinToString("|"))
-        }.orThrow()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/torrents/decreasePrio",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+            }
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun maxPriority(hashes: List<String> = allList) {
-        http.get("${config.baseUrl}/api/v2/torrents/topPrio") {
-            parameter("hashes", hashes.joinToString("|"))
-        }.orThrow()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/torrents/topPrio",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+            }
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun minPriority(hashes: List<String> = allList) {
-        http.get("${config.baseUrl}/api/v2/torrents/bottomPrio") {
-            parameter("hashes", hashes.joinToString("|"))
-        }.orThrow()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/torrents/bottomPrio",
+            formParameters = Parameters.build {
+                append("hashes", hashes.joinToString("|"))
+            }
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
     suspend fun setFilePriority(hash: String, ids: List<Int>, priority: Int) {
-        http.get("${config.baseUrl}/api/v2/torrents/filePrio") {
-            parameter("hash", hash)
-            parameter("id", ids.joinToString("|"))
-            parameter("priority", priority)
-        }.orThrow()
+        http.submitForm(
+            "${config.baseUrl}/api/v2/torrents/filePrio",
+            formParameters = Parameters.build {
+                append("hash", hash)
+                append("id", ids.joinToString("|"))
+                append("priority", priority.toString())
+            }
+        ).orThrow()
     }
 
     @Throws(QBittorrentException::class, CancellationException::class)
