@@ -31,7 +31,7 @@ coroutines-turbine = { module = "app.cash.turbine:turbine", version = "1.2.0" }
 serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
-io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version = "0.5.4" }
+io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version = "0.6.0" }
 
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorio" }
 
