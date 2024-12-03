@@ -82,7 +82,7 @@ jobs:
         run: ./gradlew clean dokkaHtmlMultiModule
 
       - name: Publish Docs
-        uses: JamesIves/github-pages-deploy-action@v4.6.8
+        uses: JamesIves/github-pages-deploy-action@v4.7.2
         with:
           branch: docs
           folder: build/dokka/htmlMultiModule
