@@ -20,7 +20,7 @@ binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", ve
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.30.0" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-poko = { id = "dev.drewhamilton.poko", version = "0.17.2" }
+poko = { id = "dev.drewhamilton.poko", version = "0.18.1" }
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
