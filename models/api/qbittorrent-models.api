@@ -48,7 +48,7 @@ public final class qbittorrent/models/BuildInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/BuildInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/BuildInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/BuildInfo$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -73,7 +73,7 @@ public final class qbittorrent/models/Category {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/Category$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/Category$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/Category$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -122,7 +122,7 @@ public final class qbittorrent/models/GlobalTransferInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/GlobalTransferInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/GlobalTransferInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/GlobalTransferInfo$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -153,7 +153,7 @@ public final class qbittorrent/models/LogEntry {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/LogEntry$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/LogEntry$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/LogEntry$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -186,7 +186,7 @@ public final class qbittorrent/models/MainData {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/MainData$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/MainData$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/MainData$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -214,7 +214,7 @@ public final class qbittorrent/models/PeerLog {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/PeerLog$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/PeerLog$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/PeerLog$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -391,7 +391,7 @@ public final class qbittorrent/models/QBittorrentPrefs {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/QBittorrentPrefs$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/QBittorrentPrefs$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/QBittorrentPrefs$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -449,7 +449,7 @@ public final class qbittorrent/models/ServerState {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/ServerState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/ServerState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/ServerState$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -517,7 +517,7 @@ public final class qbittorrent/models/Torrent {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/Torrent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/Torrent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/Torrent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -579,7 +579,7 @@ public final class qbittorrent/models/TorrentFile {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/TorrentFile$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/TorrentFile$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/TorrentFile$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -639,7 +639,7 @@ public final class qbittorrent/models/TorrentPeer {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/TorrentPeer$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/TorrentPeer$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/TorrentPeer$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -669,7 +669,7 @@ public final class qbittorrent/models/TorrentPeers {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/TorrentPeers$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/TorrentPeers$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/TorrentPeers$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -725,7 +725,7 @@ public final class qbittorrent/models/TorrentProperties {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/TorrentProperties$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/TorrentProperties$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/TorrentProperties$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -757,7 +757,7 @@ public final class qbittorrent/models/TorrentTracker {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/TorrentTracker$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/TorrentTracker$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/TorrentTracker$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -793,7 +793,7 @@ public final class qbittorrent/models/Webseed {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/Webseed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/Webseed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/Webseed$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -871,7 +871,7 @@ public final class qbittorrent/models/preferences/ScanDir$CustomSavePath : qbitt
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/preferences/ScanDir$CustomSavePath$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/preferences/ScanDir$CustomSavePath$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/preferences/ScanDir$CustomSavePath$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -895,7 +895,7 @@ public final class qbittorrent/models/preferences/ScanDir$DefaultSavePath : qbit
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/preferences/ScanDir$DefaultSavePath$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/preferences/ScanDir$DefaultSavePath$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/preferences/ScanDir$DefaultSavePath$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -919,7 +919,7 @@ public final class qbittorrent/models/preferences/ScanDir$MonitoredFolder : qbit
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class qbittorrent/models/preferences/ScanDir$MonitoredFolder$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class qbittorrent/models/preferences/ScanDir$MonitoredFolder$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lqbittorrent/models/preferences/ScanDir$MonitoredFolder$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;

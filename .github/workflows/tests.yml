@@ -33,6 +33,7 @@ jobs:
 
   tests:
     strategy:
+      fail-fast: false
       matrix:
         os: [ macos-latest, ubuntu-24.04, windows-latest ]
     runs-on: ${{ matrix.os }}
@@ -43,10 +44,11 @@ jobs:
       - name: Install qBittorrent on Linux
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
           sudo apt-get update
-          sudo apt-get install -y qbittorrent-nox
           sudo apt-get install -y libcurl4-openssl-dev
+          wget https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-5.1.4_v2.0.11/x86_64-qbittorrent-nox
+          chmod +x x86_64-qbittorrent-nox
+          sudo mv x86_64-qbittorrent-nox /usr/local/bin/qbittorrent-nox
           qbittorrent-nox --daemon
           sleep 10
           pkill qbittorrent-nox
@@ -108,7 +110,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 17
 
       - uses: gradle/actions/setup-gradle@v4
 
