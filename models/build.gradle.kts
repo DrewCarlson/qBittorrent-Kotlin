@@ -1,10 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.serialization)
-    alias(libs.plugins.binaryCompat)
     alias(libs.plugins.dokka)
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.ksp)
@@ -16,6 +14,11 @@ dependencies {
 }
 
 kotlin {
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation {
+        enabled = true
+    }
+
     jvmToolchain(libs.versions.jvmToolchain.get().toInt())
     jvm()
     js(IR) {

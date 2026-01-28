@@ -1,11 +1,9 @@
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.multiplatform) apply false
     alias(libs.plugins.serialization) apply false
-    alias(libs.plugins.binaryCompat) apply false
     alias(libs.plugins.poko) apply false
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
@@ -38,4 +36,9 @@ subprojects {
                 ))
         }
     }
+}
+
+dependencies {
+    dokka(project(":qbittorrent-client"))
+    dokka(project(":qbittorrent-models"))
 }

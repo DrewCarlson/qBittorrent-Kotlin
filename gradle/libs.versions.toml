@@ -1,26 +1,24 @@
 [versions]
-kotlin = { strictly = "2.0.21" }
-dokka = "1.9.20"
-coroutines = "1.9.0"
-serialization = "1.7.3"
-ktorio = "3.0.0"
-binary_compat = "0.16.3"
+kotlin = { strictly = "2.3.0" }
+dokka = "2.2.0-Beta"
+coroutines = "1.10.2"
+serialization = "1.10.0"
+ktorio = "3.4.0"
 spotless = "6.15.0"
 ktlint = "0.46.1"
-jvmToolchain = "11"
-compileTesting = "0.5.1"
-ksp = "2.0.21-1.0.25"
+jvmToolchain = "17"
+compileTesting = "0.12.1"
+ksp = "2.3.4"
 kotlinpoet = "2.0.0"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.30.0" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.36.0" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-poko = { id = "dev.drewhamilton.poko", version = "0.17.2" }
+poko = { id = "dev.drewhamilton.poko", version = "0.21.1" }
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -31,7 +29,7 @@ coroutines-turbine = { module = "app.cash.turbine:turbine", version = "1.2.0" }
 serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
-io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version = "0.5.4" }
+io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version = "0.8.2" }
 
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorio" }
 

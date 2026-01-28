@@ -1,12 +1,6 @@
-@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
-
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.serialization)
-    alias(libs.plugins.binaryCompat)
     alias(libs.plugins.dokka)
     alias(libs.plugins.mavenPublish)
 }
@@ -16,6 +10,11 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
         optIn.add("kotlinx.cinterop.ExperimentalForeignApi")
+    }
+
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation {
+        enabled = true
     }
 
     jvm()

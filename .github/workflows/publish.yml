@@ -42,7 +42,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 17
 
       - uses: gradle/actions/setup-gradle@v4
 
@@ -66,7 +66,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 17
 
       - uses: gradle/actions/setup-gradle@v4
 
@@ -79,11 +79,11 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
 
       - name: Build Docs
-        run: ./gradlew clean dokkaHtmlMultiModule
+        run: ./gradlew clean dokkaGeneratePublicationHtml
 
       - name: Publish Docs
         uses: JamesIves/github-pages-deploy-action@v4.6.8
         with:
           branch: docs
-          folder: build/dokka/htmlMultiModule
+          folder: build/dokka/html
           single-commit: true
