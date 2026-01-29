@@ -1,6 +1,7 @@
 # qBittorrent Kotlin
 
 ![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/qbittorrent-client?label=maven&color=blue)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fcentral.sonatype.com%2Frepository%2Fmaven-snapshots%2Forg%2Fdrewcarlson%2Fqbittorrent-client-jvm%2Fmaven-metadata.xml&label=nexus)
 ![](https://github.com/DrewCarlson/qBittorrent-Kotlin/workflows/Tests/badge.svg)
 
 Multiplatform Kotlin wrapper for the [qBittorrent](https://github.com/qbittorrent/qBittorrent/) Web API using [Ktor](https://ktor.io).
@@ -80,7 +81,7 @@ client.setPreferences {
 ## Download
 
 ![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/qbittorrent-client?label=maven&color=blue)
-![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/qbittorrent-client?server=https%3A%2F%2Fs01.oss.sonatype.org)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fcentral.sonatype.com%2Frepository%2Fmaven-snapshots%2Forg%2Fdrewcarlson%2Fqbittorrent-client-jvm%2Fmaven-metadata.xml&label=nexus)
 
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
 ![](https://img.shields.io/static/v1?label=&message=Js&color=blue)
