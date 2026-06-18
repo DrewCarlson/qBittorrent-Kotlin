@@ -1,6 +1,6 @@
 [versions]
 kotlin = { strictly = "2.3.0" }
-dokka = "2.2.0-Beta"
+dokka = "2.2.0"
 coroutines = "1.10.2"
 serialization = "1.10.0"
 ktorio = "3.4.0"
