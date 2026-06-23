@@ -7,7 +7,7 @@ ktorio = "3.4.0"
 spotless = "6.15.0"
 ktlint = "0.46.1"
 jvmToolchain = "17"
-compileTesting = "0.12.1"
+compileTesting = "0.13.0"
 ksp = "2.3.4"
 kotlinpoet = "2.0.0"
 
