@@ -82,7 +82,7 @@ jobs:
         run: ./gradlew clean dokkaGeneratePublicationHtml
 
       - name: Publish Docs
-        uses: JamesIves/github-pages-deploy-action@v4.6.8
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
         with:
           branch: docs
           folder: build/dokka/html
